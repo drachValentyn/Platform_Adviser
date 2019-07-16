@@ -1,0 +1,146 @@
+.main-content {
+  background-color: $background;
+  height: 100%;
+  color: #fff;
+}
+
+.home-content {
+  flex-direction: column;
+    align-items: center;
+  @media all and (min-width: 960px) {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+}
+
+//.home-img {
+//  max-width: 100%;
+//  /* width: 99%; */
+//  position: absolute;
+//  top: -40px;
+//  right: 0;
+//  left: 0;
+//  @media all and (min-width: 960px) {
+//    width: 40%;
+//    top: calc(50% - 250px);
+//    right: -40px;
+//    left: inherit;
+//
+//  }
+//}
+
+.img {
+
+  //margin-right: -24px;
+  //margin-left: -24px;
+  //margin-top: -52px;
+  //margin-bottom: 52px;
+  img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 52px;
+    @media all and (min-width: 500px) {
+      max-width: 60%;
+      //margin-left: 100px;
+    }
+    @media all and (min-width: 960px) {
+      max-width: 50%;
+      position: absolute;
+      top: calc(50% - 250px);
+      padding-left: 40px;
+    }
+    @media all and (min-width: 1545px) {
+      right: 0;
+    }
+  }
+}
+
+.home-text-block {
+  @media all and (min-width: 600px) {
+    //margin-top: 182px;
+    //width: 60%;
+  }
+}
+
+.main-heading {
+  @include fluid-type(48px, 80px);
+  font-family: $additional-font;
+  padding-bottom: 24px;
+  line-height: 48px;
+  font-weight: 400;
+  color: $light-font-color;
+  @media all and (min-width: 500px) {
+    line-height: 60px;
+  }
+  @media all and (min-width: 960px) {
+    margin-top: 8vw;
+    line-height: 80px;
+  }
+  @media all and (min-width: 1400px) {
+    margin-top: 182px;
+  }
+}
+
+.home-subtitle {
+  padding-bottom: 36px;
+  font-family: $main-font;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: $primary-green;
+  @media all and (min-width: 960px) {
+    padding-bottom: 60px;
+  }
+}
+
+.home-description {
+  padding-bottom: 64px;
+  font-family: $main-font;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  color: $light-font-color;
+}
+
+.theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat).button-home {
+  width: 272px;
+  height: 60px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-family: $additional-font;
+  font-weight: 400;
+  font-size: 24px;
+  background-color: $primary-green ;
+  @media all and (min-width: 360px) {
+    width: 312px;
+  }
+  @media all and (min-width: 960px) {
+    width: 260px;
+  }
+}
+
+.text-caption {
+  font-family: $main-font;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  color: $light-font-color;
+  @media all and (min-width: 960px) {
+    line-height: 28px;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: #blue;
+}

@@ -1,0 +1,10 @@
+
+
+{% for platform in craft.entries.section('platforms').all() %}
+
+    <h1>{{ platform.title }}</h1>
+
+
+    <p>{{ platform.platformDescription }}</p>
+
+{% endfor %}

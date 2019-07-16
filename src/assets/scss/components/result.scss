@@ -1,0 +1,81 @@
+.result-link {
+  padding-top: 24px;
+  margin-left: 57px;
+  @media all and (min-width: 960px) {
+    padding-top: 44px;
+    margin-left: 80px;
+  }
+}
+
+.layout.wrap.capture-recomendation {
+  flex-direction: column;
+  @media all and (min-width: 960px) {
+
+  }
+}
+
+.capture-recomendation {
+  padding-top: 24px;
+  @media all and (min-width: 960px) {
+    padding-top: 100px;
+  }
+}
+
+.result-hero {
+  text-align: left;
+  @media all and (min-width: 960px) {
+    margin: 0 auto 48px;
+  }
+}
+
+.result-hero-title {
+  font-family: $additional-font;
+  @include fluid-type(36px, 52px);
+  font-weight: 400;
+  line-height: 36px;
+  color: $light-font-color;
+  margin-bottom: 16px;
+  @media all and (min-width: 960px) {
+    text-align: center;
+    line-height: 64px;
+    margin-bottom: 24px;
+  }
+}
+
+.recommendation-descript {
+  color: $light-font-color;
+  @media all and (min-width: 960px) {
+    max-width: 576px;
+    text-align: center;
+  }
+}
+
+.recommendation {
+  .theme--light.v-sheet {
+    max-width: 384px;
+    margin: 0 auto;
+  }
+}
+
+.recommendation-choice {
+  background: $secondary-light;
+}
+
+.recommendation-choice-item {
+  width: 150px;
+  margin: 0 auto;
+  background-color: #cdc2fc;
+  border-radius: 0 0 10px 10px;
+}
+
+.platform-image {
+  //max-width: 200px;
+  margin: 0 auto;
+  background: $secondary-light;
+  .v-image__image--cover {
+    background-size: inherit;
+  }
+  .v-responsive__sizer {
+    padding-bottom: 70px !important;
+  }
+}

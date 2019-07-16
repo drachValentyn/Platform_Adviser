@@ -1,0 +1,11 @@
+{% for entry in craft.entries.section('questions').all() %}
+    {% if entry.type == 'questionsList' %}
+        <p>{{ entry.title }}</p>
+        {% if entry.answer|length %}
+            {% for block in entry.answer %}
+                <p>{{ block.answerItem }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+

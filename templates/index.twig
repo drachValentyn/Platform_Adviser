@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{ siteName }}</title>
+
+  {{ craft.twigpack.includeCssModule("app.css", true) }}
+</head>
+
+<body>
+  <div id="app">
+    <app></app>
+  </div>
+
+  {{ craft.twigpack.includeSafariNomoduleFix() }}
+  {{ craft.twigpack.includeJsModule("app.js", true) }}
+  {{ craft.twigpack.includeJsModule("chunk-vendors.js", true) }}
+  <script type="text/javascript">
+    window.csrfTokenName = "{{ craft.app.config.general.csrfTokenName|e('js') }}";
+    window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
+  </script>
+</body>
+</html>
