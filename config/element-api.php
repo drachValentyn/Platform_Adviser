@@ -5,7 +5,7 @@ use craft\elements\Entry;
 use craft\helpers\UrlHelper;
 
 
-Craft::$app->response->headers->set('Access-Control-Allow-Origin', '*');
+//Craft::$app->response->headers->set('Access-Control-Allow-Origin', '*');
 
 return [
     'endpoints' => [
@@ -131,6 +131,33 @@ return [
                     return [
                         'question' => $entry->title,
                         'answers' => $answerBlocks,
+                    ];
+                },
+
+
+
+            ];
+        },
+        'api/thank-you.json' => function () {
+            return [
+                'elementType' => Entry::class,
+                'criteria' => ['section' => 'thankYouPage'],
+                'pretty' => true,
+                'paginate' => false,
+                'transformer' => function(Entry $entry) {
+                    $thankYouPage = [];
+                    foreach ($entry->getFieldValue('infoWithShareLink')->all() as $block) {
+                        $thankYouPage[] = [
+                            'titleLink' => $block->titleLink,
+                            'quoteLink' => $block->quoteLink,
+                            'descriptionLink' => $block->descriptionLink,
+                        ];
+                    }
+                        return [
+                            'title' => $entry->mainTitle,
+                            'subtitleThanksPage' => $entry->subtitleThanksPage,
+                            'shareText' => $entry->shareText,
+                            'infoWithShareLink' => $thankYouPage
                     ];
                 },
 

@@ -1,20 +1,32 @@
+import '@fortawesome/fontawesome-free/css/all.css'
 import Vue from "vue";
+import Vuetify from 'vuetify'
+import VueResource from 'vue-resource'
+import SocialSharing from 'vue-social-sharing'
 import './plugins/vuetify'
 import Components from "./components";
 import App from "./App"
-import "./app.css";
 import router from './routes'
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
-import './plugins/vuetify'
-import VueResource from 'vue-resource'
-import * as firebase from 'firebase'
 import store from './store'
+
+import * as firebase from 'firebase'
+
 import './assets/scss/main.scss'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+
+Vue.component('font-awesome-icon', FontAwesomeIcon); // Register component globally
+library.add(fas); // Include needed icons.
 
 Vue.use(VueResource);
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  iconfont: 'faSvg'
+});
+
+Vue.use(SocialSharing);
 
 Vue.config.productionTip = false;
 

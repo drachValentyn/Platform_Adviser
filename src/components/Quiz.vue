@@ -68,6 +68,7 @@
         // result: '',
       }
     },
+
     mounted: function () {
       this.$http.get('api/questions.json')
           .then(response => {
@@ -89,7 +90,6 @@
       },
       next() {
         this.questionIndex++;
-        console.log(this.userResponses)
         this.onClick();
         if (this.questionIndex === this.quiz.data.length) {
           this.score();
@@ -151,7 +151,7 @@
 
       score() {
         let maxEl = this.userResponses;
-        console.log(maxEl);
+        //console.log(maxEl);
         this.$store.state.result = maxEl;
         return maxEl;
 

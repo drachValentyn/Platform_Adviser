@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-md>
+    <v-container grid-list-md fill-height>
 
         <v-layout row wrap v-if="res">
 
@@ -11,47 +11,31 @@
                     :key="platform.id"
                     xs4
             >
-
                 <v-card v-for="(bestPlatform, index) in platform.descr"
                         :key="bestPlatform.id">
-
                     <v-card-text v-if="index === 0">Best choice</v-card-text>
                     <v-card-text v-if="index === 1">Good choice</v-card-text>
                     <v-card-text v-if="index === 2">Fair choice</v-card-text>
 
-
                     <v-img :src="bestPlatform.image" aspect-ratio="1.7" contain></v-img>
 
                     <h1>{{bestPlatform.title}}</h1>
-
                     <v-card-text v-html="bestPlatform.platformsDescription"></v-card-text>
-
                     <v-btn :href="bestPlatform.linkToExample" flat color="green">site examples</v-btn>
 
                 </v-card>
             </v-flex>
 
-
-<!--            <v-flex xs12>-->
-<!--                <div v-if="showRes">-->
-
-<!--                    <span v-for="platform  in sortResult(resultShare[0])"-->
-<!--                        v-bind:key="platform.title">-->
-<!--                        &lt;!&ndash;                        {{ platform }}&ndash;&gt;-->
-<!--                        <p>Platform: {{ platform }} - Point: {{ platform.point }}</p>-->
-
-<!--                    </span>-->
-<!--                </div>-->
-<!--            </v-flex>-->
+            <contactForm></contactForm>
 
         </v-layout>
 
-        <v-layout v-else>
+        <v-layout align-center justify-center v-else>
             <v-flex xs12 class="text-xs-center">
                 <v-progress-circular
                         :size="70"
                         :width="5"
-                        color="purple"
+                        color="#98ca3e"
                         indeterminate
                 ></v-progress-circular>
             </v-flex>
@@ -64,9 +48,8 @@
 </template>
 
 <script>
-    import {Email, Facebook, Twitter,} from 'vue-socialmedia-share'
-    import Quiz from './Quiz'
-    /* eslint-disable */
+    import ContactForm from './ContactForm'
+
     export default {
 
         name: 'ResultShare',
@@ -81,9 +64,7 @@
             }
         },
         components: {
-            Facebook,
-            Twitter,
-            Email,
+            contactForm: ContactForm,
         },
 
         computed: {
