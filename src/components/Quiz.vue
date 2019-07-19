@@ -15,7 +15,6 @@
                             <!-- for each response of the current question -->
                             <div v-for="(response, index2) in question.answers" :key="index2"
                                     class="quiz-item" :class="{ 'choosen': choosen === index2 }">
-                                <!--<div @click='next'> @click.prevent -->
 
                                 <label class="quiz-label">
 
@@ -26,17 +25,10 @@
                                        v-model="userResponses[index]"
                                         v-on:click="onClick(index2)">
 
-                                {{response.answer}}
+                                    {{response.answer}}
 
                                 </label>
 
-
-                                <!--</div>-->
-
-                                <!--{{response.answerPoint}}-->
-
-
-                                <!--                                    -&#45;&#45;&#45;&#45; {{response.answerPoint}}-->
                             </div>
 
                         </div>
@@ -79,75 +71,24 @@
           )
           .then(quiz => {
             this.quiz = quiz;
-            //console.log(userResponses)
           })
     },
     methods: {
       prev() {
-        setTimeout(function () { this.next() }.bind(this), 300)
 
-        //this.questionIndex--;
+        setTimeout(function () {
+            this.next()
+        }.bind(this), 300)
+
       },
       next() {
         this.questionIndex++;
-        this.onClick();
         if (this.questionIndex === this.quiz.data.length) {
           this.score();
-          //this.createResult();
           this.$router.push('/result');
         }
       },
-      onClick(index) {
-        this.choosen = index;
-      },
 
-
-      // next() {
-      //
-      //   // console.log(this.userResponses)
-      //   setTimeout(() => {
-      //
-      //     this.questionIndex++;
-      //     this.onClick();
-      //
-      //   }, 500);
-      //   setTimeout(() => {
-      //     if (this.questionIndex === this.quiz.data.length) {
-      //       this.score();
-      //       // console.log(score())
-      //
-      //       //this.createResult();
-      //       this.$router.push('/result');
-      //     }
-      //   }, 500);
-      //   // setTimeout(()=>{
-      //
-      //   //}, 500);
-      //
-      // },
-
-
-
-      // next() {
-      //
-      //   console.log(this.userResponses)
-      //   setTimeout(()=>{
-      //
-      //
-      //             this.questionIndex++;
-      //             if (this.questionIndex === this.quiz.data.length) {
-      //               this.score();
-      //                   console.log('ok')
-      //
-      //               //this.createResult();
-      //               this.$router.push('/result');
-      //             }
-      //           }, 500);
-      // setTimeout(()=>{
-
-      //}, 500);
-
-      // },
 
       score() {
         let maxEl = this.userResponses;
@@ -156,16 +97,6 @@
         return maxEl;
 
       },
-      // createResult() {
-      //     const res = {
-      //         resultQuiz: this.score(),
-      //         key: ''
-      //     };
-      //
-      //     this.$store.dispatch('addResult', res);
-      //
-      //     //console.log(res)
-      // }
     },
 
 
