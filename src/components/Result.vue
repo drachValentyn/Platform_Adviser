@@ -13,7 +13,7 @@
                             Please find an explanation on why we think so below.</p>
                     </div>
 
-                    <router-link to="/quiz" class="back-link back-change-link">Change answers</router-link>
+                    <router-link to="/change-result" class="back-link back-change-link">Change answers</router-link>
                 </v-layout>
 
                 <v-layout row wrap text-xs-center class="recommendation">
@@ -128,16 +128,13 @@
         name: 'Result',
 
         components: {
-            // Facebook,
-            // Twitter,
-            // Email,
             contactForm: ContactForm,
         },
         data() {
             return {
                 resultQuiz: {},
                 results: [],
-                url: ''
+                url: '',
             }
         },
         created() {
@@ -155,7 +152,13 @@
         },
         mounted:
             function () {
-                let storeResult = this.$store.state.result;
+                let store = this.$store.state.result;
+                let storeResult = [];
+
+                for (let keys in store) {
+                    let storeValue = store[keys];
+                    storeResult.push(storeValue.answerPoint)
+                }
 
                 if (Object.keys(storeResult).length === 0){
                     this.$router.push('/quiz'); //--------------------------- Redirect to quiz if result null
@@ -206,11 +209,14 @@
                         for (let key in val.platformsBlock) {
 
                             let value = val.platformsBlock[key];
+                            //console.log(value);
 
                             intermResult.push(value)
                         }
                     }
                 }
+
+                //console.log(intermResult);
 
                 for (let i = 0; i < sortRes.length; i++) {
                     for (let j = 0; j < intermResult.length; j++) {
@@ -221,7 +227,7 @@
                 }
 
 
-                console.log(endResult);
+                //console.log(endResult);
 
 
                 if (endResult.length !== 0) {
@@ -230,15 +236,16 @@
                         resultQuiz: endResult,
                         key: ''
                     };
-                    console.log(res);
-                    this.$store.dispatch('createResult', res).then(() => {
-                        const id = this.$store.getters.resultQuiz;
-                        const last = id.pop();
-                        this.url = window.location.href + '/' + last.id ;
-                        //console.log(id)
-                        console.log(this.url)
-                        //--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
-                    });
+
+
+                    // this.$store.dispatch('createResult', res).then(() => {
+                    //     const id = this.$store.getters.resultQuiz;
+                    //     const last = id.pop();
+                    //     this.url = window.location.href + '/' + last.id ;
+                    //     //console.log(id)
+                    //     //console.log(this.url)
+                    //     //--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
+                    // });
                     return endResult;
 
                 }
@@ -250,21 +257,11 @@
                     return a.point - b.point;
                 }).slice(0, 3);
             },
-            // createResult() {
-            //   const res = {
-            //     resultQuiz: this.comparisonResult(),
-            //     key: ''
-            //   };
-            //
-            //   this.$store.dispatch('addResult', res);
-            //
-            //   //console.log(res)
-            // }
         },
         computed: {
             links() {
                 return [
-                    {title: 'Quiz', url: '/quiz'},
+                    { title: 'Quiz', url: '/quiz' },
                 ]
             }
         }

@@ -6,6 +6,7 @@ import Homepage from '@/components/Homepage'
 import Quiz from '@/components/Quiz'
 import Result from '@/components/Result'
 import ResultShare from '@/components/ResultShare'
+import ChangeResult from '@/components/ChangeResult'
 
 
 Vue.use(Router);
@@ -37,6 +38,11 @@ export default new Router({
             path: '/thank-you',
             name: 'ThankYou',
             component: ThankYou,
+        },
+        {
+            path: '/change-result',
+            name: 'ChangeResult',
+            component: ChangeResult,
         },
     ],
     mode: 'history'

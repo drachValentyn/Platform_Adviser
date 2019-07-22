@@ -14,18 +14,18 @@
                         <div class="quiz-list">
                             <!-- for each response of the current question -->
                             <div v-for="(response, index2) in question.answers" :key="index2"
-                                    class="quiz-item" :class="{ 'choosen': choosen === index2 }">
+                                 class="quiz-item11" :class="{ 'chosen': chosen === index2 }">
 
-                                <label class="quiz-label">
+                                <label class="quiz-label11">
 
-                                    <input  type="radio"
-                                       v-bind:value="response.answerPoint"
-                                       name="index"
-                                       @change="prev()"
-                                       v-model="userResponses[index]"
-                                        v-on:click="onClick(index2)">
+                                    <input type="radio"
+                                           v-bind:value="response"
+                                           name="index"
+                                           @change="prev()"
+                                           v-model="userResponses[index]"
+                                           v-on:click="onClick(index2)">
 
-                                    {{response.answer}}
+                                    {{response}}
 
                                 </label>
 
@@ -49,58 +49,62 @@
 </template>
 
 <script>
-  /* eslint-disable */
-  export default {
-    data() {
-      return {
-        quiz: {},
-        questionIndex: 0,
-        userResponses: Array(),
-        choosen: 'lorem',
-        // result: '',
-      }
-    },
+    /* eslint-disable */
+    export default {
+        data() {
+            return {
+                quiz: {},
+                questionIndex: 0,
+                userResponses: Array(),
+                chosen: '',
+            }
+        },
 
-    mounted: function () {
-      this.$http.get('api/questions.json')
-          .then(response => {
-                return response.json();
-              }, response => {
-                console.log(response)
-              }
-          )
-          .then(quiz => {
-            this.quiz = quiz;
-          })
-    },
-    methods: {
-      prev() {
+        mounted: function () {
+            this.$http.get('api/questions.json')
+                .then(response => {
+                        return response.json();
+                    }, response => {
+                        console.log(response)
+                    }
+                )
+                .then(quiz => {
+                    this.quiz = quiz;
+                })
+        },
+        methods: {
+            prev() {
 
-        setTimeout(function () {
-            this.next()
-        }.bind(this), 300)
+                setTimeout(function () {
+                    console.log(this.userResponses);
+                    this.next()
+                }.bind(this), 300)
 
-      },
-      next() {
-        this.questionIndex++;
-        if (this.questionIndex === this.quiz.data.length) {
-          this.score();
-          this.$router.push('/result');
-        }
-      },
+            },
+            next() {
+                this.questionIndex++;
+                this.onClick();
+                if (this.questionIndex === this.quiz.data.length) {
+                    this.score();  //---------------------------------------//      push to Result
+                    this.$router.push('/result');
+                    //this.$router.push('/change-result');
+                }
+            },
+
+            onClick(index) {
+                this.chosen = index;
+            },
+
+            score() {
+                let maxEl = this.userResponses;
+                this.$store.state.result = maxEl;
+                return maxEl;
+
+            },
+        },
 
 
-      score() {
-        let maxEl = this.userResponses;
-        //console.log(maxEl);
-        this.$store.state.result = maxEl;
-        return maxEl;
-
-      },
-    },
-
-
-  }
+    }
 
 </script>
 
@@ -108,7 +112,8 @@
     [v-cloak] {
         display: none;
     }
-    label{
+
+    label {
         cursor: pointer;
     }
 </style>

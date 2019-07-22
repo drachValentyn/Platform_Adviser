@@ -20,7 +20,9 @@ class ShareResult {
 export default {
     state: {
         resultQuiz: [],
-        shareInfo: []
+        shareInfo: [],
+        changeResult: [],
+        result: []
     },
     mutations: {
         createResult(state, payload) {
@@ -44,7 +46,7 @@ export default {
                 const resultValue = await firebase.database().ref('results').push(newResult);
 
                 //this.key = fbValue.key;
-                console.log(resultValue.key);
+                //console.log(resultValue.key);
 
                 commit('setLoading', false);
 
