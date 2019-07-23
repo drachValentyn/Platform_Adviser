@@ -35,6 +35,7 @@ return [
                 'elementType' => Entry::class,
                 'criteria' => ['section' => 'results'],
                 'pretty' => true,
+                'paginate' => false,
                 'transformer' => function (Entry $entry) {
                     $platformsBlock = [];
 
@@ -69,6 +70,11 @@ return [
                                     'dollars' => $dollars ? $dollars->url : null,
                                     'stars' => $stars ? $stars->url : null,
                                 ];
+//                                sort($comparass);
+//                                foreach ($comparass as $key=>$val) {
+//                                    $arrSort[$key] = $val;
+//                                }
+
                             }
                         }
 
@@ -120,11 +126,13 @@ return [
                             foreach ($pointsTable->getFieldValue('platform')->all() as  $platform) {}
                             $answer[] = [
                                 'title' => $platform->title,
+
                                 'point' => (int)$pointsTable->points,
                             ];
                         }
                         $answerBlocks[] = [
                             'answer' => $block -> answers,
+                            'id-answer' => $block->uid,
                             'answerPoint' => $answer,
                         ];
                     }
@@ -168,3 +176,4 @@ return [
     ]
 
 ];
+

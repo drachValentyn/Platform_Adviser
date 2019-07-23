@@ -32,13 +32,14 @@
                 </div>
                                 {{loadScore()}}
 
-
             </div>
         </v-container>
     </div>
 </template>
 
 <script>
+
+
     export default {
         name: "ChangeResult",
         data() {
@@ -46,6 +47,7 @@
                 quiz: {}
             }
         },
+
         mounted: function () {
             this.$http.get('api/questions.json')
                 .then(response => {
@@ -56,7 +58,7 @@
                 )
                 .then(quiz => {
                     this.quiz = quiz;
-                    //console.log(this.quiz)
+
                 })
         },
         methods: {

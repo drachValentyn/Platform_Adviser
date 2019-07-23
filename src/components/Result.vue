@@ -18,22 +18,6 @@
 
                 <v-layout row wrap text-xs-center class="recommendation">
 
-                    <!--<v-flex v-for="(platform, index)  in sortResult(resultQuiz)"-->
-                    <!--:key="platform.id"-->
-                    <!--xs4-->
-                    <!--&gt;-->
-
-                    <!--<v-card class="px-0">-->
-
-                    <!--<v-card-text v-if="index === 0">Best choice</v-card-text>-->
-                    <!--<v-card-text v-if="index === 1">Good choice</v-card-text>-->
-                    <!--<v-card-text v-if="index === 2">Fair choice</v-card-text>-->
-
-                    <!--<v-card-text>Platform: {{ platform.title }} - Point: {{ platform.point }}</v-card-text>-->
-
-                    <!--</v-card>-->
-                    <!--</v-flex>-->
-
                     <v-flex v-for="(platform, index) in comparisonResult()"
                             :key="index"
                             xs12 md4
@@ -41,63 +25,120 @@
 
                         <v-card class="px-0" v-for="bestPlatform in platform.descr"
                                 :key="bestPlatform.id">
-                            <div class="recommendation-choice">
-                                <v-card-text class="recommendation-choice-item" v-if="index === 0">Best choice
-                                </v-card-text>
-                                <v-card-text class="recommendation-choice-item" v-if="index === 1">Good choice
-                                </v-card-text>
-                                <v-card-text class="recommendation-choice-item" v-if="index === 2">Fair choice
-                                </v-card-text>
+                            <div class="recommendation-item-hero">
+                                <div class="recommendation-choice">
+                                    <v-card-text class="recommendation-choice-item" v-if="index === 0">Best choice
+                                    </v-card-text>
+                                    <v-card-text class="recommendation-choice-item" v-if="index === 1">Good choice
+                                    </v-card-text>
+                                    <v-card-text class="recommendation-choice-item" v-if="index === 2">Fair choice
+                                    </v-card-text>
+                                </div>
+
+                                <v-img class="platform-image" :src="bestPlatform.image" aspect-ratio="1"></v-img>
                             </div>
-
-                            <v-img class="platform-image" :src="bestPlatform.image" aspect-ratio="1"></v-img>
-
-                            <!--<h1 class="best-platform-title" v-html="bestPlatform.platformName">{{}}</h1>-->
-                            <v-card-text v-html="bestPlatform.platformsName"></v-card-text>
-
-
-                            <v-card-text v-html="bestPlatform.platformsDescription"></v-card-text>
-
-                            <v-btn :href="bestPlatform.linkToExample" flat color="green">site examples</v-btn>
+                            <div class="recommendation-item-main">
+                                <h1 class="best-platform-title" v-html="bestPlatform.platformsName"></h1>
+                                <read-more class="more" more-str="More" :text="bestPlatform.platformsDescription" link="#"
+                                           less-str="Read less" :max-chars="178"></read-more>
+                                <a class="link-examples" :href="bestPlatform.linkToExample">site examples</a>
+                            </div>
 
                         </v-card>
                     </v-flex>
                 </v-layout>
-<!--                <v-layout>-->
-<!--                    -->
-<!--                    <div v-for="block in results.data" :key="block.id">-->
-<!--                        &lt;!&ndash; eslint-disable-next-line vue/max-attributes-per-line &ndash;&gt;-->
-<!--                        <h2>({{block.titlePage}})Comparison</h2>-->
-<!--                        <ul class="inner">-->
-<!--                            <li v-for="lock in block.platformsBlock" :key="lock.id">-->
-<!--                                <p>{{lock.platformsEntries}}</p>-->
-<!--                                <div v-for="descript in lock.descr" :key="descript.id">-->
-<!--                                    <div v-html="descript.platformsDescription"></div>-->
-<!--                                    <p v-html="descript.linkToExample"></p>-->
-<!--                                    <img :src="descript.image"/>-->
-<!--                                </div>-->
-<!--                                <table>-->
-<!--                                    <tr>-->
-<!--                                        <td><p>Comparisons Name</p></td>-->
-<!--                                        <td><p>Results</p></td>-->
-<!--                                        &lt;!&ndash;<td><p>Comparisons Name</p></td><p>Platforms</p><td>&ndash;&gt;-->
-<!--                                    </tr>-->
-<!--                                    <tr v-for="comparItem in lock.comparass" :key="comparItem.id">-->
-<!--                                        <td><p>{{comparItem.comparisonsNameTitle}}</p></td>-->
-<!--                                        <td>-->
-<!--                                            <img v-if="comparItem.stars" :src="comparItem.stars"/>-->
-<!--                                            <img v-if="comparItem.dollars" :src="comparItem.dollars"/>-->
-<!--                                            <p v-if="comparItem.text">{{comparItem.text}}</p>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
 
-<!--                                </table>-->
-<!--                            </li>-->
-<!--                        </ul>-->
 
-<!--                    </div>-->
+                <v-layout class="kllkl">
+                    <div v-for="block in results.data" :key="block.id" class="result-hero">
+                        <!-- eslint-disable-next-line vue/max-attributes-per-line -->
+                        <h2 class="result-hero-title">{{block.titlePage}} Comparision</h2>
+                    </div>
+                </v-layout>
 
-<!--                </v-layout>-->
+                <v-layout class="result-table-wrap">
+                    <div v-for="(platform, index) in comparisonResult()"
+                         :key="index" class="result-table">
+                        <div class="px-0" v-for="bestPlatform in platform.descr"
+                             :key="bestPlatform.id">
+                            <div class="recommendation-item-hero">
+                                <div class="recommendation-choice">
+                                    <v-card-text class="recommendation-choice-item" v-if="index === 0">Best choice
+                                    </v-card-text>
+                                    <v-card-text class="recommendation-choice-item" v-if="index === 1">Good choice
+                                    </v-card-text>
+                                    <v-card-text class="recommendation-choice-item" v-if="index === 2">Fair choice
+                                    </v-card-text>
+                                </div>
+
+                                <v-img class="platform-image" :src="bestPlatform.image" aspect-ratio="1"></v-img>
+                            </div>
+                        </div>
+                        <table>
+                            <tr>
+                                <td><p>Comparisons Name</p></td>
+                                <td><p>Results</p></td>
+                                <!--<td><p>Comparisons Name</p></td><p>Platforms</p><td>-->
+                            </tr>
+                            <tr v-for="compareItem in platform.comparass" :key="compareItem.id">
+                                <!--{{compareItem}}-->
+                                <td class="nameCompar"><p>{{compareItem.comparisonsNameTitle}}</p></td>
+                                <td>
+                                    <img v-if="compareItem.stars" :src="compareItem.stars"/>
+                                    <img v-if="compareItem.dollars" :src="compareItem.dollars"/>
+                                    <p v-if="compareItem.text">{{compareItem.text}}</p>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </v-layout>
+
+                <v-layout class="sl">
+                    <slick ref="slick" :options="slickOptions" class="slick-result">
+                        <div v-for="(platform, index) in comparisonResult()"
+                             :key="index">
+                            <div class="px-0" v-for="bestPlatform in platform.descr"
+                                 :key="bestPlatform.id">
+                                <div class="recommendation-item-hero">
+                                    <div class="recommendation-choice">
+                                        <v-card-text class="recommendation-choice-item" v-if="index === 0">Best choice
+                                        </v-card-text>
+                                        <v-card-text class="recommendation-choice-item" v-if="index === 1">Good choice
+                                        </v-card-text>
+                                        <v-card-text class="recommendation-choice-item" v-if="index === 2">Fair choice
+                                        </v-card-text>
+                                    </div>
+
+                                    <v-img class="platform-image" :src="bestPlatform.image" aspect-ratio="1"></v-img>
+                                </div>
+                            </div>
+
+                            <table>
+                                <tr>
+                                    <td><p>Comparisons Name</p></td>
+                                    <td><p>Results</p></td>
+                                    <!--<td><p>Comparisons Name</p></td><p>Platforms</p><td>-->
+                                </tr>
+                                <tr v-for="compareItem in platform.comparass" :key="compareItem.id">
+                                    <td class="nameCompar"><p >{{compareItem.comparisonsNameTitle}}</p></td>
+                                    <td>
+                                        <img v-if="compareItem.stars" :src="compareItem.stars"/>
+                                        <img v-if="compareItem.dollars" :src="compareItem.dollars"/>
+                                        <p v-if="compareItem.text">{{compareItem.text}}</p>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                    </slick>
+
+
+
+                </v-layout>
 
                 <contactForm></contactForm>
 
@@ -120,14 +161,14 @@
 
 <script>
     /* eslint-disable */
-    //import {Facebook, Twitter, Email,} from "vue-socialmedia-share";
-    //import Quiz from './Quiz'
+    import Slick from 'vue-slick';
     import ContactForm from './ContactForm'
 
     export default {
         name: 'Result',
 
         components: {
+            Slick,
             contactForm: ContactForm,
         },
         data() {
@@ -135,6 +176,17 @@
                 resultQuiz: {},
                 results: [],
                 url: '',
+                slickOptions: {
+                    slidesToShow: 1,
+                    dots: true,
+                    arrows: false,
+                    //centerMode: true,
+                    infinite: true,
+                    speed: 500,
+                    fade: true,
+                    cssEase: 'linear',
+
+                },
             }
         },
         created() {
@@ -246,7 +298,11 @@
                     //     //console.log(this.url)
                     //     //--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
                     // });
-                    return endResult;
+                    if (Object.keys(endResult).length !== 0) {
+                        //console.log('не пуст');
+                        this.reInit();
+                        return endResult;
+                    }
 
                 }
 
@@ -257,6 +313,25 @@
                     return a.point - b.point;
                 }).slice(0, 3);
             },
+            next() {
+                this.$refs.slick.next();
+            },
+
+            prev() {
+                this.$refs.slick.prev();
+            },
+
+            reInit() {
+                // Helpful if you have to deal with v-for to update dynamic lists
+                let currIndex = this.$refs.slick.currentSlide()
+
+                this.$refs.slick.destroy()
+                this.$nextTick(() => {
+                    this.$refs.slick.create()
+                    this.$refs.slick.goTo(currIndex, true)
+                })
+
+            }
         },
         computed: {
             links() {
@@ -271,6 +346,7 @@
 </script>
 
 <style scoped lang="scss">
-
+    @import "~slick-carousel/slick/slick.css";
+    @import "~slick-carousel/slick/slick-theme.css";
 
 </style>

@@ -14,18 +14,18 @@
                         <div class="quiz-list">
                             <!-- for each response of the current question -->
                             <div v-for="(response, index2) in question.answers" :key="index2"
-                                 class="quiz-item11" :class="{ 'chosen': chosen === index2 }">
+                                 class="quiz-item" :class="{ 'chosen': chosen === index2 }">
 
-                                <label class="quiz-label11">
-
+                                <label class="quiz-label">
                                     <input type="radio"
                                            v-bind:value="response"
                                            name="index"
                                            @change="prev()"
+                                           v-on:click="onClick(index2)"
                                            v-model="userResponses[index]"
-                                           v-on:click="onClick(index2)">
+                                          >
 
-                                    {{response}}
+                                    {{response.answer}}
 
                                 </label>
 
@@ -76,7 +76,7 @@
             prev() {
 
                 setTimeout(function () {
-                    console.log(this.userResponses);
+                    //console.log(this.userResponses[0].id-answer);
                     this.next()
                 }.bind(this), 300)
 
@@ -98,6 +98,7 @@
             score() {
                 let maxEl = this.userResponses;
                 this.$store.state.result = maxEl;
+                //this.$store.state.changeResult = maxEl;
                 return maxEl;
 
             },
