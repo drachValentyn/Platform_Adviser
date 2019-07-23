@@ -49,12 +49,12 @@
                 </v-layout>
 
 
-                <v-layout class="kllkl">
-                    <div v-for="block in results.data" :key="block.id" class="result-hero">
+
+                    <div class="result-hero">
                         <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-                        <h2 class="result-hero-title">{{block.titlePage}} Comparision</h2>
+                        <h2 class="result-hero-title">Comparision</h2>
                     </div>
-                </v-layout>
+
 
                 <v-layout class="result-table-wrap">
                     <div v-for="(platform, index) in comparisonResult()"
@@ -282,7 +282,7 @@
                 //console.log(endResult);
 
 
-                if (endResult.length !== 0) {
+                if (Object.keys(endResult).length !== 0) {
 
                     const res = {
                         resultQuiz: endResult,
@@ -298,11 +298,9 @@
                     //     //console.log(this.url)
                     //     //--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
                     // });
-                    if (Object.keys(endResult).length !== 0) {
-                        //console.log('не пуст');
-                        this.reInit();
-                        return endResult;
-                    }
+
+                    this.reInit();
+                    return endResult;
 
                 }
 
@@ -323,13 +321,13 @@
 
             reInit() {
                 // Helpful if you have to deal with v-for to update dynamic lists
-                let currIndex = this.$refs.slick.currentSlide()
+                //let currIndex = this.$refs.slick.currentSlide();
 
-                this.$refs.slick.destroy()
-                this.$nextTick(() => {
-                    this.$refs.slick.create()
-                    this.$refs.slick.goTo(currIndex, true)
-                })
+                // this.$refs.slick.destroy();
+                // this.$nextTick(() => {
+                //     this.$refs.slick.create();
+                //     this.$refs.slick.goTo(currIndex, true)
+                // })
 
             }
         },

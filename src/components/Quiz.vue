@@ -32,14 +32,7 @@
                             </div>
 
                         </div>
-                        <!-- The two navigation buttons -->
-                        <!-- Note: prev is hidden on first question -->
-                        <!--<button class="secondary button" v-if="questionIndex > 0" v-on:click="prev">-->
-                        <!--prev-->
-                        <!--</button>-->
-                        <!--<button class="success button" v-on:click="next">-->
-                        <!--next-->
-                        <!--</button>-->
+
                     </div>
                 </div>
 
@@ -76,7 +69,7 @@
             prev() {
 
                 setTimeout(function () {
-                    //console.log(this.userResponses[0].id-answer);
+                    console.log(this.userResponses[0].id_answer);
                     this.next()
                 }.bind(this), 300)
 
@@ -97,8 +90,11 @@
 
             score() {
                 let maxEl = this.userResponses;
+                let idAnswer = [];
+                idAnswer = this.userResponses[0].id_answer;
+                console.log(idAnswer);
                 this.$store.state.result = maxEl;
-                //this.$store.state.changeResult = maxEl;
+                this.$store.state.changeResult = idAnswer;
                 return maxEl;
 
             },

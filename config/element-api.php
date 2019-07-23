@@ -132,7 +132,7 @@ return [
                         }
                         $answerBlocks[] = [
                             'answer' => $block -> answers,
-                            'id-answer' => $block->uid,
+                            'id_answer' => $block->uid,
                             'answerPoint' => $answer,
                         ];
                     }
