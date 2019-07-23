@@ -22,6 +22,10 @@ body {
   }
 }
 
+h2 {
+  @include fluid-type(48px, 52px);
+}
+
  p {
    font-family: $main-font;
    font-size: 18px;

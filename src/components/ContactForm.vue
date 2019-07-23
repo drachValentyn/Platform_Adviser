@@ -1,15 +1,18 @@
 <template>
 
-    <v-container>
+    <v-layout collumn wrap>
+        <v-flex xs12 md6>
+            <h2 class="contact-heading">Need more detailed advice or a project cost estimate?</h2>
+        </v-flex>
+        <v-flex xs12 md6>
+            <v-form v-model="valid" ref="form" lazy-validation class="forms">
 
-        <v-form v-model="valid" ref="form" lazy-validation>
+                <div class="errors" v-if="errors">
+                    {{ errors }}
+                </div>
 
-            <div class="errors" v-if="errors">
-                {{ errors }}
-            </div>
-
-            <v-flex xs12>
-                    <v-text-field
+                <!--<v-flex xs12>-->
+                    <v-text-field class="input"
                             label="Name"
                             id="name"
                             type="text"
@@ -18,10 +21,10 @@
                             :rules="nameRules"
                             required
                     ></v-text-field>
-                </v-flex>
+                <!--</v-flex>-->
 
-            <v-flex xs12>
-                    <v-text-field
+                <!--<v-flex xs12>-->
+                    <v-text-field class="input"
                             label="E-mail"
                             id="email"
                             type="email"
@@ -30,17 +33,17 @@
                             :rules="emailRules"
                             required
                     ></v-text-field>
-                </v-flex>
+                <!--</v-flex>-->
 
-            <v-flex xs12>
-                    <v-text-field
+                <!--<v-flex xs12>-->
+                    <v-text-field class="input"
                             label="Phone"
                             id="phone"
                             type="number"
                             name="phone"
                             v-model="theUser.phone"
                     ></v-text-field>
-                </v-flex>
+                <!--</v-flex>-->
 
 
                 <v-textarea
@@ -51,20 +54,23 @@
                         label="Describe your question (optional)"
                 ></v-textarea>
 
-            <v-btn
-                    @click="sendForm"
-                    color="success"
-                    :loading="loading"
-                    :disabled="!valid || loading"
-            >
-                send request
-            </v-btn>
+                <v-btn class="back-link"
+                        @click="sendForm"
+                        color="success"
+                        :loading="loading"
+                        :disabled="!valid || loading"
+                >
+                    send request
+                </v-btn>
 
-        </v-form>
+            </v-form>
+        </v-flex>
 
 
 
-    </v-container>
+
+
+    </v-layout>
 
 </template>
 
