@@ -8,13 +8,21 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import './plugins/vuetify'
 import VueResource from 'vue-resource'
+import ReadMore from 'vue-read-more';
+// import VueCarousel from 'vue-carousel';
+import jQuery from "jquery";
+window.jQuery = window.$ = jQuery;
 import * as firebase from 'firebase'
 import store from './store'
+import 'slick-carousel/slick/slick.scss';
+import 'slick-carousel/slick/slick-theme.scss';
 import './assets/scss/main.scss'
 
 
 Vue.use(VueResource);
 Vue.use(Vuetify);
+Vue.use(ReadMore);
+// Vue.use(VueCarousel);
 
 Vue.config.productionTip = false;
 
@@ -22,6 +30,8 @@ Vue.http.options.root = 'http://craft-vue.local';
 
 Vue.http.options.emulateJSON = true;
 Vue.http.options.emulateHTTP = true;
+
+
 
 new Vue({
   el: "#app",

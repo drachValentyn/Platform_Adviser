@@ -5,7 +5,7 @@ use craft\elements\Entry;
 use craft\helpers\UrlHelper;
 
 
-Craft::$app->response->headers->set('Access-Control-Allow-Origin', '*');
+//Craft::$app->response->headers->set('Access-Control-Allow-Origin', '*');
 
 return [
     'endpoints' => [

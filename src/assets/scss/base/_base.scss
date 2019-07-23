@@ -21,6 +21,7 @@ body {
     max-width: 1248px;
   }
 }
+
  p {
    font-family: $main-font;
    font-size: 18px;
@@ -29,6 +30,15 @@ body {
    @media all and (max-width: 959px) {
      line-height: 28px;
    }
+ }
+
+ a {
+   font-family: $additional-font;
+   font-size: 18px;
+   font-weight: 400;
+   letter-spacing: 2px;
+   line-height: 24px;
+   text-transform: uppercase;
  }
 
 .back-link {
@@ -42,7 +52,7 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   &:before {
-    content: url(../images/arrow.svg);
+    content: url(../images/arrow-left.svg);
     padding-right: 16px;
     display: inline-block;
   }
