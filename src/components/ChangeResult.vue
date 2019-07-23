@@ -4,7 +4,7 @@
         <v-container>
             <div class="quiz">
 
-
+                {{getClass()}}
                 <div v-for="(question, index) in quiz.data" :key="index">
                     <!-- Hide all questions, show only the one with index === to current question index -->
                     <div>
@@ -14,7 +14,7 @@
                         </div>
                         <div class="quiz-list">
                             <div v-for="(response, index2) in question.answers" :key="index2"
-                                 class="quiz-item">
+                                 class="quiz-item" :class="getClass(response.id_answer)">
 
                                 <label class="quiz-label">
 
@@ -30,7 +30,6 @@
 
                     </div>
                 </div>
-                                {{loadScore()}}
 
             </div>
         </v-container>
@@ -44,7 +43,8 @@
         name: "ChangeResult",
         data() {
             return {
-                quiz: {}
+                quiz: {},
+                ids: {},
             }
         },
 
@@ -61,76 +61,64 @@
 
                 })
         },
+
         methods: {
             loadScore(){
+                //this.ids =+ this.$store.state.changeResult;
 
                 let storeResult = [];
                 let allRes = [];
                 let endResult = [];
-                allRes = this.$store.state.result;
-                storeResult = this.quiz.data;
-
-                console.log(storeResult);
+                storeResult = this.$store.state.result;
+                //storeResult = this.quiz.data;
+                //console.log(storeResult);
 
                 let intermResult = [];
-                if (storeResult) {
+                //if (storeResult) {
                     let keys = Object.keys(storeResult);
                     for (let i = 0; i < keys.length; i++) {
                         let val = storeResult[keys[i]];
-                        for (let key in val.answers) {
-                            let value = val.answers[key];
-                            intermResult.push(value);
+
+                        intermResult.push(val.id_answer);
 
 
-                            for (let i = 0; i < allRes.length; i++) {
-                                for (let j = 0; j < storeResult.length; j++) {
-
-                                    let test = storeResult[j].answers;
-                                    let value = [];
-                                    for (let key1 in test) {
-                                        value = test[key];
-                                    }
-                                    //console.log(allRes[i].answer);
-                                    //console.log(value.answer);
-                                    if (allRes[i].answer === value.answer) {
-
-                                        console.log('oooop')
-                                        //endResult.push(storeResult[j].answers);
-
-                                    }
-                                }
-                            }
-
-
-
-
-                        }
+                        // for (let key in val.id_answer) {
+                        //     let value = val.id_answer[key];
+                        //     console.log(value)
+                        //
+                        // }
                     }
-                }
+
+               // }
+
+                //this.ids = intermResult;
+                console.log(intermResult);
+
+                return intermResult;
 
 
-                //console.log(allRes);
 
 
             },
 
-            // loadAllResult(){
-            //
-            //     let intermResult = [];
-            //     if (storeResult) {
-            //         let keys = Object.keys(storeResult);
-            //         for (let i = 0; i < keys.length; i++) {
-            //             let val = storeResult[keys[i]];
-            //             for (let key in val.answers) {
-            //                 let value = val.answers[key];
-            //                 intermResult.push(value)
-            //             }
-            //         }
-            //     }
-            //
-            //     //console.log(intermResult);
-            // }
 
+
+            getClass(prop){
+                let test = this.loadScore();
+                //console.log(test);
+                for (let key in test) {
+                    let value = test[key];
+                    console.log(value);
+
+                    if (prop === value) {
+                        console.log(prop);
+                        return "chosen"
+                    }
+
+
+                }
+
+            }
         }
     }
 </script>

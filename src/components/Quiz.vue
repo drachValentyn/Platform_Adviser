@@ -23,7 +23,7 @@
                                            @change="prev()"
                                            v-on:click="onClick(index2)"
                                            v-model="userResponses[index]"
-                                          >
+                                    >
 
                                     {{response.answer}}
 
@@ -69,7 +69,7 @@
             prev() {
 
                 setTimeout(function () {
-                    console.log(this.userResponses[0].id_answer);
+                    //console.log(this.userResponses[0].id_answer);
                     this.next()
                 }.bind(this), 300)
 
@@ -91,10 +91,14 @@
             score() {
                 let maxEl = this.userResponses;
                 let idAnswer = [];
-                idAnswer = this.userResponses[0].id_answer;
-                console.log(idAnswer);
+                let keys = Object.keys(maxEl);
+                for (let i = 0; i < keys.length; i++) {
+                    idAnswer = maxEl[keys[i]];
+                    this.$store.state.changeResult = idAnswer.id_answer;
+                }
+
+                //console.log(typeof  idAnswer);
                 this.$store.state.result = maxEl;
-                this.$store.state.changeResult = idAnswer;
                 return maxEl;
 
             },
