@@ -14,29 +14,21 @@
                         <div class="quiz-list">
                             <!-- for each response of the current question -->
                             <div v-for="(response, index2) in question.answers" :key="index2"
-                                    class="quiz-item" :class="{ 'choosen': choosen === index2 }">
-                                <!--<div @click='next'> @click.prevent -->
+                                 class="quiz-item" :class="{ 'chosen': chosen === index2 }">
 
                                 <label class="quiz-label">
+                                    <input type="radio"
+                                           v-bind:value="response"
+                                           name="index"
+                                           @change="prev()"
+                                           v-on:click="onClick(index2)"
+                                           v-model="userResponses[index]"
+                                          >
 
-                                    <input  type="radio"
-                                       v-bind:value="response.answerPoint"
-                                       name="index"
-                                       @change="prev()"
-                                       v-model="userResponses[index]"
-                                        v-on:click="onClick(index2)">
-
-                                {{response.answer}}
+                                    {{response.answer}}
 
                                 </label>
 
-
-                                <!--</div>-->
-
-                                <!--{{response.answerPoint}}-->
-
-
-                                <!--                                    -&#45;&#45;&#45;&#45; {{response.answerPoint}}-->
                             </div>
 
                         </div>
@@ -57,119 +49,63 @@
 </template>
 
 <script>
-  /* eslint-disable */
-  export default {
-    data() {
-      return {
-        quiz: {},
-        questionIndex: 0,
-        userResponses: Array(),
-        choosen: 'lorem',
-        // result: '',
-      }
-    },
-    mounted: function () {
-      this.$http.get('api/questions.json')
-          .then(response => {
-                return response.json();
-              }, response => {
-                console.log(response)
-              }
-          )
-          .then(quiz => {
-            this.quiz = quiz;
-            //console.log(userResponses)
-          })
-    },
-    methods: {
-      prev() {
-        setTimeout(function () { this.next() }.bind(this), 300)
+    /* eslint-disable */
+    export default {
+        data() {
+            return {
+                quiz: {},
+                questionIndex: 0,
+                userResponses: Array(),
+                chosen: '',
+            }
+        },
 
-        //this.questionIndex--;
-      },
-      next() {
-        this.questionIndex++;
-        console.log(this.userResponses)
-        this.onClick();
-        if (this.questionIndex === this.quiz.data.length) {
-          this.score();
-          //this.createResult();
-          this.$router.push('/result');
-        }
-      },
-      onClick(index) {
-        this.choosen = index;
-      },
+        mounted: function () {
+            this.$http.get('api/questions.json')
+                .then(response => {
+                        return response.json();
+                    }, response => {
+                        console.log(response)
+                    }
+                )
+                .then(quiz => {
+                    this.quiz = quiz;
+                })
+        },
+        methods: {
+            prev() {
 
+                setTimeout(function () {
+                    //console.log(this.userResponses[0].id-answer);
+                    this.next()
+                }.bind(this), 300)
 
-      // next() {
-      //
-      //   // console.log(this.userResponses)
-      //   setTimeout(() => {
-      //
-      //     this.questionIndex++;
-      //     this.onClick();
-      //
-      //   }, 500);
-      //   setTimeout(() => {
-      //     if (this.questionIndex === this.quiz.data.length) {
-      //       this.score();
-      //       // console.log(score())
-      //
-      //       //this.createResult();
-      //       this.$router.push('/result');
-      //     }
-      //   }, 500);
-      //   // setTimeout(()=>{
-      //
-      //   //}, 500);
-      //
-      // },
+            },
+            next() {
+                this.questionIndex++;
+                this.onClick();
+                if (this.questionIndex === this.quiz.data.length) {
+                    this.score();  //---------------------------------------//      push to Result
+                    this.$router.push('/result');
+                    //this.$router.push('/change-result');
+                }
+            },
+
+            onClick(index) {
+                this.chosen = index;
+            },
+
+            score() {
+                let maxEl = this.userResponses;
+                this.$store.state.result = maxEl;
+                //this.$store.state.changeResult = maxEl;
+                return maxEl;
+
+            },
+        },
 
 
-
-      // next() {
-      //
-      //   console.log(this.userResponses)
-      //   setTimeout(()=>{
-      //
-      //
-      //             this.questionIndex++;
-      //             if (this.questionIndex === this.quiz.data.length) {
-      //               this.score();
-      //                   console.log('ok')
-      //
-      //               //this.createResult();
-      //               this.$router.push('/result');
-      //             }
-      //           }, 500);
-      // setTimeout(()=>{
-
-      //}, 500);
-
-      // },
-
-      score() {
-        let maxEl = this.userResponses;
-        console.log(maxEl);
-        this.$store.state.result = maxEl;
-        return maxEl;
-
-      },
-      // createResult() {
-      //     const res = {
-      //         resultQuiz: this.score(),
-      //         key: ''
-      //     };
-      //
-      //     this.$store.dispatch('addResult', res);
-      //
-      //     //console.log(res)
-      // }
-    },
-
-
-  }
+    }
 
 </script>
 
@@ -177,7 +113,8 @@
     [v-cloak] {
         display: none;
     }
-    label{
+
+    label {
         cursor: pointer;
     }
 </style>

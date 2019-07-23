@@ -2,7 +2,7 @@
 
     <v-container>
 
-        <v-form>
+        <v-form v-model="valid" ref="form" lazy-validation>
 
             <div class="errors" v-if="errors">
                 {{ errors }}
@@ -11,10 +11,24 @@
             <v-flex xs12>
                     <v-text-field
                             label="Name"
-                            id="loginName"
+                            id="name"
                             type="text"
-                            name="loginName"
+                            name="name"
                             v-model="theUser.name"
+                            :rules="nameRules"
+                            required
+                    ></v-text-field>
+                </v-flex>
+
+            <v-flex xs12>
+                    <v-text-field
+                            label="E-mail"
+                            id="email"
+                            type="email"
+                            name="email"
+                            v-model="theUser.email"
+                            :rules="emailRules"
+                            required
                     ></v-text-field>
                 </v-flex>
 
@@ -38,21 +52,24 @@
                 ></v-textarea>
 
             <v-btn
-                    @click="doLogin"
+                    @click="sendForm"
                     color="success"
+                    :loading="loading"
+                    :disabled="!valid || loading"
             >
                 send request
             </v-btn>
 
         </v-form>
 
-        <router-link to="/">Home</router-link>
+
 
     </v-container>
 
 </template>
 
 <script>
+
     export default {
         name: "ContactForm",
         data () {
@@ -67,9 +84,21 @@
                 },
                 errors: null,
                 message: null,
+                valid: false,
+                emailRules:[
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+/.test(v) || 'E-mail must be valid'
+                ],
+                nameRules:[
+                    v => !!v || 'Name is required',
+                ],
             }
         },
+
         computed: {
+            loading(){
+                return this.$store.getters.loading
+            },
             csrfName () {
                 return window.csrfTokenName
             },
@@ -78,24 +107,26 @@
             }
         },
         methods: {
-            doLogin () {
-                let data = this.theUser;
-                data[window.csrfTokenName] = window.csrfTokenValue;
+            sendForm () {
+                if (this.$refs.form.validate()) {
+                    let data = this.theUser;
+                    data[window.csrfTokenName] = window.csrfTokenValue;
 
-                let headers = {
-                    'Content-Type': 'multipart/form-data',
-                };
+                    let headers = {
+                        'Content-Type': 'multipart/form-data',
+                    };
 
-                this.$http.post('http://craft-vue.local/', data, {headers: headers})
-                    .then(function (response) {
-                        console.log(response);
-                        if (response.body.success) {
-                            this.$router.go('/thank-you')
-                        }
-                        if (response.body.error) {
-                            this.errors = response.body.error
-                        }
-                    })
+                    this.$http.post('/', data, {headers: headers})
+                        .then(function (response) {
+                            console.log(response);
+                            if (response.body.success) {
+                                this.$router.push('/thank-you')
+                            }
+                            if (response.body.error) {
+                                this.errors = response.body.error
+                            }
+                        })
+                }
             }
         }
     }

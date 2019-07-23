@@ -1,72 +1,70 @@
 <template>
-    <v-container grid-list-md>
+    <div class="main-content">
+        <router-link to="/" class="back-link result-link">Start again</router-link>
 
-        <v-layout row wrap v-if="res">
-
-            <v-flex xs12>
-             <v-btn to="/quiz">Start again</v-btn>
-            </v-flex>
-
-            <v-flex v-for="platform in showRes"
-                    :key="platform.id"
-                    xs4
-            >
-
-                <v-card v-for="(bestPlatform, index) in platform.descr"
-                        :key="bestPlatform.id">
-
-                    <v-card-text v-if="index === 0">Best choice</v-card-text>
-                    <v-card-text v-if="index === 1">Good choice</v-card-text>
-                    <v-card-text v-if="index === 2">Fair choice</v-card-text>
+        <v-container v-if="res" grid-list-md>
 
 
-                    <v-img :src="bestPlatform.image" aspect-ratio="1.7" contain></v-img>
+            <v-layout row wrap
+                      text-xs-center
+                      class="capture-recomendation">
 
-                    <h1>{{bestPlatform.title}}</h1>
+                <div v-for="block in results.data" :key="block.id" class="result-hero">
+                    <!-- eslint-disable-next-line vue/max-attributes-per-line -->
+                    <h2 class="result-hero-title">{{block.titlePage}}</h2>
+                    <p class="recommendation-descript">We think that the best solution for your goals is Craft. Also
+                        Wordpress and Drupal are suitable.
+                        Please find an explanation on why we think so below.</p>
+                </div>
+            </v-layout>
 
-                    <v-card-text v-html="bestPlatform.platformsDescription"></v-card-text>
+            <v-layout row wrap text-xs-center class="recommendation">
 
-                    <v-btn :href="bestPlatform.linkToExample" flat color="green">site examples</v-btn>
+                <v-flex v-for="platform in showRes"
+                        :key="platform.id"
+                        xs4
+                >
+                    <v-card v-for="(bestPlatform, index) in platform.descr"
+                            :key="bestPlatform.id">
+                        <v-card-text v-if="index === 0">Best choice</v-card-text>
+                        <v-card-text v-if="index === 1">Good choice</v-card-text>
+                        <v-card-text v-if="index === 2">Fair choice</v-card-text>
 
-                </v-card>
-            </v-flex>
+                        <v-img :src="bestPlatform.image" aspect-ratio="1.7" contain></v-img>
 
+                        <h1>{{bestPlatform.title}}</h1>
+                        <v-card-text v-html="bestPlatform.platformsDescription"></v-card-text>
+                        <v-btn :href="bestPlatform.linkToExample" flat color="green">site examples</v-btn>
 
-<!--            <v-flex xs12>-->
-<!--                <div v-if="showRes">-->
+                    </v-card>
+                </v-flex>
 
-<!--                    <span v-for="platform  in sortResult(resultShare[0])"-->
-<!--                        v-bind:key="platform.title">-->
-<!--                        &lt;!&ndash;                        {{ platform }}&ndash;&gt;-->
-<!--                        <p>Platform: {{ platform }} - Point: {{ platform.point }}</p>-->
+                <contactForm></contactForm>
 
-<!--                    </span>-->
-<!--                </div>-->
-<!--            </v-flex>-->
+            </v-layout>
 
-        </v-layout>
+        </v-container>
 
-        <v-layout v-else>
-            <v-flex xs12 class="text-xs-center">
-                <v-progress-circular
-                        :size="70"
-                        :width="5"
-                        color="purple"
-                        indeterminate
-                ></v-progress-circular>
-            </v-flex>
-        </v-layout>
+        <v-container grid-list-md fill-height v-else>
+            <v-layout align-center justify-center>
+                <v-flex xs12 class="text-xs-center">
+                    <v-progress-circular
+                            :size="70"
+                            :width="5"
+                            color="#98ca3e"
+                            indeterminate
+                    ></v-progress-circular>
+                </v-flex>
+            </v-layout>
 
+        </v-container>
 
-    </v-container>
-
-
+    </div>
 </template>
 
 <script>
-    import {Email, Facebook, Twitter,} from 'vue-socialmedia-share'
-    import Quiz from './Quiz'
-    /* eslint-disable */
+    import ContactForm from './ContactForm'
+
     export default {
 
         name: 'ResultShare',
@@ -81,9 +79,7 @@
             }
         },
         components: {
-            Facebook,
-            Twitter,
-            Email,
+            contactForm: ContactForm,
         },
 
         computed: {
@@ -99,7 +95,6 @@
             showRes() {
 
                 let storeResult = this.res;
-
 
 
                 let keys = Object.keys(storeResult);
@@ -186,8 +181,8 @@
                 //     }
                 // }
 
-               // return endResult;
-               // console.log(endResult)
+                // return endResult;
+                // console.log(endResult)
 
             },
 

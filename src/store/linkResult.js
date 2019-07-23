@@ -1,4 +1,8 @@
 import * as firebase from 'firebase'
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+
+Vue.use(VueResource);
 
 class LinkResult {
     constructor(result) {
@@ -16,17 +20,23 @@ class ShareResult {
 export default {
     state: {
         resultQuiz: [],
+        shareInfo: [],
+        changeResult: [],
+        result: []
     },
     mutations: {
-        addResult(state, payload) {
+        createResult(state, payload) {
             state.resultQuiz.push(payload);
         },
         loadResult(state, payload){
             state.resultQuiz = payload;
+        },
+        loadShareInfo(state, payload){
+            return state.shareInfo = payload;
         }
     },
     actions: {
-        async addResult({commit}, payload) {
+        async createResult({commit}, payload) {
             commit('clearError');
             commit('setLoading', true);
 
@@ -36,16 +46,16 @@ export default {
                 const resultValue = await firebase.database().ref('results').push(newResult);
 
                 //this.key = fbValue.key;
-                //console.log(this.key);
+                //console.log(resultValue.key);
 
                 commit('setLoading', false);
 
-                commit('addResult', {
-                    ...newResult,
+                commit('createResult', {
+                    newResult,
                     id: resultValue.key
                 });
             } catch (error) {
-                commit(error.message);
+                commit('setError',error.message);
                 commit('setLoading', false);
                 throw error
             }
@@ -83,10 +93,38 @@ export default {
             }
         },
 
+        loadShareInfo({commit}) {
+            commit('clearError');
+            commit('setLoading', true);
+            try {
+               Vue.http.get('api/thank-you.json')
+                      .then(response => {
+                              return response.json();
+                         }, response => {
+                             console.log(response)
+                         }
+                     )
+                     .then(results => {
+                         this.shareInfo = results.data;
+                         //console.log(results);
+                         commit('loadShareInfo', this.shareInfo);
+                         commit('setLoading', false);
+                     });
+
+            } catch (error) {
+                commit(error.message);
+                commit('setLoading', false);
+                throw error
+            }
+        },
+
     },
     getters: {
         resultQuiz(state) {
             return state.resultQuiz
+        },
+        shareInfo(state) {
+            return state.shareInfo
         },
         ResultById(state) {
             return resultId => {
