@@ -4,7 +4,6 @@
         <v-container>
             <div class="quiz">
 
-                {{getClass()}}
                 <div v-for="(question, index) in quiz.data" :key="index">
                     <!-- Hide all questions, show only the one with index === to current question index -->
                     <div>
@@ -13,14 +12,18 @@
                             <h3 class="question">{{ question.question }}</h3>
                         </div>
                         <div class="quiz-list">
-                            <div v-for="(response, index2) in question.answers" :key="index2"
-                                 class="quiz-item" :class="getClass(response.id_answer)">
+                            <div v-for="(response, index2) in question.answers" :key="index2+'_'+index"
+                                 class="quiz-item" :class="">
 
                                 <label class="quiz-label">
 
                                     <input type="radio"
-                                           v-bind:value="response.answerPoint"
-                                           name="index">
+                                           :name="'index'+index"
+                                           :value="response"
+                                           @click="onClick(index2+'_'+index)"
+                                           :checked="getClass(response)"
+                                           v-model="userResponses[index]"
+                                    >
                                     {{response.answer}}
                                 </label>
 
@@ -45,10 +48,13 @@
             return {
                 quiz: {},
                 ids: {},
+                userResponses: {},
+                chosen: '',
+
             }
         },
 
-        mounted: function () {
+        mounted(){
             this.$http.get('api/questions.json')
                 .then(response => {
                         return response.json();
@@ -58,71 +64,76 @@
                 )
                 .then(quiz => {
                     this.quiz = quiz;
-
                 })
-        },
+
+        } ,
 
         methods: {
-            loadScore(){
-                //this.ids =+ this.$store.state.changeResult;
-
+            // handleInput(value) {
+            //     let maxEl = this.userResponses;
+            //     console.log(maxEl);
+            //
+            // },
+            loadScore() {
                 let storeResult = [];
-                let allRes = [];
-                let endResult = [];
                 storeResult = this.$store.state.result;
-                //storeResult = this.quiz.data;
-                //console.log(storeResult);
-
                 let intermResult = [];
-                //if (storeResult) {
+                if (storeResult) {
                     let keys = Object.keys(storeResult);
                     for (let i = 0; i < keys.length; i++) {
                         let val = storeResult[keys[i]];
-
-                        intermResult.push(val.id_answer);
-
-
-                        // for (let key in val.id_answer) {
-                        //     let value = val.id_answer[key];
-                        //     console.log(value)
-                        //
-                        // }
+                        intermResult.push(val);
                     }
-
-               // }
-
-                //this.ids = intermResult;
-                console.log(intermResult);
-
+                }
+                //console.log(intermResult);
                 return intermResult;
-
-
-
-
             },
-
-
-
-            getClass(prop){
+            getClass(prop) {
                 let test = this.loadScore();
-                //console.log(test);
-                for (let key in test) {
-                    let value = test[key];
-                    console.log(value);
+                console.log(test);
+                if (Object.keys(test).length !== 0) {
+                    for (let key in test) {
+                        let value = test[key];
 
-                    if (prop === value) {
                         console.log(prop);
-                        return "chosen"
+                        console.log(value);
+
+                        if (prop.id_answer === value.id_answer) {
+                            //console.log(prop);
+                            return this.userResponses = prop;
+                        }
                     }
-
-
                 }
 
-            }
+            },
+            score() {
+                let maxEl = this.userResponses;
+                let idAnswer = [];
+                let keys = Object.keys(maxEl);
+                for (let i = 0; i < keys.length; i++) {
+                    idAnswer = maxEl[keys[i]];
+                    this.$store.state.changeResult = idAnswer.id_answer;
+                }
+                this.$store.state.result = maxEl;
+                return maxEl;
+            },
+            onClick(index) {
+                let maxEl = this.userResponses;
+                console.log(maxEl)
+                this.chosen = index;
+            },
+        },
+        watch: {
+
         }
+
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+    input[type="radio"]:checked+label{
+        background: red;
+    }
 
 </style>

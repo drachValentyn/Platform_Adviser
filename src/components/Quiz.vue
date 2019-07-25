@@ -67,7 +67,6 @@
         },
         methods: {
             prev() {
-
                 setTimeout(function () {
                     //console.log(this.userResponses[0].id_answer);
                     this.next()
@@ -110,11 +109,5 @@
 </script>
 
 <style scoped>
-    [v-cloak] {
-        display: none;
-    }
 
-    label {
-        cursor: pointer;
-    }
 </style>
