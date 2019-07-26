@@ -89,14 +89,6 @@
 
             score() {
                 let maxEl = this.userResponses;
-                let idAnswer = [];
-                let keys = Object.keys(maxEl);
-                for (let i = 0; i < keys.length; i++) {
-                    idAnswer = maxEl[keys[i]];
-                    this.$store.state.changeResult = idAnswer.id_answer;
-                }
-
-                //console.log(typeof  idAnswer);
                 this.$store.state.result = maxEl;
                 return maxEl;
 

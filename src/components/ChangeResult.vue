@@ -1,6 +1,6 @@
 <template>
     <div class="main-content">
-        <router-link to="/quiz" class="back-link home-link">SAVE CHANGES</router-link>
+        <router-link @click.native="scoreChange()" to="/result" class="back-link home-link">SAVE CHANGES</router-link>
         <v-container>
             <div class="quiz">
 
@@ -12,19 +12,19 @@
                             <h3 class="question">{{ question.question }}</h3>
                         </div>
                         <div class="quiz-list">
-                            <div v-for="(response, index2) in question.answers" :key="index2+'_'+index"
-                                 class="quiz-item" :class="">
+                            <div v-for="(response, index2) in question.answers" :key="index2"
+                                 class="quiz-item"
+                                 :class="{ 'chosen': Object.entries(response).toString() === Object.entries(userResponses[index]).toString() }">
 
                                 <label class="quiz-label">
-
                                     <input type="radio"
                                            :name="'index'+index"
                                            :value="response"
-                                           @click="onClick(index2+'_'+index)"
-                                           :checked="getClass(response)"
                                            v-model="userResponses[index]"
+                                           :checked="response === userResponses[index]"
                                     >
                                     {{response.answer}}
+
                                 </label>
 
                             </div>
@@ -53,8 +53,7 @@
 
             }
         },
-
-        mounted(){
+        beforeMount() {
             this.$http.get('api/questions.json')
                 .then(response => {
                         return response.json();
@@ -66,14 +65,17 @@
                     this.quiz = quiz;
                 })
 
-        } ,
+
+        },
+        mounted() {
+            this.userResponses = this.loadScore();
+            if (Object.keys(this.userResponses).length === 0){
+                //this.$router.push('/quiz'); //--------------------------- Redirect to quiz if result null
+            }
+            console.log(this.userResponses);
+        },
 
         methods: {
-            // handleInput(value) {
-            //     let maxEl = this.userResponses;
-            //     console.log(maxEl);
-            //
-            // },
             loadScore() {
                 let storeResult = [];
                 storeResult = this.$store.state.result;
@@ -88,52 +90,21 @@
                 //console.log(intermResult);
                 return intermResult;
             },
-            getClass(prop) {
-                let test = this.loadScore();
-                console.log(test);
-                if (Object.keys(test).length !== 0) {
-                    for (let key in test) {
-                        let value = test[key];
 
-                        console.log(prop);
-                        console.log(value);
-
-                        if (prop.id_answer === value.id_answer) {
-                            //console.log(prop);
-                            return this.userResponses = prop;
-                        }
-                    }
-                }
-
-            },
-            score() {
+            scoreChange() {
                 let maxEl = this.userResponses;
-                let idAnswer = [];
-                let keys = Object.keys(maxEl);
-                for (let i = 0; i < keys.length; i++) {
-                    idAnswer = maxEl[keys[i]];
-                    this.$store.state.changeResult = idAnswer.id_answer;
-                }
                 this.$store.state.result = maxEl;
+                console.log(this.$store.state.result);
+                //this.$router.push('/result');
                 return maxEl;
             },
-            onClick(index) {
-                let maxEl = this.userResponses;
-                console.log(maxEl)
-                this.chosen = index;
-            },
-        },
-        watch: {
 
-        }
+        },
+
 
     }
 </script>
 
 <style scoped lang="scss">
-
-    input[type="radio"]:checked+label{
-        background: red;
-    }
 
 </style>

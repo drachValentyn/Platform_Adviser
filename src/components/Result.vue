@@ -204,6 +204,8 @@
         },
         mounted:
             function () {
+                console.log(this.$store.state.result);
+
                 let store = this.$store.state.result;
                 let storeResult = [];
 
