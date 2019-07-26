@@ -1,69 +1,73 @@
 <template>
 
     <v-layout collumn wrap>
-        <v-flex xs12 md6>
+        <v-flex xs12 md6 >
             <h2 class="contact-heading">Need more detailed advice or a project cost estimate?</h2>
         </v-flex>
-        <v-flex xs12 md6>
-            <v-form v-model="valid" ref="form" lazy-validation class="forms">
+        <v-flex xs12 md6 >
 
-                <div class="errors" v-if="errors">
-                    {{ errors }}
-                </div>
+            <v-layout>
+                <v-flex xs3 >elrgjl kgo</v-flex>
+                <v-flex xs9>
+                    <p>Please call us</p>
+                    <p>+1 234 123 1234</p>
+                </v-flex>
+            </v-layout>
+                <p>Or fill out the form below to request a callback</p>
+                <v-form v-model="valid" ref="form" lazy-validation class="forms">
 
-                <!--<v-flex xs12>-->
+                    <div class="errors" v-if="errors">
+                        {{ errors }}
+                    </div>
+
                     <v-text-field class="input"
-                            label="Name"
-                            id="name"
-                            type="text"
-                            name="name"
-                            v-model="theUser.name"
-                            :rules="nameRules"
-                            required
+                                  label="Name"
+                                  id="name"
+                                  type="text"
+                                  name="name"
+                                  v-model="theUser.name"
+                                  :rules="nameRules"
+                                  required
                     ></v-text-field>
-                <!--</v-flex>-->
 
-                <!--<v-flex xs12>-->
                     <v-text-field class="input"
-                            label="E-mail"
-                            id="email"
-                            type="email"
-                            name="email"
-                            v-model="theUser.email"
-                            :rules="emailRules"
-                            required
+                                  label="E-mail"
+                                  id="email"
+                                  type="email"
+                                  name="email"
+                                  v-model="theUser.email"
+                                  :rules="emailRules"
+                                  required
                     ></v-text-field>
-                <!--</v-flex>-->
 
-                <!--<v-flex xs12>-->
                     <v-text-field class="input"
-                            label="Phone"
-                            id="phone"
-                            type="number"
-                            name="phone"
-                            v-model="theUser.phone"
+                                  label="Phone"
+                                  id="phone"
+                                  type="number"
+                                  name="phone"
+                                  v-model="theUser.phone"
                     ></v-text-field>
-                <!--</v-flex>-->
+
+                    <v-textarea
+                            solo
+                            v-model="theUser.subject"
+                            name="describe"
+                            id="describe"
+                            label="Describe your question (optional)"
+                    ></v-textarea>
+
+                    <v-btn class="button-main"
+                           @click="sendForm"
+                           color="success"
+                           :loading="loading"
+                           :disabled="!valid || loading"
+                    >
+                        send request
+                    </v-btn>
+
+                </v-form>
 
 
-                <v-textarea
-                        solo
-                        v-model="theUser.subject"
-                        name="describe"
-                        id="describe"
-                        label="Describe your question (optional)"
-                ></v-textarea>
-
-                <v-btn class="back-link"
-                        @click="sendForm"
-                        color="success"
-                        :loading="loading"
-                        :disabled="!valid || loading"
-                >
-                    send request
-                </v-btn>
-
-            </v-form>
         </v-flex>
 
 

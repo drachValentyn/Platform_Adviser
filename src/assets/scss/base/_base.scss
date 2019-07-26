@@ -45,6 +45,29 @@ h2 {
    text-transform: uppercase;
  }
 
+ .v-btn {
+   margin-right: 0;
+   margin-left: 0;
+ }
+
+.theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat).button-main {
+  width: 258px;
+  height: 60px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-family: $additional-font;
+  font-weight: 400;
+  font-size: 24px;
+  background-color: $primary-green ;
+  color: $background;
+  @media all and (min-width: 360px) {
+    width: 312px;
+  }
+  @media all and (min-width: 960px) {
+    width: 260px;
+  }
+}
+
 .back-link {
   display: block;
   color: #98ca3e;
