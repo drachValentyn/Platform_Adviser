@@ -13,7 +13,10 @@
 
 .v-text-field.input {
   height: 48px;
-  background-color: blueviolet;
+  margin-bottom: 12px;
+  //background-color: $light-font-color;
+  //opacity: 0.1;
+  background-color: $input-color;
   border-radius: 8px;
 }
 
@@ -23,7 +26,9 @@
 
 .theme--light.v-text-field--solo > .v-input__control > .v-input__slot {
   border-radius: 8px;
-  background-color: blueviolet;
+  //background-color: $light-font-color;
+  //opacity: 0.1;
+  background-color: $input-color;
 }
 
 textarea {
@@ -31,9 +36,12 @@ textarea {
   max-height: 96px;
 }
 
+.v-textarea.v-text-field--box.v-text-field--single-line .v-label, .v-textarea.v-text-field--enclosed.v-text-field--single-line .v-label {
+  margin-left: 0;
+}
+
 .theme--light.v-label {
   top: 3px;
-  left: 16px;
-  //color: #e2f4ff;
-  color: red;
+  margin-left: 16px;
+  color: $input-text;
 }
