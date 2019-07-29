@@ -38,7 +38,7 @@ return [
                 'paginate' => false,
                 'transformer' => function (Entry $entry) {
                     $platformsBlock = [];
-
+                    $logo = $entry->image->one();
                     foreach ($entry->getFieldValue('platformsEntries')->all() as $block) {
                         $platformsDesc=[];
 
@@ -89,6 +89,7 @@ return [
                     return [
                         'titlePage' => $entry->titlePage,
                         'titleForm' => $entry->titleForm,
+                        'logo' => $logo ? $logo->url : null,
                         'phoneNumber' => $entry->phoneNumber,
                         'platformsBlock' => $platformsBlock,
                     ];

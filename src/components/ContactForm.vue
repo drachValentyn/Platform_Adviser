@@ -1,77 +1,82 @@
 <template>
 
-    <v-layout collumn wrap>
-        <v-flex xs12 md6 >
-            <h2 class="contact-heading">Need more detailed advice or a project cost estimate?</h2>
+    <v-layout collumn wrap justify-center>
+        <v-flex xs12 md6 lg4 offset-lg1>
+            <div v-for="block in results.data" :key="block.id">
+                <h2 class="contact-heading">{{block.titleForm}}</h2>
+            </div>
         </v-flex>
-        <v-flex xs12 md6 >
+        <v-flex xs12 md6 lg5 offset-lg1>
 
             <v-layout>
-                <v-flex xs3 >elrgjl kgo</v-flex>
+                <v-flex xs3>
+                    <div v-for="block in results.data" :key="block.id">
+                        <img :src="block.logo" />
+                    </div>
+                </v-flex>
                 <v-flex xs9>
                     <p>Please call us</p>
-                    <p>+1 234 123 1234</p>
+                    <div v-for="block in results.data" :key="block.id">
+                        <p class="phone">{{block.phoneNumber}}</p>
+                    </div>
                 </v-flex>
             </v-layout>
-                <p>Or fill out the form below to request a callback</p>
-                <v-form v-model="valid" ref="form" lazy-validation class="forms">
+            <p>Or fill out the form below to request a callback</p>
+            <v-form v-model="valid" ref="form" lazy-validation class="forms">
 
-                    <div class="errors" v-if="errors">
-                        {{ errors }}
-                    </div>
+                <div class="errors" v-if="errors">
+                    {{ errors }}
+                </div>
 
-                    <v-text-field class="input"
-                                  label="Name"
-                                  id="name"
-                                  type="text"
-                                  name="name"
-                                  v-model="theUser.name"
-                                  :rules="nameRules"
-                                  required
-                    ></v-text-field>
+                <v-text-field class="input"
+                              label="Name"
+                              filled
+                              id="name"
+                              type="text"
+                              name="name"
+                              v-model="theUser.name"
+                              :rules="nameRules"
+                              required
+                ></v-text-field>
 
-                    <v-text-field class="input"
-                                  label="E-mail"
-                                  id="email"
-                                  type="email"
-                                  name="email"
-                                  v-model="theUser.email"
-                                  :rules="emailRules"
-                                  required
-                    ></v-text-field>
+                <v-text-field class="input"
+                              label="E-mail"
+                              id="email"
+                              type="email"
+                              name="email"
+                              v-model="theUser.email"
+                              :rules="emailRules"
+                              required
+                ></v-text-field>
 
-                    <v-text-field class="input"
-                                  label="Phone"
-                                  id="phone"
-                                  type="number"
-                                  name="phone"
-                                  v-model="theUser.phone"
-                    ></v-text-field>
+                <v-text-field class="input"
+                              label="Phone"
+                              id="phone"
+                              type="number"
+                              name="phone"
+                              v-model="theUser.phone"
+                ></v-text-field>
 
-                    <v-textarea
-                            solo
-                            v-model="theUser.subject"
-                            name="describe"
-                            id="describe"
-                            label="Describe your question (optional)"
-                    ></v-textarea>
+                <v-textarea
+                        solo
+                        v-model="theUser.subject"
+                        name="describe"
+                        id="describe"
+                        label="Describe your question (optional)"
+                ></v-textarea>
 
-                    <v-btn class="button-main"
-                           @click="sendForm"
-                           color="success"
-                           :loading="loading"
-                           :disabled="!valid || loading"
-                    >
-                        send request
-                    </v-btn>
+                <v-btn class="button-main"
+                       @click="sendForm"
+                       :loading="loading"
+                       :disabled="!valid || loading"
+                >
+                    send request
+                </v-btn>
 
-                </v-form>
+            </v-form>
 
 
         </v-flex>
-
-
-
 
 
     </v-layout>
@@ -80,66 +85,78 @@
 
 <script>
 
-    export default {
-        name: "ContactForm",
-        data () {
-            return {
-                theUser: {
-                    action: '/wheelform/message/send',
-                    CRAFT_CSRF_TOKEN: window.csrfTokenValue,
-                    form_id: 1,
-                    name: null,
-                    phone: null,
-                    subject: null,
-                },
-                errors: null,
-                message: null,
-                valid: false,
-                emailRules:[
-                    v => !!v || 'E-mail is required',
-                    v => /.+@.+/.test(v) || 'E-mail must be valid'
-                ],
-                nameRules:[
-                    v => !!v || 'Name is required',
-                ],
-            }
+  export default {
+    name: "ContactForm",
+    data() {
+      return {
+        theUser: {
+          action: '/wheelform/message/send',
+          CRAFT_CSRF_TOKEN: window.csrfTokenValue,
+          form_id: 1,
+          name: null,
+          phone: null,
+          subject: null,
         },
+        errors: null,
+        message: null,
+        valid: false,
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /.+@.+/.test(v) || 'E-mail must be valid'
+        ],
+        nameRules: [
+          v => !!v || 'Name is required',
+        ],
+        results: [],
+      }
+    },
+    created() {
+      this.$http.get('api/results.json')
+          .then(response => {
+                return response.json();
+              }, response => {
+                console.log(response)
+              }
+          )
+          .then(results => {
+            this.results = results;
+          });
+    },
+    computed: {
+      loading() {
+        return this.$store.getters.loading
+      },
+      csrfName() {
+        return window.csrfTokenName
+      },
+      csrfToken() {
+        return window.csrfTokenValue
+      }
+    },
+    methods: {
+      sendForm() {
+        if (this.$refs.form.validate()) {
+          let data = this.theUser;
+          data[window.csrfTokenName] = window.csrfTokenValue;
 
-        computed: {
-            loading(){
-                return this.$store.getters.loading
-            },
-            csrfName () {
-                return window.csrfTokenName
-            },
-            csrfToken () {
-                return window.csrfTokenValue
-            }
-        },
-        methods: {
-            sendForm () {
-                if (this.$refs.form.validate()) {
-                    let data = this.theUser;
-                    data[window.csrfTokenName] = window.csrfTokenValue;
+          let headers = {
+            'Content-Type': 'multipart/form-data',
+          };
 
-                    let headers = {
-                        'Content-Type': 'multipart/form-data',
-                    };
-
-                    this.$http.post('/', data, {headers: headers})
-                        .then(function (response) {
-                            console.log(response);
-                            if (response.body.success) {
-                                this.$router.push('/thank-you')
-                            }
-                            if (response.body.error) {
-                                this.errors = response.body.error
-                            }
-                        })
+          this.$http.post('/', data, {headers: headers})
+              .then(function (response) {
+                console.log(response);
+                if (response.body.success) {
+                  this.$router.push('/thank-you')
                 }
-            }
+                if (response.body.error) {
+                  this.errors = response.body.error
+                }
+              })
         }
+      }
     }
+  }
 </script>
 
 <style scoped>

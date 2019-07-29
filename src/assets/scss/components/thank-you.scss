@@ -1,0 +1,75 @@
+.esc-link:before {
+  content: url(../images/icon-cross.svg);
+  display: block;
+  padding-top: 16px;
+  margin-right: 24px;
+  text-align: right;
+  @media all and (min-width: 960px) {
+    margin-right: 48px;
+    padding-top: 48px;
+  }
+}
+
+.thank-title {
+  margin-top: 72px;
+  margin-bottom: 16px;
+  font-family: $additional-font;
+  @include fluid-type(48px, 80px);
+  line-height: 48px;
+  @media all and (min-width: 960px) {
+    margin-top: 10vw;
+    margin-bottom: 14px;
+    line-height: 80px;
+  }
+  @media all and (min-width: 1920px) {
+    margin-top: 230px;
+  }
+}
+
+.thank-subtitle {
+  margin-bottom: 48px;
+  font-family: $main-font;
+  @include fluid-type(18px, 28px);
+  line-height: 24px;
+  @media all and (min-width: 960px) {
+    margin-bottom: 80px;
+    line-height: 28px;
+  }
+}
+
+.thank-shareText {
+  margin-top: 64px;
+  margin-bottom: 36px;
+  font-family: $additional-font;
+  font-size: 28px;
+  line-height: 32px;
+  text-transform: uppercase;
+  @media all and (min-width: 960px) {
+    margin-top: 156px;
+  }
+}
+
+#facebook {
+  margin-right: 24px;
+}
+
+#twitter {
+  margin-left: 24px;
+}
+
+#facebook, #twitter {
+  .theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat) {
+    width: 108px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: $primary-light;
+  }
+}
+
+.fa-facebook-f:before {
+  color: $background;
+}
+
+.fa-twitter:before {
+  color: $background;
+}

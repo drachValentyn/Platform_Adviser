@@ -1,19 +1,29 @@
 .contact-heading {
+  margin-bottom: 37px;
   font-family: $additional-font;
-  font-size: 48px;
+  @include fluid-type(48px, 52px);
   font-weight: 400;
   line-height: 1;
   color: $light-font-color;
 }
 
+.phone {
+  font-family: $additional-font;
+  @include fluid-type(30px, 28px);
+  line-height: 36px;
+  @media all and (min-width: 960px) {
+    line-height: 32px;
+  }
+}
+
 .forms {
   max-width: 420px;
-
 }
 
 .v-text-field.input {
   height: 48px;
   margin-bottom: 12px;
+  padding-left: 16px;
   //background-color: $light-font-color;
   //opacity: 0.1;
   background-color: $input-color;
@@ -22,6 +32,17 @@
 
 .v-text-field > .v-input__control > .v-input__slot:before, .v-text-field > .v-input__control > .v-input__slot:after {
   border: none;
+}
+
+.v-text-field > .v-input__control > .v-input__slot {
+  margin-bottom: 3px;
+  background-color: $input-color;
+}
+
+.forms {
+  .v-input input:focus, .v-input textarea:focus, .v-input input:active, .v-input textarea:active {
+    background-color: $input-color !important;
+  }
 }
 
 .theme--light.v-text-field--solo > .v-input__control > .v-input__slot {
@@ -42,6 +63,6 @@ textarea {
 
 .theme--light.v-label {
   top: 3px;
-  margin-left: 16px;
+  //margin-left: 16px;
   color: $input-text;
 }
