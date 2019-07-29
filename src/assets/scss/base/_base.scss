@@ -8,11 +8,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
-
+  background-color: #221f44;
 }
 @media all and (max-width: 959px) {
   .container {
-    padding: 24px !important;
+    padding: 0 24px !important;
   }
 }
 
