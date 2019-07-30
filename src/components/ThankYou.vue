@@ -7,21 +7,19 @@
 
                     <h1 class="thank-title">{{info.title}}</h1>
                     <p class="thank-subtitle">{{info.subtitleThanksPage}}</p>
-
-                    <v-btn to="/contact" class="button-main">
+                    <v-btn href="http://pixelgrow.com/" target="_blank" class="button-main">
                         visit our website
                     </v-btn>
 
                     <h4 class="thank-shareText">{{info.shareText}}</h4>
                 </v-flex>
-                <social-sharing
 
+                <social-sharing
                         :title="shareInfo.title"
-                        :description="shareInfo.description"
-                        :quote="shareInfo.quote"
+                        :description="shareInfo.title"
+                        :quote="shareInfo.title"
                         v-cloak
                         inline-template>
-
                     <v-flex xs12>
 
                         <network network="facebook" id="facebook">
@@ -48,42 +46,42 @@
 
 <script>
 
-  export default {
-    name: "ThankYou",
-    data() {
-      return {
-        results: '',
-        shareInfo: {
-          title: '',
-          description: '',
-          quote: '',
+    export default {
+        name: "ThankYou",
+        data() {
+            return {
+                results: '',
+                shareInfo: {
+                    title: '',
+                    description: '',
+                    quote: '',
+                }
+            }
+        },
+        mounted() {
+            this.$store.dispatch('loadShareInfo').then(result => {
+                this.results = result;
+            });
+
+        },
+        methods: {
+            shareLink() {
+                let infoResult = this.$store.getters.shareInfo;
+                //console.log(infoResult);
+                for (let key in infoResult) {
+
+                    let value = infoResult[key];
+
+                    this.shareInfo.title = value.infoWithShareLink[0].textForShareQuiz;
+                    //this.shareInfo.description = value.infoWithShareLink[0].descriptionLink;
+                    //this.shareInfo.quote = value.infoWithShareLink[0].quoteLink;
+
+                }
+                //console.log(this.shareInfo);
+                return infoResult
+            }
         }
-      }
-    },
-    mounted() {
-      this.$store.dispatch('loadShareInfo').then(result => {
-        this.results = result;
-      });
-
-    },
-    methods: {
-      shareLink() {
-        let infoResult = this.$store.getters.shareInfo;
-        //console.log(infoResult);
-        for (let key in infoResult) {
-
-          let value = infoResult[key];
-
-          this.shareInfo.title = value.infoWithShareLink[0].titleLink;
-          this.shareInfo.description = value.infoWithShareLink[0].descriptionLink;
-          this.shareInfo.quote = value.infoWithShareLink[0].quoteLink;
-
-        }
-        //console.log(this.shareInfo);
-        return infoResult
-      }
     }
-  }
 </script>
 
 <style scoped>
