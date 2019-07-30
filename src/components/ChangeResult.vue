@@ -38,7 +38,6 @@
 
                 </v-layout>
 
-
             </div>
 
         </v-container>

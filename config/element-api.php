@@ -55,26 +55,25 @@ return [
                         }
 
 
-                        foreach ($block->getFieldValue('comparisonsItems')->all() as $comparison) {
-                            $comparass = [];
-                            foreach ($comparison->getFieldValue('comparisons')->all() as $compare) {
+                        foreach ($block->getFieldValue('comparisonsItems')->all() as $comparisons) {
+                            $comparison = [];
+                            foreach ($comparisons->getFieldValue('comparisons')->all() as $compare) {
 
                                 foreach ($compare->getFieldValue('comparisonsName')->all() as $compareitem) {
 
                                 };
                                 $stars = $compare->stars->one();
                                 $dollars = $compare->dollars->one();
-                                $comparass[] = [
+                                $comparison[] = [
                                     'comparisonsNameTitle' => $compareitem->title,
                                     'text' => $compare-> text,
                                     'dollars' => $dollars ? $dollars->url : null,
                                     'stars' => $stars ? $stars->url : null,
+                                    'sequenceNumber' => $compareitem->sequenceNumber,
                                 ];
-//                                sort($comparass);
-//                                foreach ($comparass as $key=>$val) {
-//                                    $arrSort[$key] = $val;
-//                                }
-
+                                usort($comparison, function($a, $b) {
+                                    return $a['sequenceNumber'] - $b['sequenceNumber'];
+                                });
                             }
                         }
 
@@ -82,7 +81,7 @@ return [
                             //'platformsEntries' =>$block,
                             'platformsEntries' => $block->title,
                             'descr'=>$platformsDesc,
-                            'comparass'=>$comparass,
+                            'comparison'=>$comparison,
                         ];
 
                     }
@@ -94,22 +93,6 @@ return [
                         'platformsBlock' => $platformsBlock,
                     ];
                 }
-
-            ];
-        },
-        'api/connectResult.json' => function () {
-            return [
-                'elementType' => Entry::class,
-                'criteria' => [ 'section' => 'connectResult'],
-                'pretty' => true,
-//                'transformer' => function(Entry $entry) {
-////                    return [
-////                        'pageTitle' => $entry->title,
-////                        'mainTitle' => $entry->mainTitle,
-////                        'description' => $entry->description,
-////                        'caption' => $entry->caption,
-////                    ];
-//                }
 
             ];
         },
@@ -160,6 +143,7 @@ return [
                             'titleLink' => $block->titleLink,
                             'quoteLink' => $block->quoteLink,
                             'descriptionLink' => $block->descriptionLink,
+                            'textForShareQuiz' => $block->textForShareQuiz,
                         ];
                     }
                         return [
