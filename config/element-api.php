@@ -2,8 +2,7 @@
 
 //namespace  Craft;
 use craft\elements\Entry;
-use craft\helpers\UrlHelper;
-
+use craft\elements\GlobalSet;
 
 //Craft::$app->response->headers->set('Access-Control-Allow-Origin', '*');
 
@@ -40,7 +39,7 @@ return [
                     $platformsBlock = [];
                     $logo = $entry->image->one();
                     foreach ($entry->getFieldValue('platformsEntries')->all() as $block) {
-                        $platformsDesc=[];
+                        $platformsDesc = [];
 
                         foreach ($block->getFieldValue('platform')->all() as $platform) {
 
@@ -66,12 +65,12 @@ return [
                                 $dollars = $compare->dollars->one();
                                 $comparison[] = [
                                     'comparisonsNameTitle' => $compareitem->title,
-                                    'text' => $compare-> text,
+                                    'text' => $compare->text,
                                     'dollars' => $dollars ? $dollars->url : null,
                                     'stars' => $stars ? $stars->url : null,
                                     'sequenceNumber' => $compareitem->sequenceNumber,
                                 ];
-                                usort($comparison, function($a, $b) {
+                                usort($comparison, function ($a, $b) {
                                     return $a['sequenceNumber'] - $b['sequenceNumber'];
                                 });
                             }
@@ -80,8 +79,8 @@ return [
                         $platformsBlock[] = [
                             //'platformsEntries' =>$block,
                             'platformsEntries' => $block->title,
-                            'descr'=>$platformsDesc,
-                            'comparison'=>$comparison,
+                            'descr' => $platformsDesc,
+                            'comparison' => $comparison,
                         ];
 
                     }
@@ -102,12 +101,13 @@ return [
                 'criteria' => ['section' => 'questions'],
                 'pretty' => true,
                 'paginate' => false,
-                'transformer' => function(Entry $entry) {
+                'transformer' => function (Entry $entry) {
                     $answerBlocks = [];
                     foreach ($entry->getFieldValue('answer')->all() as $block) {
                         $answer = [];
                         foreach ($block->getFieldValue('pointsTable')->all() as $pointsTable) {
-                            foreach ($pointsTable->getFieldValue('platform')->all() as  $platform) {}
+                            foreach ($pointsTable->getFieldValue('platform')->all() as $platform) {
+                            }
                             $answer[] = [
                                 'title' => $platform->title,
 
@@ -115,7 +115,7 @@ return [
                             ];
                         }
                         $answerBlocks[] = [
-                            'answer' => $block -> answers,
+                            'answer' => $block->answers,
                             'id_answer' => $block->uid,
                             'answerPoint' => $answer,
                         ];
@@ -127,7 +127,6 @@ return [
                 },
 
 
-
             ];
         },
         'api/thank-you.json' => function () {
@@ -136,7 +135,7 @@ return [
                 'criteria' => ['section' => 'thankYouPage'],
                 'pretty' => true,
                 'paginate' => false,
-                'transformer' => function(Entry $entry) {
+                'transformer' => function (Entry $entry) {
                     $thankYouPage = [];
                     foreach ($entry->getFieldValue('infoWithShareLink')->all() as $block) {
                         $thankYouPage[] = [
@@ -146,16 +145,37 @@ return [
                             'textForShareQuiz' => $block->textForShareQuiz,
                         ];
                     }
-                        return [
-                            'title' => $entry->mainTitle,
-                            'subtitleThanksPage' => $entry->subtitleThanksPage,
-                            'shareText' => $entry->shareText,
-                            'infoWithShareLink' => $thankYouPage
+                    return [
+                        'title' => $entry->mainTitle,
+                        'subtitleThanksPage' => $entry->subtitleThanksPage,
+                        'shareText' => $entry->shareText,
+                        'infoWithShareLink' => $thankYouPage
                     ];
                 },
 
-
-
+            ];
+        },
+        'api/footer.json' => function () {
+            return [
+                'elementType' => GlobalSet::class,
+                'criteria' => ['handle' => 'footer'],
+                'pretty' => true,
+                'paginate' => false,
+                'transformer' => function (GlobalSet $entry) {
+                    $footer = [];
+                    $image = $entry->logotype->one();
+                    foreach ($entry->getFieldValue('siteLink')->all() as $block) {
+                        $footer[] = [
+                            'linkName' => $block->linkName,
+                            'linkBody' => $block->linkBody,
+                        ];
+                    }
+                    return [
+                        'phoneNumber' => $entry->phoneNumber,
+                        'link' => $footer,
+                        'image' => $image ? $image->url : null,
+                    ];
+                },
             ];
         }
     ]
