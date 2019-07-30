@@ -22,7 +22,7 @@
                 </v-flex>
             </v-layout>
             <p>Or fill out the form below to request a callback</p>
-            <v-form v-model="valid" ref="form" lazy-validation class="forms">
+            <v-form v-model="valid" ref="form" lazy-validation class="forms" autocomplete="off">
 
                 <div class="errors" v-if="errors">
                     {{ errors }}
@@ -31,6 +31,7 @@
                 <v-text-field class="input"
                               label="Name"
                               filled
+                              solo
                               id="name"
                               type="text"
                               name="name"
@@ -42,6 +43,7 @@
                 <v-text-field class="input"
                               label="E-mail"
                               id="email"
+                              solo
                               type="email"
                               name="email"
                               v-model="theUser.email"
@@ -51,6 +53,7 @@
 
                 <v-text-field class="input"
                               label="Phone"
+                              solo
                               id="phone"
                               type="number"
                               name="phone"

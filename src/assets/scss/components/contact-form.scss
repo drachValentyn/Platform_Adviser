@@ -18,12 +18,16 @@
 
 .forms {
   max-width: 420px;
+  .theme--light.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline) {
+    background-color: $primary-green;
+  }
 }
 
 .v-text-field.input {
   height: 48px;
   margin-bottom: 12px;
-  padding-left: 16px;
+  //margin-left: 16px;
+  //padding-left: 16px;
   //background-color: $light-font-color;
   //opacity: 0.1;
   background-color: $input-color;
@@ -43,6 +47,9 @@
   .v-input input:focus, .v-input textarea:focus, .v-input input:active, .v-input textarea:active {
     background-color: $input-color !important;
   }
+  .error--text {
+     margin-top: 2px;
+   }
 }
 
 .theme--light.v-text-field--solo > .v-input__control > .v-input__slot {
@@ -65,4 +72,19 @@ textarea {
   top: 3px;
   //margin-left: 16px;
   color: $input-text;
+  opacity: 0.5;
 }
+
+.theme--light.v-input:not(.v-input--is-disabled) input, .theme--light.v-input:not(.v-input--is-disabled) textarea {
+  color: $input-text;
+  opacity: 0.5;
+}
+
+.v-input.input.v-text-field.v-text-field--single-line.v-text-field--solo.v-text-field--enclosed.v-input--has-state.theme--light.error--text {
+  margin-bottom: 32px;
+}
+
+.theme--light.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline) {
+  background-color: $primary-green !important;
+}
+
