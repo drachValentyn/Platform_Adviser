@@ -10,15 +10,22 @@
 
             <v-layout>
                 <v-flex xs3>
-                    <div v-for="block in results.data" :key="block.id">
-                        <img :src="block.logo" />
+                    <div v-for="data in footer" v-bind:key="data">
+                        <div  v-for="block in data" :key="block">
+                            <img :src="block.image" />
+                        </div>
                     </div>
                 </v-flex>
                 <v-flex xs9>
                     <p>Please call us</p>
-                    <div v-for="block in results.data" :key="block.id">
-                        <p class="phone">{{block.phoneNumber}}</p>
+                    <div v-for="data in footer" v-bind:key="data">
+                        <div  v-for="block in data" :key="block">
+                            <p class="phone">{{block.phoneNumber}}</p>
+                        </div>
                     </div>
+                    <!--<div v-for="block in results.data" :key="block.id">-->
+                        <!--<p class="phone">{{block.phoneNumber}}</p>-->
+                    <!--</div>-->
                 </v-flex>
             </v-layout>
             <p>Or fill out the form below to request a callback</p>
@@ -87,11 +94,12 @@
 </template>
 
 <script>
-
+  import Footer from './Footer'
   export default {
     name: "ContactForm",
     data() {
       return {
+        footer: [],
         theUser: {
           action: '/wheelform/message/send',
           CRAFT_CSRF_TOKEN: window.csrfTokenValue,
@@ -123,6 +131,16 @@
           )
           .then(results => {
             this.results = results;
+          });
+      this.$http.get('api/footer.json')
+          .then(response => {
+                return response.json();
+              }, response => {
+                console.log(response)
+              }
+          )
+          .then(response => {
+            this.footer = response;
           });
     },
     computed: {
