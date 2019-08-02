@@ -6,10 +6,13 @@
                  :key="block.id">
                 <div v-for="links in block.link"
                      :key="links.id">
-                    <p class="footer">Creared by
-                        <a class="footer-link" :href="links.linkBody"> {{links.linkName}}</a>
-                        — Design & Development Studio
-                    </p>
+                    <div class="footer-wrap">
+                        <p class="footer">Creared by
+                            <a class="footer-link" :href="links.linkBody"> {{links.linkName}}</a>
+                            — Design & Development Studio
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </v-flex>
