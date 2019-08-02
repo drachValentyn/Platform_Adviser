@@ -37,7 +37,6 @@ return [
                 'paginate' => false,
                 'transformer' => function (Entry $entry) {
                     $platformsBlock = [];
-                    $logo = $entry->image->one();
                     foreach ($entry->getFieldValue('platformsEntries')->all() as $block) {
                         $platformsDesc = [];
 
@@ -53,14 +52,10 @@ return [
 
                         }
 
-
                         foreach ($block->getFieldValue('comparisonsItems')->all() as $comparisons) {
                             $comparison = [];
                             foreach ($comparisons->getFieldValue('comparisons')->all() as $compare) {
-
-                                foreach ($compare->getFieldValue('comparisonsName')->all() as $compareitem) {
-
-                                };
+                                foreach ($compare->getFieldValue('comparisonsName')->all() as $compareitem) {};
                                 $stars = $compare->stars->one();
                                 $dollars = $compare->dollars->one();
                                 $comparison[] = [
@@ -87,8 +82,6 @@ return [
                     return [
                         'titlePage' => $entry->titlePage,
                         'titleForm' => $entry->titleForm,
-                        'logo' => $logo ? $logo->url : null,
-                        'phoneNumber' => $entry->phoneNumber,
                         'platformsBlock' => $platformsBlock,
                     ];
                 }
@@ -110,7 +103,6 @@ return [
                             }
                             $answer[] = [
                                 'title' => $platform->title,
-
                                 'point' => (int)$pointsTable->points,
                             ];
                         }

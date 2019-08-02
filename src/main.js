@@ -9,10 +9,14 @@ import App from "./App"
 import "./app.css";
 import store from './store'
 
+
+import $ from 'jquery'
+window.$ = window.jQuery = $
+
+
 import router from './routes'
 import ReadMore from 'vue-read-more';
-import jQuery from "jquery";
-window.jQuery = window.$ = jQuery;
+
 import * as firebase from 'firebase'
 
 import 'slick-carousel/slick/slick.scss';
@@ -64,3 +68,4 @@ new Vue({
     firebase.initializeApp(firebaseConfig);
   }
 });
+
