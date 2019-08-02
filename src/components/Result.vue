@@ -140,7 +140,10 @@
 
             <!--Share Block after Table-->
             <v-layout class="share-wrap">
-                <button class="share_result">share result</button>
+                <button
+                        class="share_result"
+                        type="button" @click="showModal">share result</button>
+                <modal v-show="isModalVisible" @close="closeModal" />
             </v-layout>
             <!--Share Block after Table-->
 
@@ -176,6 +179,7 @@
 
         data() {
             return {
+                isModalVisible: false,
                 finishResult: [],
                 compTitle: [],
                 resultQuiz: {},
@@ -373,7 +377,19 @@
             prev() {
                 this.$refs.slick.prev();
             },
-        },
+          //method for modal window
+
+            showModal() {
+              this.isModalVisible = true;
+            },
+            closeModal() {
+              this.isModalVisible = false;
+            },
+            close(event) {
+              this.$emit('close');
+            },
+          },
+
         computed: {
             links() {
                 return [
@@ -421,6 +437,7 @@
             line-height: 1.33;
             text-transform: uppercase;
             display: flex;
+            outline: none;
 
             &:before {
                 content: url(../assets/images/share_icon.png);

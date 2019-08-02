@@ -53,9 +53,10 @@
             return {
                 results: '',
                 shareInfo: {
-                    title: '',
+                    // title: '',
                     description: '',
-                    quote: '',
+                    // quote: '',
+                  url: '',
                 }
             }
         },
