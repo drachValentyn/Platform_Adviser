@@ -15,6 +15,7 @@
                 </v-flex>
 
                 <social-sharing
+                        :url="shareInfo.url"
                         :title="shareInfo.title"
                         :description="shareInfo.title"
                         :quote="shareInfo.title"
@@ -53,10 +54,10 @@
             return {
                 results: '',
                 shareInfo: {
-                    // title: '',
+                    title: '',
+                    url: document.location.origin,
                     description: '',
-                    // quote: '',
-                  url: '',
+                    quote: '',
                 }
             }
         },

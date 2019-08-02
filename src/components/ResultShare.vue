@@ -140,7 +140,12 @@
 
             <!--Share Block after Table-->
             <v-layout class="share-wrap">
-                <button class="share_result">share result</button>
+                <button class="share_result"
+                >share result</button>
+<!--                <button-->
+<!--                        class="share_result"-->
+<!--                        type="button" @click="showModal">share result</button>-->
+<!--                <modal v-show="isModalVisible" @close="closeModal" />-->
             </v-layout>
             <!--Share Block after Table-->
 
@@ -175,6 +180,7 @@
 
         data() {
             return {
+                isModalVisible: false,
                 resultShare: {},
                 results: [],
                 finishResult: [],
@@ -305,7 +311,8 @@
             },
             prev() {
                 this.$refs.slick.prev();
-            }
+            },
+
 
         },
 

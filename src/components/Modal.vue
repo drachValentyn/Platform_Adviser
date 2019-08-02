@@ -37,12 +37,11 @@
                         <!--</p>-->
                         <!--&lt;!&ndash;<button id="howToCopyClipboard" @click="copyToClipboard()">Copy</button>&ndash;&gt;-->
                         <!--</div>-->
-                        <social-sharing :url="url"
-                                        title="The Progressive JavaScript Framework"
-                                        description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
-                                        quote="Vue is a progressive framework for building user interfaces."
-                                        hashtags="vuejs,javascript,framework"
-                                        twitter-user="vuejs"
+                        <social-sharing :url="shareInfo.url"
+                                        :title="shareInfo.title"
+                                        :description="shareInfo.title"
+                                        :quote="shareInfo.title"
+                                        v-cloak
                                         inline-template>
                             <div class="sharing-block">
                                 <!--<network network="link">-->
@@ -90,7 +89,7 @@
     data() {
 
       return {
-        url: 'oiopipitg',
+
       }
     },
 
