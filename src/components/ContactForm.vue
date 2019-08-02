@@ -10,16 +10,16 @@
 
             <v-layout>
                 <v-flex xs3>
-                    <div v-for="data in footer" v-bind:key="data">
-                        <div  v-for="block in data" :key="block">
+                    <div v-for="data in footer" v-bind:key="data.index">
+                        <div  v-for="block in data" :key="block.image">
                             <img :src="block.image" />
                         </div>
                     </div>
                 </v-flex>
                 <v-flex xs9>
                     <p>Please call us</p>
-                    <div v-for="data in footer" v-bind:key="data">
-                        <div  v-for="block in data" :key="block">
+                    <div v-for="data in footer" v-bind:key="data.index">
+                        <div  v-for="block in data" :key="block.phoneNumber">
                             <p class="phone">{{block.phoneNumber}}</p>
                         </div>
                     </div>

@@ -20,24 +20,24 @@
                         <!--<i class="ttt" id="howToCopyClipboard" @click="copyToClipboard()">Press me</i>-->
                         <!--<span class="ourUrl">tittttt</span>-->
                         <!--<div class="blue">-->
-                            <!--<input id="rrr" name="exampleClipboard" placeholder="Insert the text you want to copy"-->
-                                   <!--value="Example text"-->
-                            <!--&lt;!&ndash;v-bind:value="response"&ndash;&gt;-->
+                        <!--<input id="rrr" name="exampleClipboard" placeholder="Insert the text you want to copy"-->
+                        <!--value="Example text"-->
+                        <!--&lt;!&ndash;v-bind:value="response"&ndash;&gt;-->
 
-                                   <!--tabindex="1" autocomplete="off" maxlength="240"-->
-                                   <!--style="width:200px" type="text">-->
-                            <!--<p>-->
-                                <!--&lt;!&ndash;<button id="copy">&ndash;&gt;-->
-                                <!--&lt;!&ndash;Copy text&ndash;&gt;-->
-                                <!--&lt;!&ndash;</button>&ndash;&gt;-->
-                            <!--</p>-->
-                            <!--<p>-->
-                                <!--Right click paste or Ctr + v after click Copytext button <br/>-->
-                                <!--<textarea class="bord"></textarea>-->
-                            <!--</p>-->
-                            <!--&lt;!&ndash;<button id="howToCopyClipboard" @click="copyToClipboard()">Copy</button>&ndash;&gt;-->
+                        <!--tabindex="1" autocomplete="off" maxlength="240"-->
+                        <!--style="width:200px" type="text">-->
+                        <!--<p>-->
+                        <!--&lt;!&ndash;<button id="copy">&ndash;&gt;-->
+                        <!--&lt;!&ndash;Copy text&ndash;&gt;-->
+                        <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                        <!--</p>-->
+                        <!--<p>-->
+                        <!--Right click paste or Ctr + v after click Copytext button <br/>-->
+                        <!--<textarea class="bord"></textarea>-->
+                        <!--</p>-->
+                        <!--&lt;!&ndash;<button id="howToCopyClipboard" @click="copyToClipboard()">Copy</button>&ndash;&gt;-->
                         <!--</div>-->
-                        <social-sharing url="https://vuejs.org/"
+                        <social-sharing :url="url"
                                         title="The Progressive JavaScript Framework"
                                         description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
                                         quote="Vue is a progressive framework for building user interfaces."
@@ -46,21 +46,29 @@
                                         inline-template>
                             <div class="sharing-block">
                                 <!--<network network="link">-->
-
-                                <i class="ic-link"></i>
+                                <div class="tooltip tooltip-left" data-description="Copy link!">
+                                    <i class="ic-link"></i>
+                                </div>
                                 <!--</network>-->
-                                <network network="email">
-                                    <i class="ic-email"></i>
-                                </network>
+
+
+                                <div class="tooltip tooltip-centre" data-description="Send email!">
+                                    <network network="email">
+                                        <i class="ic-email"></i></network>
+                                </div>
+
                                 <network network="facebook">
                                     <i class="ic-facebook"></i>
                                 </network>
+
                                 <network network="twitter">
                                     <i class="ic-twitter"></i>
                                 </network>
+
                                 <network network="linkedin">
                                     <i class="ic-linkedin"></i>
                                 </network>
+
                             </div>
                         </social-sharing>
                     </slot>

@@ -188,13 +188,13 @@ main {
   &:focus {
     outline: none !important;
   }
-//  border: none;
-//  font-size: 20px;
-//  padding: 20px;
-//  cursor: pointer;
-//  font-weight: bold;
-//  color: #4aae9b;
-//  background: transparent;
+  //  border: none;
+  //  font-size: 20px;
+  //  padding: 20px;
+  //  cursor: pointer;
+  //  font-weight: bold;
+  //  color: #4aae9b;
+  //  background: transparent;
 }
 
 .btn {
@@ -241,19 +241,24 @@ main {
   //display: none;
   color: green;
 }
+
 //.icom-wrap {
 //  width: 20px;
 //}
 
+.ic-link, .ic-email, .ic-facebook, .ic-twitter, .ic-linkedin {
+  outline: none;
+}
+
 .ic-link {
   transition: all 0.5s ease;
   //width: 20px;
-  height: 24px;
+  //height: 24px;
   &:before {
     content: url(../images/ic-link-24px.svg);
   }
   &:hover {
-    height: 24px;
+    //height: 24px;
     content: url(../images/ic-link-active-24px.svg);
   }
 }
@@ -261,12 +266,12 @@ main {
 .ic-email {
   transition: all 0.5s ease;
   //width: 20px;
-  height: 24px;
+  //height: 24px;
   &:before {
     content: url(../images/ic-email-24px.svg);
   }
   &:hover {
-    height: 24px;
+    //height: 24px;
     content: url(../images/ic-email-active-24px.svg);
   }
 }
@@ -285,7 +290,7 @@ main {
 
 .ic-twitter {
   transition: all 0.5s ease;
-  //width: 20px;
+  //width: 24px;
   //height: 24px;
   &:before {
     content: url(../images/ic-twitter-24px.svg);
@@ -299,7 +304,7 @@ main {
 .ic-linkedin {
   transition: all 0.5s ease;
   //width: 20px;
-  //height: 21px;
+  //height: 24px;
   &:before {
     content: url(../images/ic-linkedin-24px.svg);
   }
@@ -307,4 +312,62 @@ main {
     //height: 24px;
     content: url(../images/ic-linkedin-active-24px.svg);
   }
+}
+
+//
+
+.tooltip {
+  position: relative;
+  outline: none;
+}
+
+.tooltip:after {
+  content: attr(data-description);
+  box-sizing: border-box;
+  display: block;
+  //background:rgba(133, 167, 94, 0.68);
+  background: rgba(115, 164, 27, 0.56);
+  color: $input-color;
+  padding: 10px;
+  position: absolute;
+  //left:100%;
+  //top:-20px;
+  margin-left: -14px;
+  width: 100px;
+  height: 44px;
+  line-height: 25px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: .25s ease-in-out;
+}
+
+.tooltip.tooltip-centre:after {
+  //left:100%;
+  margin-left: -38px;
+}
+
+.tooltip:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top:22px;
+  left: 50%;
+  margin-left: -8px;
+  height: 0;
+  width: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid rgba(115, 164, 27, 0.56);
+  transition: .25s ease-in-out;
+  opacity: 0;
+}
+
+.tooltip:hover:before {
+  opacity: 1;
+  top: 22px;
+}
+
+.tooltip:hover:after {
+  opacity: 1;
+  top: 30px;
 }
