@@ -1,0 +1,17 @@
+{
+  "app.css": "/dist/css/app.4fa784e7.css",
+  "app.js": "/dist/js/app.02bba77f.js",
+  "app.css.map": "/dist/css/app.4fa784e7.css.map",
+  "app.js.map": "/dist/js/app.02bba77f.js.map",
+  "chunk-vendors.css": "/dist/css/chunk-vendors.9fefc498.css",
+  "chunk-vendors.js": "/dist/js/chunk-vendors.7c60b0cf.js",
+  "chunk-vendors.css.map": "/dist/css/chunk-vendors.9fefc498.css.map",
+  "chunk-vendors.js.map": "/dist/js/chunk-vendors.7c60b0cf.js.map",
+  "fonts/all.css": "/dist/fonts/fa-solid-900.ef3df984.eot",
+  "fonts/main.scss": "/dist/fonts/staatliches-regular.be0a6450.woff2",
+  "img/Result.vue?vue&type=style&index=0&id=1bbc1292&scoped=true&lang=scss&": "/dist/img/slick.f97e3bbf.svg",
+  "img/main.scss": "/dist/img/staatliches-regular.79043d26.svg",
+  "img/all.css": "/dist/img/fa-solid-900.b557f56e.svg",
+  "img/ChangeResult.vue?vue&type=style&index=0&id=0bc54b54&scoped=true&lang=scss&": "/dist/img/icon-cross.185fb57e.svg",
+  "index.html": "/dist/index.html"
+}

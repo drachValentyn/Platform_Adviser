@@ -1,6 +1,6 @@
 <template>
     <div class="main-content">
-        <router-link to="/" class="home-link">Back to home</router-link>
+        <router-link to="/" class="back-link result-link">Back to home</router-link>
         <v-container>
             <div class="quiz">
 
@@ -37,13 +37,19 @@
                 </div>
 
             </div>
+            <footers></footers>
         </v-container>
+
     </div>
 </template>
 
 <script>
+  import Footer from './Footer'
     /* eslint-disable */
     export default {
+      components: {
+        footers: Footer,
+      },
         data() {
             return {
                 quiz: {},
