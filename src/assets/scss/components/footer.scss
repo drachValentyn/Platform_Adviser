@@ -1,0 +1,16 @@
+.footer {
+  color: #8885AE;
+  font-family: $main-font;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  .footer-link {
+    font-family: $main-font;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    color: $primary-green;
+  }
+}

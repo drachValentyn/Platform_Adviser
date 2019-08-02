@@ -1,9 +1,18 @@
 <template>
     <v-layout row justify-center>
-        <div class="footer">
-            <p>Creared by Pixel Grow — Design & Development Studio
-            </p>
-        </div>
+
+        <v-flex xs12 text-center v-for="data in footer" v-bind:key="data.id">
+            <div v-for="block in data"
+                 :key="block.id">
+                <div v-for="links in block.link"
+                     :key="links.id">
+                    <p class="footer">Creared by
+                        <a class="footer-link" :href="links.linkBody"> {{links.linkName}}</a>
+                        — Design & Development Studio
+                    </p>
+                </div>
+            </div>
+        </v-flex>
     </v-layout>
 </template>
 
@@ -13,7 +22,7 @@
     name: "Footer",
     data() {
       return {
-        footer: '',
+        footer: [],
       }
     },
     created() {
@@ -27,8 +36,10 @@
               }, response => {
                 console.log(response)
               }
-          );
-
+          )
+          .then(response => {
+            this.footer = response;
+          });
     },
   }
 </script>
