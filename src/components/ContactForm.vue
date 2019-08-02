@@ -62,7 +62,7 @@
                               label="Phone"
                               solo
                               id="phone"
-                              type="number"
+                              type="phone"
                               name="phone"
                               v-model="theUser.phone"
                 ></v-text-field>
