@@ -6,7 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{ siteName }}</title>
 
-  {{ craft.twigpack.includeCssModule("app.css", true) }}
+
+    {{ craft.twigpack.includeCssModule("chunk-vendors.css", true) }}
+    {{ craft.twigpack.includeCssModule("app.css", true) }}
 </head>
 
 <body>
@@ -17,6 +19,8 @@
   {{ craft.twigpack.includeSafariNomoduleFix() }}
   {{ craft.twigpack.includeJsModule("app.js", true) }}
   {{ craft.twigpack.includeJsModule("chunk-vendors.js", true) }}
+  {{ craft.twigpack.includeJsModule("app-legacy.js", true) }}
+  {{ craft.twigpack.includeJsModule("chunk-vendors-legacy.js.", true) }}
   <script type="text/javascript">
     window.csrfTokenName = "{{ craft.app.config.general.csrfTokenName|e('js') }}";
     window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
