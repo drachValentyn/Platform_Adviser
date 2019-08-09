@@ -33,8 +33,8 @@ main {
 //}
 
 .home-img-block {
-  .img-wrap{
-    margin: -7vw -24px 20px;
+  .img-wrap {
+    margin: -7vw -36px 20px;
     @media all and (min-width: 475px) {
       margin: -8vw -24px 20px;
     }
@@ -42,14 +42,15 @@ main {
       margin: -50px -24px 20px;
     }
 
-    img{
+    img {
       max-width: 100%;
       height: auto;
       @media all and (min-width: 960px) {
         max-width: 50%;
         position: absolute;
         top: calc(50% - 250px);
-        padding-left: 40px;
+        //padding-left: 40px;
+        padding-left: 60px;
       }
       @media all and (min-width: 1545px) {
         right: 0;
@@ -95,12 +96,14 @@ main {
   text-transform: uppercase;
   color: $primary-green;
   @media all and (min-width: 960px) {
-    padding-bottom: 60px;
+    //padding-bottom: 60px;
+    padding-bottom: 44px;
   }
 }
 
 .home-description {
-  padding-bottom: 64px;
+  //padding-bottom: 64px;
+  padding-bottom: 48px;
   font-family: $main-font;
   font-size: 18px;
   font-weight: 400;
@@ -182,14 +185,17 @@ main {
 
 .btn-close {
   text-align: right;
+
   &:before {
     content: url(../images/ic-close-48px.svg);
     width: 11px;
     height: 11px;
   }
+
   &:focus {
     outline: none !important;
   }
+
   //  border: none;
   //  font-size: 20px;
   //  padding: 20px;
@@ -259,6 +265,7 @@ main {
   &:before {
     content: url(../images/ic-link-24px.svg);
   }
+
   &:hover {
     //height: 24px;
     content: url(../images/ic-link-active-24px.svg);
@@ -272,6 +279,7 @@ main {
   &:before {
     content: url(../images/ic-email-24px.svg);
   }
+
   &:hover {
     //height: 24px;
     content: url(../images/ic-email-active-24px.svg);
@@ -285,6 +293,7 @@ main {
   &:before {
     content: url(../images/ic-facebook-24px.svg);
   }
+
   &:hover {
     content: url(../images/facebook-active.svg);
   }
@@ -297,6 +306,7 @@ main {
   &:before {
     content: url(../images/ic-twitter-24px.svg);
   }
+
   &:hover {
     //height: 24px;
     content: url(../images/ic-twitter-active-24px.svg);
@@ -310,6 +320,7 @@ main {
   &:before {
     content: url(../images/ic-linkedin-24px.svg);
   }
+
   &:hover {
     //height: 24px;
     content: url(../images/ic-linkedin-active-24px.svg);
@@ -352,7 +363,7 @@ main {
   content: '';
   display: block;
   position: absolute;
-  top:22px;
+  top: 22px;
   left: 50%;
   margin-left: -8px;
   height: 0;
