@@ -1,9 +1,15 @@
 .footer-wrap {
-  position: absolute;
+  margin-top: 20px;
   bottom: 0;
   right: 0;
   left: 0;
   text-align: center;
+
+  @media (min-width: 960px) {
+    position: absolute;
+    margin-top: 0;
+
+  }
 }
 
 .footer {
