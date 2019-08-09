@@ -1,25 +1,26 @@
 <template>
 
     <v-layout collumn wrap justify-center>
-        <v-flex xs12 md6 lg4 offset-lg1>
+        <v-flex xs12 md6 lg4 offset-lg1 text-sm-center>
             <div v-for="block in results.data" :key="block.id">
                 <h2 class="contact-heading">{{block.titleForm}}</h2>
             </div>
         </v-flex>
         <v-flex xs12 md6 lg5 offset-lg1>
 
-            <v-layout>
-                <v-flex xs3>
+            <v-layout class="form-caption">
+                <v-flex xs1 md3 class="pixelgrow-logo">
                     <div v-for="data in footer" v-bind:key="data.index">
                         <div  v-for="block in data" :key="block.image">
                             <img :src="block.image" />
                         </div>
                     </div>
                 </v-flex>
-                <v-flex xs9>
+                <v-flex xs9 sm5 md9>
                     <p>Please call us</p>
                     <div v-for="data in footer" v-bind:key="data.index">
                         <div  v-for="block in data" :key="block.phoneNumber">
+                            <a :href="'tel:'+block.phoneNumber" class="phone">{{block.phoneNumber}}</a>
                             <p class="phone">{{block.phoneNumber}}</p>
                         </div>
                     </div>
@@ -28,15 +29,16 @@
                     <!--</div>-->
                 </v-flex>
             </v-layout>
-            <p>Or fill out the form below to request a callback</p>
-            <v-form v-model="valid" ref="form" lazy-validation class="forms" autocomplete="off">
+            <p text-sm-center class="form-text">Or fill out the form below to request a callback</p>
+            <v-form v-model="valid" ref="form" lazy-validation class="forms" autocomplete="off" justify-center
+            >
 
                 <div class="errors" v-if="errors">
                     {{ errors }}
                 </div>
 
                 <v-text-field class="input"
-                              label="Name"
+                              label="Name *"
                               filled
                               solo
                               id="name"
@@ -48,7 +50,7 @@
                 ></v-text-field>
 
                 <v-text-field class="input"
-                              label="E-mail"
+                              label="E-mail *"
                               id="email"
                               solo
                               type="email"
@@ -69,7 +71,9 @@
 
                 <v-textarea
                         solo
+                        auto-grow
                         v-model="theUser.subject"
+                        rows="1"
                         name="describe"
                         id="describe"
                         label="Describe your question (optional)"
@@ -181,5 +185,8 @@
 </script>
 
 <style scoped>
+    .pixelgrow-logo {
+        margin-right: 20px;
+    }
 
 </style>

@@ -9,6 +9,10 @@
 
 .phone {
   font-family: $additional-font;
+  font-weight: 400;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: normal;
   @include fluid-type(30px, 28px);
   line-height: 36px;
   @media all and (min-width: 960px) {
@@ -52,6 +56,23 @@
    }
 }
 
+
+@media (min-width: 576px) and (max-width: 960px) {
+
+  .forms {
+    margin: auto;
+  }
+
+  .form-text {
+    text-align: center;
+  }
+
+  .form-caption {
+    justify-content: center;
+    margin-bottom: 20px !important;
+  }
+}
+
 .theme--light.v-text-field--solo > .v-input__control > .v-input__slot {
   border-radius: 8px;
   //background-color: $light-font-color;
@@ -62,6 +83,12 @@
 textarea {
   resize: none;
   max-height: 96px;
+  min-height: 40px;
+  height: 40px;
+}
+.v-textarea.v-text-field--box.v-text-field--single-line textarea {
+  min-height: 40px;
+  height: 40px;
 }
 
 .v-textarea.v-text-field--box.v-text-field--single-line .v-label, .v-textarea.v-text-field--enclosed.v-text-field--single-line .v-label {
