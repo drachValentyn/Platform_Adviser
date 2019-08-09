@@ -48,6 +48,7 @@
 
 .result-hero-top {
   text-align: left;
+
   .result-hero-title {
     font-family: $additional-font;
     @include fluid-type(36px, 52px);
@@ -56,7 +57,8 @@
     color: $light-font-color;
     margin-bottom: 16px;
   }
-  @media all and (min-width: 960px) {
+
+  @media all and (min-width: 576px) {
     margin: 0 auto 48px;
     .result-hero-title {
       text-align: center;
@@ -69,7 +71,7 @@
 
 .recommendation-descript {
   color: $light-font-color;
-  @media all and (min-width: 960px) {
+  @media all and (min-width: 576px) {
     max-width: 576px;
     text-align: center;
   }
@@ -97,6 +99,13 @@
   margin: 0 auto 25px;
   background-color: #cdc2fc;
   border-radius: 0 0 10px 10px;
+  padding: 9px 10px;
+  text-align: center;
+  color: #6130F0;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 19px;
 }
 
 .platform-image {

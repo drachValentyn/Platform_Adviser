@@ -3,7 +3,7 @@
 
         <router-link to="/quiz" class="back-link result-link">Start again</router-link>
         <v-container v-if="comparisonResult()" grid-list-md>
-            <v-layout row wrap text-xs-center class="capture-recomendation">
+            <v-layout row wrap text-xs-center text-md-center class="capture-recomendation">
 
                 <div class="result-hero-top">
                     <h2 class="result-hero-title">Recommendation</h2>
@@ -141,12 +141,13 @@
             <!--Share Block after Table-->
             <v-layout class="share-wrap">
                 <button class="share_result"
-                >share result</button>
+                >share result
+                </button>
 
 
                 <!--<button-->
-                        <!--class="share_result"-->
-                        <!--type="button" @click="showModal">share result-->
+                <!--class="share_result"-->
+                <!--type="button" @click="showModal">share result-->
                 <!--</button>-->
                 <!--<modal v-show="isModalVisible" @close="closeModal"/>-->
 
@@ -170,246 +171,253 @@
             </v-flex>
         </v-container>
 
+        <v-container>
+            <v-footer color="transparent">
+                <footers></footers>
+            </v-footer>
+        </v-container>
+
 
     </div>
 </template>
 
 <script>
 
-  import Slick from 'vue-slick';
-  import ContactForm from './ContactForm'
-  // import Modal from './Modal'
+    import Slick from 'vue-slick';
+    import ContactForm from './ContactForm';
+    import Footer from './Footer';
+    // import Modal from './Modal'
 
-  export default {
+    export default {
 
-    name: 'Result',
+        name: 'Result',
+        data() {
+            return {
+                // isModalVisible: false,
+                finishResult: [],
+                compTitle: [],
+                resultQuiz: {},
+                results: [],
+                url: '',
+                slickOptionsTop: {
+                    slidesToShow: 3,
+                    dots: false,
+                    arrows: false,
+                    asNavFor: ".slider-nav",
+                    infinite: false,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                dots: true,
+                                slidesToShow: 2,
+                                slidesToScroll: 2
+                            }
+                        },
+                        {
+                            breakpoint: 520,
+                            settings: {
+                                dots: true,
+                                slidesToShow: 1
+                            }
+                        }
+                    ],
+                    // speed: 300,
+                    // fade: true,
+                    // cssEase: 'linear',
 
-    data() {
-      return {
-        // isModalVisible: false,
-        finishResult: [],
-        compTitle: [],
-        resultQuiz: {},
-        results: [],
-        url: '',
-        slickOptionsTop: {
-          slidesToShow: 3,
-          dots: false,
-          arrows: false,
-          asNavFor: ".slider-nav",
-          infinite: false,
-          responsive: [
-            {
-              breakpoint: 768,
-              settings: {
-                dots: true,
-                slidesToShow: 2,
-                slidesToScroll: 2
-              }
-            },
-            {
-              breakpoint: 520,
-              settings: {
-                dots: true,
-                slidesToShow: 1
-              }
+                },
+                slickOptionsBottom: {
+                    slidesToShow: 3,
+                    dots: false,
+                    arrows: false,
+                    asNavFor: ".slider-for",
+                    infinite: false,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 2
+                            }
+                        },
+                        {
+                            breakpoint: 520,
+                            settings: {
+                                slidesToShow: 1
+                            }
+                        }
+                    ],
+                    // speed: 300,
+                    // fade: true,
+                    // cssEase: 'linear',
+
+                },
             }
-          ],
-          // speed: 300,
-          // fade: true,
-          // cssEase: 'linear',
-
         },
-        slickOptionsBottom: {
-          slidesToShow: 3,
-          dots: false,
-          arrows: false,
-          asNavFor: ".slider-for",
-          infinite: false,
-          responsive: [
-            {
-              breakpoint: 768,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
-              }
-            },
-            {
-              breakpoint: 520,
-              settings: {
-                slidesToShow: 1
-              }
-            }
-          ],
-          // speed: 300,
-          // fade: true,
-          // cssEase: 'linear',
-
+        components: {
+            Slick,
+            contactForm: ContactForm,
+            footers: Footer,
+            // modal: Modal,
         },
-      }
-    },
-    components: {
-      Slick,
-      contactForm: ContactForm,
-      // modal: Modal,
-    },
-    created() {
-      this.$http.get('api/results.json')
-          .then(response => {
-                return response.json();
-              }, response => {
-                console.log(response)
-              }
-          )
-          .then(results => {
-            this.results = results;
-          });
-    },
-    mounted:
-        function () {
+        created() {
+            this.$http.get('api/results.json')
+                .then(response => {
+                        return response.json();
+                    }, response => {
+                        console.log(response)
+                    }
+                )
+                .then(results => {
+                    this.results = results;
+                });
+        },
+        mounted:
+            function () {
 
-          let store = this.$store.state.result;
-          let storeResult = [];
+                let store = this.$store.state.result;
+                let storeResult = [];
 
-          for (let keys in store) {
-            let storeValue = store[keys];
-            storeResult.push(storeValue.answerPoint)
-          }
-
-          if (Object.keys(storeResult).length === 0) {
-            this.$router.push('/quiz'); //--------------------------- Redirect to quiz if result null
-          } else {
-            let keys = Object.keys(storeResult);
-            let intermResult = [];
-
-            for (let i = 0; i < keys.length; i++) {
-              let val = storeResult[keys[i]];
-              for (let key in val) {
-                let value = val[key];
-                intermResult.push(value)
-              }
-            }
-
-            let sortResult = [];
-            let found;
-            for (let x in intermResult) {
-              for (let y in sortResult) {
-                found = false;
-                if (intermResult[x].title === sortResult[y].title) {
-                  sortResult[y].point += intermResult[x].point;
-                  found = true;
-                  break;
+                for (let keys in store) {
+                    let storeValue = store[keys];
+                    storeResult.push(storeValue.answerPoint)
                 }
-              }
-              if (!found) {
-                sortResult.push(intermResult[x]);
-              }
-            }
-            return this.resultQuiz = sortResult;
-          }
+
+                if (Object.keys(storeResult).length === 0) {
+                    this.$router.push('/quiz'); //--------------------------- Redirect to quiz if result null
+                } else {
+                    let keys = Object.keys(storeResult);
+                    let intermResult = [];
+
+                    for (let i = 0; i < keys.length; i++) {
+                        let val = storeResult[keys[i]];
+                        for (let key in val) {
+                            let value = val[key];
+                            intermResult.push(value)
+                        }
+                    }
+
+                    let sortResult = [];
+                    let found;
+                    for (let x in intermResult) {
+                        for (let y in sortResult) {
+                            found = false;
+                            if (intermResult[x].title === sortResult[y].title) {
+                                sortResult[y].point += intermResult[x].point;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            sortResult.push(intermResult[x]);
+                        }
+                    }
+                    return this.resultQuiz = sortResult;
+                }
+            },
+        methods: {
+            comparisonResult() {
+                let sortRes = [];
+                let allRes = [];
+                let endResult = [];
+                sortRes = this.sortResult(this.resultQuiz);
+                allRes = this.results.data;
+
+                let intermResult = [];
+                if (allRes) {
+                    let keys = Object.keys(allRes);
+                    for (let i = 0; i < keys.length; i++) {
+                        let val = allRes[keys[i]];
+                        for (let key in val.platformsBlock) {
+
+                            let value = val.platformsBlock[key];
+
+                            intermResult.push(value)
+                        }
+                    }
+                }
+
+                for (let i = 0; i < sortRes.length; i++) {
+                    for (let j = 0; j < intermResult.length; j++) {
+                        if (sortRes[i].title === intermResult[j].platformsEntries) {
+                            endResult.push(intermResult[j]);
+                        }
+                    }
+                }
+
+                if (Object.keys(endResult).length !== 0) {
+
+                    const res = {
+                        resultQuiz: endResult,
+                        key: ''
+                    };
+
+
+                    this.$store.dispatch('createResult', res).then(() => {
+                        const id = this.$store.getters.resultQuiz;
+                        const last = id.pop();
+                        this.url = window.location.href + '/' + last.id;//--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
+                    });
+
+                    //-------------For Sorting Comparison Item
+                    let firstSort = endResult;
+                    let arrSort;
+                    let arrSort1;
+                    let arrSort2 = [];
+                    for (let sortKey in firstSort) {
+                        arrSort = firstSort[sortKey];
+                    }
+                    for (let key in arrSort.comparison) {
+                        arrSort1 = arrSort.comparison[key];
+                        arrSort2.push(arrSort1.comparisonsNameTitle)
+                    }
+
+
+                    this.compTitle = arrSort2;
+                    this.finishResult = endResult;
+
+                    return true;
+                }
+
+            },
+            sortResult(arr) {
+                let longtext = Array.from(arr);
+                return longtext.sort(function (b, a) {
+                    return a.point - b.point;
+                }).slice(0, 3);
+            },
+            next() {
+                this.$refs.slick.next();
+            },
+            prev() {
+                this.$refs.slick.prev();
+            },
+
+            //method for modal window
+            // close(event) {
+            //   this.$emit('close');
+            // },
+            // showModal() {
+            //   this.isModalVisible = true;
+            // },
+            // closeModal() {
+            //   this.isModalVisible = false;
+            // },
+
+
         },
-    methods: {
-      comparisonResult() {
-        let sortRes = [];
-        let allRes = [];
-        let endResult = [];
-        sortRes = this.sortResult(this.resultQuiz);
-        allRes = this.results.data;
 
-        let intermResult = [];
-        if (allRes) {
-          let keys = Object.keys(allRes);
-          for (let i = 0; i < keys.length; i++) {
-            let val = allRes[keys[i]];
-            for (let key in val.platformsBlock) {
-
-              let value = val.platformsBlock[key];
-
-              intermResult.push(value)
+        computed: {
+            links() {
+                return [
+                    {title: 'Quiz', url: '/quiz'},
+                ]
             }
-          }
-        }
-
-        for (let i = 0; i < sortRes.length; i++) {
-          for (let j = 0; j < intermResult.length; j++) {
-            if (sortRes[i].title === intermResult[j].platformsEntries) {
-              endResult.push(intermResult[j]);
-            }
-          }
-        }
-
-        if (Object.keys(endResult).length !== 0) {
-
-          const res = {
-            resultQuiz: endResult,
-            key: ''
-          };
+        },
 
 
-          this.$store.dispatch('createResult', res).then(() => {
-            const id = this.$store.getters.resultQuiz;
-            const last = id.pop();
-            this.url = window.location.href + '/' + last.id;//--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
-          });
-
-          //-------------For Sorting Comparison Item
-          let firstSort = endResult;
-          let arrSort;
-          let arrSort1;
-          let arrSort2 = [];
-          for (let sortKey in firstSort) {
-            arrSort = firstSort[sortKey];
-          }
-          for (let key in arrSort.comparison) {
-            arrSort1 = arrSort.comparison[key];
-            arrSort2.push(arrSort1.comparisonsNameTitle)
-          }
-
-
-          this.compTitle = arrSort2;
-          this.finishResult = endResult;
-
-          return true;
-        }
-
-      },
-      sortResult(arr) {
-        let longtext = Array.from(arr);
-        return longtext.sort(function (b, a) {
-          return a.point - b.point;
-        }).slice(0, 3);
-      },
-      next() {
-        this.$refs.slick.next();
-      },
-      prev() {
-        this.$refs.slick.prev();
-      },
-
-      //method for modal window
-      // close(event) {
-      //   this.$emit('close');
-      // },
-      // showModal() {
-      //   this.isModalVisible = true;
-      // },
-      // closeModal() {
-      //   this.isModalVisible = false;
-      // },
-
-
-    },
-
-    computed: {
-      links() {
-        return [
-          {title: 'Quiz', url: '/quiz'},
-        ]
-      }
-    },
-
-
-  }
+    }
 
 </script>
 
@@ -419,11 +427,11 @@
     @import "../assets/scss/base/variables.scss";
     @import "../assets/scss/base/mixins.scss";
 
-    @media all and (max-width: 375px) {
-        .container {
-            padding: 0 8px !important;
-        }
-    }
+    /*@media all and (max-width: 375px) {*/
+        /*.container {*/
+            /*padding: 0 8px !important;*/
+        /*}*/
+    /*}*/
 
     @media all and (max-width: 520px) {
         .small-label-tabel {
