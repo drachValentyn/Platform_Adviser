@@ -78,11 +78,12 @@ main {
     line-height: 60px;
   }
   @media all and (min-width: 960px) {
-    margin-top: 8vw;
+    margin-top: 7vh;
     line-height: 80px;
   }
   @media all and (min-width: 1400px) {
-    margin-top: 182px;
+    //margin-top: 182px;
+    margin-top: 12vh;
   }
 }
 
@@ -97,13 +98,15 @@ main {
   color: $primary-green;
   @media all and (min-width: 960px) {
     //padding-bottom: 60px;
-    padding-bottom: 44px;
+    //padding-bottom: 44px;
+    padding-bottom: 5vh;
   }
 }
 
 .home-description {
   //padding-bottom: 64px;
-  padding-bottom: 48px;
+  //padding-bottom: 48px;
+  padding-bottom: 5vh;
   font-family: $main-font;
   font-size: 18px;
   font-weight: 400;
@@ -123,7 +126,8 @@ main {
     line-height: 28px;
   }
   @media all and (min-width: 1200px) {
-    padding-bottom: 202px;
+    //padding-bottom: 202px;
+    padding-bottom: 14vh;
   }
 }
 
