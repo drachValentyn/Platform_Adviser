@@ -1,5 +1,5 @@
 <template>
-    <div class="main-content">
+    <div class="main-content thank-content">
         <router-link to="/" class="esc-link"></router-link>
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
