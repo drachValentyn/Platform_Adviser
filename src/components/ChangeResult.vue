@@ -163,6 +163,10 @@
                 display: inline-flex;
                 height: 20px;
             }
+
+            @media (max-width: 600px) {
+                width: 100%;
+            }
         }
         @media (max-width: 600px) {
             width: 100%;
@@ -205,6 +209,10 @@
             line-height: 1.77;
             text-align: start;
             margin-bottom: 16px;
+
+            @media (max-width: 530px) {
+                line-height: 1.27;
+            }
         }
 
         @media (min-width: 960px) {
