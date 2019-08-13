@@ -140,16 +140,23 @@
 
             <!--Share Block after Table-->
             <v-layout class="share-wrap">
-                <button class="share_result"
-                >share result
+                <!--<button class="share_result"-->
+                <!--&gt;share result-->
+                <!--</button>-->
+
+
+                <button
+                class="share_result"
+                type="button" @click="showModal">share result
                 </button>
 
-
-                <!--<button-->
-                <!--class="share_result"-->
-                <!--type="button" @click="showModal">share result-->
-                <!--</button>-->
-                <!--<modal v-show="isModalVisible" @close="closeModal"/>-->
+                <template v-if="isModalVisible">
+                    <modal
+                            :closeModal="closeModal"
+                            :url="url"
+                            :shareInfo="shareInfo"
+                    />
+                </template>
 
             </v-layout>
             <!--Share Block after Table-->
@@ -171,7 +178,7 @@
             </v-flex>
         </v-container>
 
-        <v-container>
+        <v-container class="result-footer">
             <v-footer color="transparent">
                 <footers></footers>
             </v-footer>
@@ -193,12 +200,18 @@
         name: 'Result',
         data() {
             return {
-                // isModalVisible: false,
+                isModalVisible: false,
                 finishResult: [],
                 compTitle: [],
                 resultQuiz: {},
                 results: [],
                 url: '',
+                shareInfo: {
+                    title: '',
+                    url: document.location.origin,
+                    description: '',
+                    quote: '',
+                },
                 slickOptionsTop: {
                     slidesToShow: 3,
                     dots: false,
@@ -270,7 +283,7 @@
                     }
                 )
                 .then(results => {
-                    this.results = results;
+                    this.results = results||[];
                 });
         },
         mounted:
@@ -278,6 +291,12 @@
 
                 let store = this.$store.state.result;
                 let storeResult = [];
+
+                this.$store.dispatch('loadShareInfo').then(result => {
+                    this.results = result || [];
+                });
+
+                this.shareLink();
 
                 for (let keys in store) {
                     let storeValue = store[keys];
@@ -357,7 +376,12 @@
                     this.$store.dispatch('createResult', res).then(() => {
                         const id = this.$store.getters.resultQuiz;
                         const last = id.pop();
-                        this.url = window.location.href + '/' + last.id;//--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
+
+                        if(this.url.length === 0) {
+                            this.url = window.location.href + '/' + last.id || '#';//--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
+                        }
+
+                        return;
                     });
 
                     //-------------For Sorting Comparison Item
@@ -395,16 +419,30 @@
             },
 
             //method for modal window
-            // close(event) {
-            //   this.$emit('close');
-            // },
-            // showModal() {
-            //   this.isModalVisible = true;
-            // },
-            // closeModal() {
-            //   this.isModalVisible = false;
-            // },
+            close(event) {
+              this.$emit('close');
+            },
+            showModal() {
+              this.isModalVisible = true;
+            },
+            closeModal() {
+              this.isModalVisible = false;
+            },
+            shareLink() {
+                let infoResult = this.$store.getters.shareInfo;
+                //console.log(infoResult);
+                for (let key in infoResult) {
 
+                    let value = infoResult[key];
+
+                    this.shareInfo.title = value.infoWithShareLink[0].textForShareQuiz;
+                    //this.shareInfo.description = value.infoWithShareLink[0].descriptionLink;
+                    //this.shareInfo.quote = value.infoWithShareLink[0].quoteLink;
+
+                }
+                //console.log(this.shareInfo);
+                return infoResult
+            }
 
         },
 
@@ -413,7 +451,7 @@
                 return [
                     {title: 'Quiz', url: '/quiz'},
                 ]
-            }
+            },
         },
 
 

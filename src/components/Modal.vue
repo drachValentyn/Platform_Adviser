@@ -5,7 +5,7 @@
                 <header class="modal-header">
                     <slot name="header">
                         <button type="button"
-                                class="btn-close btn-right" @click="close" aria-label="Close modal">
+                                class="btn-close btn-right" @click="closeModal" aria-label="Close modal">
                         </button>
                         <h2 class="modal-header-title">
                             Share link with this results
@@ -18,7 +18,6 @@
                 <section class="modal-body">
                     <slot name="body">
                         <!--<i class="ttt" id="howToCopyClipboard" @click="copyToClipboard()">Press me</i>-->
-                        <!--<span class="ourUrl">tittttt</span>-->
                         <!--<div class="blue">-->
                         <!--<input id="rrr" name="exampleClipboard" placeholder="Insert the text you want to copy"-->
                         <!--value="Example text"-->
@@ -37,13 +36,14 @@
                         <!--</p>-->
                         <!--&lt;!&ndash;<button id="howToCopyClipboard" @click="copyToClipboard()">Copy</button>&ndash;&gt;-->
                         <!--</div>-->
-                        <social-sharing url="url"
-                                        title="The Progressive JavaScript Framework"
-                                        description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
-                                        quote="Vue is a progressive framework for building user interfaces."
-                                        hashtags="vuejs,javascript,framework"
-                                        twitter-user="vuejs"
-                                        inline-template>
+                        <social-sharing inline-template
+                                        :url="url"
+                                        @copy="copyToClipboard"
+                                        :title="shareInfo.title"
+                                        :description="shareInfo.title"
+                                        :quote="shareInfo.title"
+                                        :networks="{copyingLinkText:copyingLinkText}"
+                                        v-cloak>
 
                         <!--<social-sharing :url="shareInfo.url"-->
                                         <!--:title="shareInfo.title"-->
@@ -52,27 +52,29 @@
                                         <!--v-cloak-->
                             <!--inline-template>-->
                             <div class="sharing-block">
+                                <input id="ourUrl" :value="url" :style="{opacity: 0, position: 'absolute', zIndex: -1}"/>
                                 <!--<network network="link">-->
-                                <div class="tooltip tooltip-left" data-description="Copy link!">
+                                <div class="tooltip tooltip-left sharing-item" :data-description="networks.copyingLinkText" @click="$emit('copy')">
                                     <i class="ic-link"></i>
                                 </div>
                                 <!--</network>-->
 
 
-                                <div class="tooltip tooltip-centre" data-description="Send email!">
+                                <div class="tooltip tooltip-centre sharing-item" data-description="Send email!">
                                     <network network="email">
-                                        <i class="ic-email"></i></network>
+                                        <i class="ic-email"></i>
+                                    </network>
                                 </div>
 
-                                <network network="facebook">
+                                <network network="facebook" class="sharing-item">
                                     <i class="ic-facebook"></i>
                                 </network>
 
-                                <network network="twitter">
+                                <network network="twitter" class="sharing-item">
                                     <i class="ic-twitter"></i>
                                 </network>
 
-                                <network network="linkedin">
+                                <network network="linkedin" class="sharing-item">
                                     <i class="ic-linkedin"></i>
                                 </network>
 
@@ -97,28 +99,58 @@
     data() {
 
       return {
-        url: '',
+          isModalVisible: false,
+          copyingLinkText: 'Copy link!'
       }
     },
 
+      props: {
+          shareData: String,
+          url: String,
+          closeModal: Function,
+          shareInfo: Object,
+      },
+
+      mounted(){
+
+        console.log('shareInfo')
+        console.log(this.shareInfo)
+        // this.shareInfo = this.shareData;
+        // console.log('url');
+        // console.log(this.url)
+      },
+
     methods: {
-      close(event) {
-        this.$emit('close');
-      },
-      showModal() {
-        this.isModalVisible = true;
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      },
-      // copyToClipboard(event) {
-      //   // document.getElementById('rrr').innerHTML = 'url'
-      //   // document.execCommand('copy');
-      //   document.getElementById('rrr').select()
-      //   document.execCommand('copy');
-      //
-      // }
+      // close(event) {
+      //   this.$emit('close');
+      // },
+      // showModal() {
+      //   this.isModalVisible = true;
+      // },
+      // closeModal() {
+      //   this.isModalVisible = false;
+      // },
+      copyToClipboard(event) {
+
+          var copyText = document.getElementById("ourUrl");
+          copyText.select();
+          document.execCommand("copy");
+
+          this.copyingLinkText = 'Link copied!';
+
+          console.log('copyText')
+          console.log(copyText)
+
+          setTimeout(()=>{
+              this.copyingLinkText = 'Copy link!';
+          }, 2500)
+      }
     },
+
+      components: {
+        //   SocialSharing: {
+        //     props:['copyingLinkText', 'url']
+        // }
+      }
   }
 </script>
-
