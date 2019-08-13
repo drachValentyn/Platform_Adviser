@@ -16,17 +16,26 @@ export default new Router({
         {
             path:'/',
             name: 'home',
-            component: Homepage
+            component: Homepage,
+            meta: {
+                title: 'Home - Platform adviser'
+            }
         },
         {
             path: '/quiz',
             name: 'quiz',
-            component: Quiz
+            component: Quiz,
+            meta: {
+                title: 'Quiz - Platform adviser'
+            }
         },
         {
             path: '/result',
             name: 'result',
-            component: Result
+            component: Result,
+            meta: {
+                title: 'Result - Platform adviser'
+            }
         },
         {
             path: '/result/:id',
@@ -43,6 +52,9 @@ export default new Router({
             path: '/change-result',
             name: 'ChangeResult',
             component: ChangeResult,
+            meta: {
+                title: 'Change result - Platform adviser'
+            }
         },
     ],
     mode: 'history'

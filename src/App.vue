@@ -13,6 +13,16 @@
         data () {
             return {
             }
+        },
+        mounted() {
+            document.title = this.$route.meta.title;
+        },
+        watch: {
+            $route(to, from, next) {
+                document.title = to.meta.title;
+                console.log(to.meta.title)
+                // next();
+            }
         }
     }
 </script>
