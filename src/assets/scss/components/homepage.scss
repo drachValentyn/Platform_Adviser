@@ -127,7 +127,7 @@ main {
   }
   @media all and (min-width: 1200px) {
     //padding-bottom: 202px;
-    padding-bottom: 14vh;
+    padding-bottom: 11vh;
   }
 }
 
@@ -336,10 +336,17 @@ main {
 .tooltip {
   position: relative;
   outline: none;
+  cursor: pointer;
+}
+
+.sharing-item {
+  cursor: pointer;
 }
 
 .tooltip:after {
   content: attr(data-description);
+  font-size: 13px;
+  text-align: center;
   box-sizing: border-box;
   display: block;
   //background:rgba(133, 167, 94, 0.68);

@@ -1,11 +1,12 @@
 .footer-wrap {
-  margin-top: 20px;
+  margin-top: 10vh;
   bottom: 0;
   right: 0;
   left: 0;
   text-align: center;
+  position: relative;
 
-  @media (min-width: 960px) {
+  @media (min-width: 1025px) {
     position: absolute;
     margin-top: 0;
 
@@ -18,6 +19,7 @@
   font-size: 14px;
   line-height: 20px;
   text-align: center;
+
   .footer-link {
     font-family: $main-font;
     font-size: 14px;
@@ -26,5 +28,16 @@
     text-transform: inherit;
     letter-spacing: inherit;
     color: $primary-green;
+  }
+}
+
+.result-footer {
+  .footer-wrap {
+    margin-top: 10vh;
+
+    @media (min-width: 1025px) {
+      margin-top: 13vh;
+      position: relative;
+    }
   }
 }
