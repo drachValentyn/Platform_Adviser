@@ -91,31 +91,130 @@ return [
         'api/questions.json' => function () {
             return [
                 'elementType' => Entry::class,
-                'criteria' => ['section' => 'questions'],
+                'criteria' => ['section' => 'questions', 'type' => ['questionsList', 'blockOfQuestions'], 'level' => '1'],
                 'pretty' => true,
                 'paginate' => false,
                 'transformer' => function (Entry $entry) {
                     $answerBlocks = [];
-                    foreach ($entry->getFieldValue('answer')->all() as $block) {
-                        $answer = [];
-                        foreach ($block->getFieldValue('pointsTable')->all() as $pointsTable) {
-                            foreach ($pointsTable->getFieldValue('platform')->all() as $platform) {
+                    $preleadQuestion = [];
+
+                    if ($entry->answer) {
+                        foreach ($entry->answer->all() as $block) {
+
+                            $answer = [];
+                            foreach ($block->getFieldValue('pointsTable')->all() as $pointsTable) {
+                                foreach ($pointsTable->getFieldValue('platform')->all() as $platform) {
+                                    $answer[] = [
+                                        'title' => $platform->title,
+                                        'point' => (int)$pointsTable->points,
+                                    ];
+                                }
                             }
-                            $answer[] = [
-                                'title' => $platform->title,
-                                'point' => (int)$pointsTable->points,
+
+                            $dependent_question = [];
+                            foreach ($block->getFieldValue('dependentQuestion')->all() as $dependentQuestion) {
+                                $dependent_question[] = [
+                                    'd_q_title' => $dependentQuestion->title,
+                                    'd_q_id' => $dependentQuestion->id,
+                                    'd_q_uid' => $dependentQuestion->uid,
+                                ];
+                            }
+
+                            $answerBlocks[] = [
+                                'answer' => $block->answers,
+                                'id_answer' => $block->uid,
+                                'answerPoint' => $answer,
+                                'dependent_question' => $dependent_question,
                             ];
                         }
-                        $answerBlocks[] = [
-                            'answer' => $block->answers,
-                            'id_answer' => $block->uid,
-                            'answerPoint' => $answer,
-                        ];
                     }
+
+                    if ($entry->preleadQuestion) {
+                        foreach ($entry->preleadQuestion->all() as $block) {
+                            $preleadQuestion[] = [
+                                'p_q_title' => $block->title,
+                                'p_q_id' => $block->id,
+                                'p_q_uid' => $block->uid,
+                            ];
+                        }
+                    }
+
                     return [
                         'question' => $entry->title,
+                        'question_type' => $entry->type->handle,
+                        'question_id' => $entry->id,
+                        'question_uid' => $entry->uid,
+                        'question_level' => $entry->level,
+                        'prelead_question' => $preleadQuestion,
                         'answers' => $answerBlocks,
                     ];
+
+                },
+
+
+            ];
+        },
+        'api/dependent-questions.json' => function () {
+            return [
+                'elementType' => Entry::class,
+                'criteria' => ['section' => 'questions', 'type' => 'dependentQuestion', 'level' => '2'],
+                'pretty' => true,
+                'paginate' => false,
+                'transformer' => function (Entry $entry) {
+                    $answerBlocks = [];
+//                    $preleadQuestion = [];
+
+                    if ($entry->answer) {
+                        foreach ($entry->answer->all() as $block) {
+
+                            $answer = [];
+                            foreach ($block->getFieldValue('pointsTable')->all() as $pointsTable) {
+                                foreach ($pointsTable->getFieldValue('platform')->all() as $platform) {
+                                    $answer[] = [
+                                        'title' => $platform->title,
+                                        'point' => (int)$pointsTable->points,
+                                    ];
+                                }
+                            }
+
+                            $dependent_question = [];
+                            foreach ($block->getFieldValue('dependentQuestion')->all() as $dependentQuestion) {
+                                $dependent_question[] = [
+                                    'd_q_title' => $dependentQuestion->title,
+                                    'd_q_id' => $dependentQuestion->id,
+                                    'd_q_uid' => $dependentQuestion->uid,
+                                ];
+                            }
+
+                            $answerBlocks[] = [
+                                'answer' => $block->answers,
+                                'id_answer' => $block->uid,
+                                'answerPoint' => $answer,
+                                'dependent_question' => $dependent_question,
+                            ];
+                        }
+                    }
+
+                    if ($entry->preleadQuestion) {
+                        foreach ($entry->preleadQuestion->all() as $block) {
+                            $preleadQuestion[] = [
+                                'p_q_title' => $block->title,
+                                'p_q_id' => $block->id,
+                                'p_q_uid' => $block->uid,
+                            ];
+                        }
+                    }
+
+                    return [
+                        'question' => $entry->title,
+                        'question_type' => $entry->type->handle,
+                        'question_id' => $entry->id,
+                        'question_uid' => $entry->uid,
+                        'question_level' => $entry->level,
+//                        'prelead_question' => $preleadQuestion,
+                        'answers' => $answerBlocks,
+                    ];
+
                 },
 
 

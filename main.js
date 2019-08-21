@@ -44,7 +44,8 @@ Vue.use(ReadMore);
 
 Vue.config.productionTip = false;
 
-Vue.http.options.root = 'http://calculator.3339333.xyz/';
+// Vue.http.options.root = 'http://calculator.3339333.xyz/';
+Vue.http.options.root = 'http://pla.craft/';
 
 Vue.http.options.emulateJSON = true;
 Vue.http.options.emulateHTTP = true;
@@ -57,14 +58,23 @@ new Vue({
   delimiters: ["${", "}"],
   created() {
     let firebaseConfig = {
-      apiKey: "AIzaSyDekdG9ck9ClqFkPBcN3ao82f15mgFLyeI",
-      authDomain: "calculator-75ac5.firebaseapp.com",
-      databaseURL: "https://calculator-75ac5.firebaseio.com",
-      projectId: "calculator-75ac5",
+      apiKey: "AIzaSyBjejlQGbAa3YARtiG8ZoaIFFVbDBC4TB4",
+      authDomain: "platfom-adviser.firebaseapp.com",
+      databaseURL: "https://platfom-adviser.firebaseio.com",
+      projectId: "platfom-adviser",
       storageBucket: "",
-      messagingSenderId: "26592860978",
-      appId: "1:26592860978:web:8583b7bba3b8ec26"
+      messagingSenderId: "402730775843",
+      appId: "1:402730775843:web:22fbe77246794bc2"
     };
+    // let firebaseConfig = {
+    //   apiKey: "AIzaSyDekdG9ck9ClqFkPBcN3ao82f15mgFLyeI",
+    //   authDomain: "calculator-75ac5.firebaseapp.com",
+    //   databaseURL: "https://calculator-75ac5.firebaseio.com",
+    //   projectId: "calculator-75ac5",
+    //   storageBucket: "",
+    //   messagingSenderId: "26592860978",
+    //   appId: "1:26592860978:web:8583b7bba3b8ec26"
+    // };
     firebase.initializeApp(firebaseConfig);
   }
 });
