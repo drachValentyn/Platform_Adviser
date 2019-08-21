@@ -57,23 +57,14 @@ new Vue({
   delimiters: ["${", "}"],
   created() {
     let firebaseConfig = {
-      apiKey: "AIzaSyBjejlQGbAa3YARtiG8ZoaIFFVbDBC4TB4",
-      authDomain: "platfom-adviser.firebaseapp.com",
-      databaseURL: "https://platfom-adviser.firebaseio.com",
-      projectId: "platfom-adviser",
+      apiKey: "AIzaSyDekdG9ck9ClqFkPBcN3ao82f15mgFLyeI",
+      authDomain: "calculator-75ac5.firebaseapp.com",
+      databaseURL: "https://calculator-75ac5.firebaseio.com",
+      projectId: "calculator-75ac5",
       storageBucket: "",
-      messagingSenderId: "402730775843",
-      appId: "1:402730775843:web:22fbe77246794bc2"
+      messagingSenderId: "26592860978",
+      appId: "1:26592860978:web:8583b7bba3b8ec26"
     };
-    // let firebaseConfig = {
-    //   apiKey: "AIzaSyDekdG9ck9ClqFkPBcN3ao82f15mgFLyeI",
-    //   authDomain: "calculator-75ac5.firebaseapp.com",
-    //   databaseURL: "https://calculator-75ac5.firebaseio.com",
-    //   projectId: "calculator-75ac5",
-    //   storageBucket: "",
-    //   messagingSenderId: "26592860978",
-    //   appId: "1:26592860978:web:8583b7bba3b8ec26"
-    // };
     firebase.initializeApp(firebaseConfig);
   }
 });
