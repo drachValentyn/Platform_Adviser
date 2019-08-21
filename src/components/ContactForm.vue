@@ -111,6 +111,7 @@
           name: null,
           phone: null,
           subject: null,
+          url: null,
         },
         errors: null,
         message: null,
@@ -125,6 +126,9 @@
         results: [],
       }
     },
+      props: {
+          url: String
+      },
     created() {
       this.$http.get('api/results.json')
           .then(response => {
@@ -161,6 +165,9 @@
     methods: {
       sendForm() {
         if (this.$refs.form.validate()) {
+            // this.theUser.url = this.url;
+            // this.theUser.subject += ' ' + this.url;
+            this.message = this.url;
           let data = this.theUser;
           data[window.csrfTokenName] = window.csrfTokenValue;
 

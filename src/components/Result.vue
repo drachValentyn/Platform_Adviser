@@ -140,29 +140,30 @@
 
             <!--Share Block after Table-->
             <v-layout class="share-wrap">
-                <!--<button class="share_result"-->
-                <!--&gt;share result-->
-                <!--</button>-->
-
-
-                <button
-                class="share_result"
-                type="button" @click="showModal">share result
+                <button class="share_result"
+                >share result
                 </button>
 
-                <template v-if="isModalVisible">
-                    <modal
-                            :closeModal="closeModal"
-                            :url="url"
-                            :shareInfo="shareInfo"
-                    />
-                </template>
+
+                <!--<button-->
+                <!--class="share_result"-->
+                <!--type="button" @click="showModal">share result-->
+                <!--</button>-->
+
+                <!--<template v-if="isModalVisible">-->
+                    <!--<modal-->
+                            <!--:closeModal="closeModal"-->
+                            <!--:url="url"-->
+                            <!--:shareInfo="shareInfo"-->
+                    <!--/>-->
+                <!--</template>-->
 
             </v-layout>
             <!--Share Block after Table-->
 
 
-            <contactForm></contactForm>
+            <!--<contactForm :url="url"></contactForm>-->
+            <contactForm url="url"></contactForm>
 
         </v-container>
 
@@ -377,7 +378,7 @@
                         const id = this.$store.getters.resultQuiz;
                         const last = id.pop();
 
-                        if(this.url.length === 0) {
+                        if(this.url.length === 0 && id && intermResult.length > 0) {
                             this.url = window.location.href + '/' + last.id || '#';//--------------------- IMPORTANT, THIS CONNECT TO FIREBASE
                         }
 
