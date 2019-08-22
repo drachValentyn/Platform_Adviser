@@ -85,7 +85,6 @@ return [
                         'platformsBlock' => $platformsBlock,
                     ];
                 }
-
             ];
         },
         'api/questions.json' => function () {
@@ -148,10 +147,7 @@ return [
                         'prelead_question' => $preleadQuestion,
                         'answers' => $answerBlocks,
                     ];
-
                 },
-
-
             ];
         },
         'api/dependent-questions.json' => function () {
@@ -214,10 +210,7 @@ return [
 //                        'prelead_question' => $preleadQuestion,
                         'answers' => $answerBlocks,
                     ];
-
                 },
-
-
             ];
         },
         'api/thank-you.json' => function () {
