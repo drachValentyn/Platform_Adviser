@@ -4,11 +4,12 @@
                v-bind:value="answer_response"
                name="index"
                @change="prev(answer_index)"
-               v-on:click="onClick(answer_index, answer_response, answer_question.question_id)"
+               v-on:click="onClick(answer_index, answer_response, answer_question.question_id, answer_question.question_type)"
                v-model="userResponses[index]"
         >
 
         {{answer_response.answer}}
+
     </label>
 </template>
 

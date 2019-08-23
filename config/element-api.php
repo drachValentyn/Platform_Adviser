@@ -90,12 +90,13 @@ return [
         'api/questions.json' => function () {
             return [
                 'elementType' => Entry::class,
-                'criteria' => ['section' => 'questions', 'type' => ['questionsList', 'blockOfQuestions'], 'level' => '1'],
+                'criteria' => ['section' => 'questions', 'type' => ['questionsList', 'checkboxQuestion', 'blockOfQuestions'], 'level' => '1'],
                 'pretty' => true,
                 'paginate' => false,
                 'transformer' => function (Entry $entry) {
                     $answerBlocks = [];
                     $preleadQuestion = [];
+                    $checkboxAnswerBlocks = [];
 
                     if ($entry->answer) {
                         foreach ($entry->answer->all() as $block) {
@@ -114,6 +115,7 @@ return [
                             foreach ($block->getFieldValue('dependentQuestion')->all() as $dependentQuestion) {
                                 $dependent_question[] = [
                                     'd_q_title' => $dependentQuestion->title,
+                                    'd_q_type' => $dependentQuestion->type->handle,
                                     'd_q_id' => $dependentQuestion->id,
                                     'd_q_uid' => $dependentQuestion->uid,
                                 ];
@@ -124,6 +126,27 @@ return [
                                 'id_answer' => $block->uid,
                                 'answerPoint' => $answer,
                                 'dependent_question' => $dependent_question,
+                            ];
+                        }
+                    }
+
+                    if ($entry->checkboxAnswer) {
+                        foreach ($entry->checkboxAnswer->all() as $block) {
+
+                            $checkbox_answer_dependent_question = [];
+                            foreach ($block->getFieldValue('dependentQuestion')->all() as $dependentQuestion) {
+                                $checkbox_answer_dependent_question[] = [
+                                    'd_q_title' => $dependentQuestion->title,
+                                    'd_q_type' => $dependentQuestion->type->handle,
+                                    'd_q_id' => $dependentQuestion->id,
+                                    'd_q_uid' => $dependentQuestion->uid,
+                                ];
+                            }
+
+                            $checkboxAnswerBlocks[] = [
+                                'answer' => $block->answers,
+                                'id_answer' => $block->uid,
+                                'dependent_question' => $checkbox_answer_dependent_question,
                             ];
                         }
                     }
@@ -146,6 +169,7 @@ return [
                         'question_level' => $entry->level,
                         'prelead_question' => $preleadQuestion,
                         'answers' => $answerBlocks,
+                        'checkbox_answers' => $checkboxAnswerBlocks,
                     ];
                 },
             ];
@@ -153,12 +177,13 @@ return [
         'api/dependent-questions.json' => function () {
             return [
                 'elementType' => Entry::class,
-                'criteria' => ['section' => 'questions', 'type' => 'dependentQuestion', 'level' => '2'],
+                'criteria' => ['section' => 'questions', 'level' => '2'],
                 'pretty' => true,
                 'paginate' => false,
                 'transformer' => function (Entry $entry) {
                     $answerBlocks = [];
 //                    $preleadQuestion = [];
+                    $checkboxAnswerBlocks = [];
 
                     if ($entry->answer) {
                         foreach ($entry->answer->all() as $block) {
@@ -177,6 +202,7 @@ return [
                             foreach ($block->getFieldValue('dependentQuestion')->all() as $dependentQuestion) {
                                 $dependent_question[] = [
                                     'd_q_title' => $dependentQuestion->title,
+                                    'd_q_type' => $dependentQuestion->type->handle,
                                     'd_q_id' => $dependentQuestion->id,
                                     'd_q_uid' => $dependentQuestion->uid,
                                 ];
@@ -191,15 +217,36 @@ return [
                         }
                     }
 
-                    if ($entry->preleadQuestion) {
-                        foreach ($entry->preleadQuestion->all() as $block) {
-                            $preleadQuestion[] = [
-                                'p_q_title' => $block->title,
-                                'p_q_id' => $block->id,
-                                'p_q_uid' => $block->uid,
+                    if ($entry->checkboxAnswer) {
+                        foreach ($entry->checkboxAnswer->all() as $block) {
+
+                            $checkbox_answer_dependent_question = [];
+                            foreach ($block->getFieldValue('dependentQuestion')->all() as $dependentQuestion) {
+                                $checkbox_answer_dependent_question[] = [
+                                    'd_q_title' => $dependentQuestion->title,
+                                    'd_q_type' => $dependentQuestion->type->handle,
+                                    'd_q_id' => $dependentQuestion->id,
+                                    'd_q_uid' => $dependentQuestion->uid,
+                                ];
+                            }
+
+                            $checkboxAnswerBlocks[] = [
+                                'answer' => $block->answers,
+                                'id_answer' => $block->uid,
+                                'dependent_question' => $checkbox_answer_dependent_question,
                             ];
                         }
                     }
+
+//                    if ($entry->preleadQuestion) {
+//                        foreach ($entry->preleadQuestion->all() as $block) {
+//                            $preleadQuestion[] = [
+//                                'p_q_title' => $block->title,
+//                                'p_q_id' => $block->id,
+//                                'p_q_uid' => $block->uid,
+//                            ];
+//                        }
+//                    }
 
                     return [
                         'question' => $entry->title,
@@ -209,6 +256,7 @@ return [
                         'question_level' => $entry->level,
 //                        'prelead_question' => $preleadQuestion,
                         'answers' => $answerBlocks,
+                        'checkbox_answers' => $checkboxAnswerBlocks,
                     ];
                 },
             ];
