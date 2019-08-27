@@ -9,7 +9,6 @@ import App from "./App"
 import "./app.css";
 import store from './store'
 
-
 import $ from 'jquery'
 window.$ = window.jQuery = $
 
