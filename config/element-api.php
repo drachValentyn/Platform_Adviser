@@ -162,7 +162,7 @@ return [
                     }
 
                     return [
-                        'question' => $entry->title,
+                        'question_title' => $entry->title,
                         'question_type' => $entry->type->handle,
                         'question_id' => $entry->id,
                         'question_uid' => $entry->uid,
@@ -249,7 +249,7 @@ return [
 //                    }
 
                     return [
-                        'question' => $entry->title,
+                        'question_title' => $entry->title,
                         'question_type' => $entry->type->handle,
                         'question_id' => $entry->id,
                         'question_uid' => $entry->uid,

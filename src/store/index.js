@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        result: []
+        result: [], checkboxes: []
     },
     modules: {
         linkResult,
