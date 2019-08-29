@@ -43,8 +43,8 @@ Vue.use(ReadMore);
 
 Vue.config.productionTip = false;
 
-Vue.http.options.root = 'http://pla.craft';
-// Vue.http.options.root = 'http://calculator.3339333.xyz';
+// Vue.http.options.root = 'http://pla.craft';
+Vue.http.options.root = 'http://calculator.3339333.xyz';
 
 Vue.http.options.emulateJSON = true;
 Vue.http.options.emulateHTTP = true;
