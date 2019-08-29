@@ -4,7 +4,7 @@
                v-bind:value="answer_response"
                name="index"
                v-bind:id="answer_index"
-               v-on:click="onClickCheckbox(index, answer_index, answer_response, dependent_question_id, dependent_question_title, checkedAnswers)"
+               v-on:click="onClickCheckbox(index, answer_index, answer_response, dependent_question_id, dependent_question_title, checkedAnswers); activateButton();"
                v-model="checkboxResponses[answer_response.answer]"
         >
 
@@ -15,6 +15,6 @@
 <script>
     export default {
         name: "CheckboxAnswers",
-        props: ['answer_response', 'answer_index', 'onClickCheckbox', 'index', 'checkboxResponses', 'dependent_question_id', 'dependent_question_title' ,'checkedAnswers' ]
+        props: ['answer_response', 'answer_index', 'onClickCheckbox', 'activateButton', 'index', 'checkboxResponses', 'dependent_question_id', 'dependent_question_title' ,'checkedAnswers' ]
     }
 </script>
