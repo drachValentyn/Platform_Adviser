@@ -22,7 +22,8 @@ export default {
         resultQuiz: [],
         shareInfo: [],
         changeResult: [],
-        result: []
+        result: [],
+        keyFB: '',
     },
     mutations: {
         createResult(state, payload) {
@@ -39,27 +40,36 @@ export default {
         async createResult({commit}, payload) {
             commit('clearError');
             commit('setLoading', true);
-
+            var key;
             try {
                 const newResult = new LinkResult(payload.resultQuiz);
 
-                const resultValue = await firebase.database().ref('results').push(newResult);
+                const resultValue = await firebase.database().ref('results').push(newResult)
 
-                //this.key = fbValue.key;
-                //console.log(resultValue.key);
+                    .then(function(snapshot) {
+                    key = snapshot.key; // "ada"
+                    //var childKey = snapshot.child("name/last").key; // "last"
+                    return key;
+                });
+                //this.keyFB = key;
+                // console.log(key);
+                //console.log(childKey);
+                //this.keyFB = resultValue.key;
+                //console.log(this.keyFB);
 
                 commit('setLoading', false);
 
                 commit('createResult', {
                     newResult,
-                    id: resultValue.key
+                    id: key
                 });
+                commit('createResult', key);
             } catch (error) {
                 commit('setError',error.message);
                 commit('setLoading', false);
                 throw error
             }
-
+            return key;
         },
 
         async loadResults({commit}) {

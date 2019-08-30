@@ -143,7 +143,7 @@
 
           setTimeout(()=>{
               this.copyingLinkText = 'Copy link!';
-          }, 2500)
+          }, 500)
       }
     },
 

@@ -6,7 +6,6 @@
                 <div v-for="(question, index) in quiz.data" :key="index">
                         <div v-show="index === questionIndex">
                             <div v-if="question.question_type === 'questionsList'">
-
                                 <div class="question">
                                     <p class="quiz-index">{{index+1}}/{{quiz.data.length}}</p>
                                         <h3 class="question">{{ question.question }}</h3>
