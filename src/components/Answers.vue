@@ -9,7 +9,6 @@
         >
 
         {{answer_response.answer}}
-
     </label>
 </template>
 
