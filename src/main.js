@@ -59,13 +59,13 @@ new Vue({
   delimiters: ["${", "}"],
   created() {
     let firebaseConfig = {
-      apiKey: "AIzaSyDekdG9ck9ClqFkPBcN3ao82f15mgFLyeI",
-      authDomain: "calculator-75ac5.firebaseapp.com",
-      databaseURL: "https://calculator-75ac5.firebaseio.com",
-      projectId: "calculator-75ac5",
+      apiKey: "AIzaSyAzHUB3iRTcDUwsADqyxhuXEImi3D1DIfs",
+      authDomain: "craft-calculator-498a8.firebaseapp.com",
+      databaseURL: "https://craft-calculator-498a8.firebaseio.com",
+      projectId: "craft-calculator-498a8",
       storageBucket: "",
-      messagingSenderId: "26592860978",
-      appId: "1:26592860978:web:8583b7bba3b8ec26"
+      messagingSenderId: "943433845943",
+      appId: "1:943433845943:web:cfc85fe2abd25abf"
     };
     firebase.initializeApp(firebaseConfig);
   }

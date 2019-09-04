@@ -17,9 +17,13 @@
                     <v-flex xs12 sm6 md3 class="quiz-list-change-res"
                             v-for="(response, index2) in question.answers"
                             :key="index2">
+<!--                        userResponses -&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--{{userResponses[index]}}-->
 
+<!--                        response &#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--{{response}}-->
                         <div class="quiz-item"
-                             :class="{ 'chosen': Object.entries(response).toString() === Object.entries(userResponses[index]).toString() }"
+                             :class="{ 'chosen': response.id_answer === userResponses[index].id_answer }"
                         >
                             <label class="quiz-label">
                                 <input type="radio"

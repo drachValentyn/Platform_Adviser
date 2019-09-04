@@ -42,11 +42,17 @@ export default new Router({
             props: true,
             name: 'resultShare',
             component: ResultShare,
+            meta: {
+                title: 'Share Result - Platform adviser',
+            },
         },
         {
             path: '/thank-you',
             name: 'ThankYou',
             component: ThankYou,
+            meta: {
+                title: 'Thank You - Platform adviser',
+            },
         },
         {
             path: '/change-result',

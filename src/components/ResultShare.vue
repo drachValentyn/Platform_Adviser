@@ -140,12 +140,7 @@
 
             <!--Share Block after Table-->
             <v-layout class="share-wrap">
-                <button class="share_result"
-                >share result</button>
-<!--                <button-->
-<!--                        class="share_result"-->
-<!--                        type="button" @click="showModal">share result</button>-->
-<!--                <modal v-show="isModalVisible" @close="closeModal" />-->
+                <button class="share_result"></button>
             </v-layout>
             <!--Share Block after Table-->
 
@@ -348,20 +343,8 @@
 
         .share_result {
             padding: 12px 0;
-            color: #98ca3e;
-            font-family: $additional-font;
-            font-size: 18px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            line-height: 1.33;
-            text-transform: uppercase;
             display: flex;
-
-            &:before {
-                content: url(../assets/images/share_icon.png);
-                padding-right: 20px;
-                display: inline-block;
-            }
+            height: 38px;
         }
 
         @media (min-width: 768px) {
