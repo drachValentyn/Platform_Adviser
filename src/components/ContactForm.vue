@@ -11,21 +11,21 @@
             <v-layout class="form-caption">
                 <v-flex xs1 md3 class="pixelgrow-logo">
                     <div v-for="data in footer" v-bind:key="data.index">
-                        <div  v-for="block in data" :key="block.image">
-                            <img :src="block.image" />
+                        <div v-for="block in data" :key="block.image">
+                            <img :src="block.image"/>
                         </div>
                     </div>
                 </v-flex>
                 <v-flex xs9 sm5 md9>
                     <p>Please call us</p>
                     <div v-for="data in footer" v-bind:key="data.index">
-                        <div  v-for="block in data" :key="block.phoneNumber">
+                        <div v-for="block in data" :key="block.phoneNumber">
                             <a :href="'tel:'+block.phoneNumber" class="phone">{{block.phoneNumber}}</a>
                             <p class="phone">{{block.phoneNumber}}</p>
                         </div>
                     </div>
                     <!--<div v-for="block in results.data" :key="block.id">-->
-                        <!--<p class="phone">{{block.phoneNumber}}</p>-->
+                    <!--<p class="phone">{{block.phoneNumber}}</p>-->
                     <!--</div>-->
                 </v-flex>
             </v-layout>
@@ -69,6 +69,14 @@
                               v-model="theUser.phone"
                 ></v-text-field>
 
+                <v-text-field class="input"
+                              id="link"
+                              type="text"
+                              name="link"
+                              :value="link"
+                              style="display: none"
+                ></v-text-field>
+
                 <v-textarea
                         solo
                         auto-grow
@@ -98,97 +106,97 @@
 </template>
 
 <script>
-  import Footer from './Footer'
-  export default {
-    name: "ContactForm",
-    data() {
-      return {
-        footer: [],
-        theUser: {
-          action: '/wheelform/message/send',
-          CRAFT_CSRF_TOKEN: window.csrfTokenValue,
-          form_id: 1,
-          name: null,
-          phone: null,
-          subject: null,
-          url: null,
+    import Footer from './Footer'
+
+    export default {
+        name: "ContactForm",
+        data() {
+            return {
+                footer: [],
+                theUser: {
+                    action: '/wheelform/message/send',
+                    CRAFT_CSRF_TOKEN: window.csrfTokenValue,
+                    form_id: 1,
+                    name: null,
+                    phone: null,
+                    subject: null,
+                    link: null,
+                },
+                link: null,
+                errors: null,
+                message: null,
+                valid: false,
+                emailRules: [
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+/.test(v) || 'E-mail must be valid'
+                ],
+                nameRules: [
+                    v => !!v || 'Name is required',
+                ],
+                results: [],
+            }
         },
-        errors: null,
-        message: null,
-        valid: false,
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+/.test(v) || 'E-mail must be valid'
-        ],
-        nameRules: [
-          v => !!v || 'Name is required',
-        ],
-        results: [],
-      }
-    },
-      props: {
-          url: String
-      },
-    created() {
-      this.$http.get('api/results.json')
-          .then(response => {
-                return response.json();
-              }, response => {
-                console.log(response)
-              }
-          )
-          .then(results => {
-            this.results = results;
-          });
-      this.$http.get('api/footer.json')
-          .then(response => {
-                return response.json();
-              }, response => {
-                console.log(response)
-              }
-          )
-          .then(response => {
-            this.footer = response;
-          });
-    },
-    computed: {
-      loading() {
-        return this.$store.getters.loading
-      },
-      csrfName() {
-        return window.csrfTokenName
-      },
-      csrfToken() {
-        return window.csrfTokenValue
-      }
-    },
-    methods: {
-      sendForm() {
-        if (this.$refs.form.validate()) {
-            // this.theUser.url = this.url;
-            // this.theUser.subject += ' ' + this.url;
-            this.message = this.url;
-          let data = this.theUser;
-          data[window.csrfTokenName] = window.csrfTokenValue;
+        props: ['link'],
+        created() {
+            this.$http.get('api/results.json')
+                .then(response => {
+                        return response.json();
+                    }, response => {
+                        console.log(response)
+                    }
+                )
+                .then(results => {
+                    this.results = results;
+                });
+            this.$http.get('api/footer.json')
+                .then(response => {
+                        return response.json();
+                    }, response => {
+                        console.log(response)
+                    }
+                )
+                .then(response => {
+                    this.footer = response;
+                });
+        },
+        computed: {
+            loading() {
+                return this.$store.getters.loading
+            },
+            csrfName() {
+                return window.csrfTokenName
+            },
+            csrfToken() {
+                return window.csrfTokenValue
+            }
+        },
+        methods: {
+            sendForm() {
+                if (this.$refs.form.validate()) {
+                    this.theUser.link = this.link;
+                    // this.theUser.subject += ' ' + this.url;
+                    //this.message = this.url;
+                    let data = this.theUser;
+                    data[window.csrfTokenName] = window.csrfTokenValue;
 
-          let headers = {
-            'Content-Type': 'multipart/form-data',
-          };
+                    let headers = {
+                        'Content-Type': 'multipart/form-data',
+                    };
 
-          this.$http.post('/', data, {headers: headers})
-              .then(function (response) {
-                console.log(response);
-                if (response.body.success) {
-                  this.$router.push('/thank-you')
+                    this.$http.post('/', data, {headers: headers})
+                        .then(function (response) {
+                            console.log(response);
+                            if (response.body.success) {
+                                this.$router.push('/thank-you')
+                            }
+                            if (response.body.error) {
+                                this.errors = response.body.error
+                            }
+                        })
                 }
-                if (response.body.error) {
-                  this.errors = response.body.error
-                }
-              })
+            }
         }
-      }
     }
-  }
 </script>
 
 <style scoped>

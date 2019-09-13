@@ -45,8 +45,6 @@ export default {
 
                 resultValue = await firebase.database().ref('results').push(newResult);
 
-                console.log(resultValue.key);
-
                 commit('setLoading', false);
 
                 commit('createResult', {

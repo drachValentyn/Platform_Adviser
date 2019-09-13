@@ -253,8 +253,7 @@
             </v-layout>
             <!--Share Block after Table-->
 
-            <!--<contactForm :url="url"></contactForm>-->
-            <contactForm url="url"></contactForm>
+            <contactForm :link="shareId"/>
 
         </v-container>
 
@@ -376,7 +375,7 @@
         watch: {
             shareId: function () {
                 //console.log('watch');
-                console.log(this.shareId);
+                //console.log(this.shareId);
             }
         },
         mounted:
@@ -384,12 +383,18 @@
 
                 let store = this.$store.state.result;
                 let storeResult = [];
+                let checkboxResult = [];
 
                 this.shareLink();
 
                 for (let keys in store) {
                     let storeValue = store[keys];
+
                     storeResult.push(storeValue.answerPoint)
+
+                    if(typeof storeValue.answers !== "undefined"){
+                        checkboxResult.push(storeValue.answers)
+                    }
                 }
 
                 if (Object.keys(storeResult).length === 0) {
@@ -401,10 +406,13 @@
                     for (let i = 0; i < keys.length; i++) {
                         let val = storeResult[keys[i]];
                         for (let key in val) {
+
                             let value = val[key];
                             intermResult.push(value)
                         }
                     }
+
+
 
                     let sortResult = [];
                     let found;
@@ -422,6 +430,7 @@
                         }
                     }
                     this.resultQuiz = sortResult;
+                    this.resultQuiz.push(checkboxResult);
 
                     return true;
                 }
@@ -431,8 +440,18 @@
                 let sortRes = [];
                 let allRes = [];
                 let endResult = [];
+                let checkAnsw = [];
+
                 sortRes = this.sortResult(this.resultQuiz);
                 allRes = this.results.data;
+
+                for (let checkBox in this.resultQuiz){
+                    if(Array.isArray(this.resultQuiz[checkBox])){
+                        let box = this.resultQuiz[checkBox];
+                        checkAnsw.push(box)
+                    }
+                }
+
 
                 let intermResult = [];
                 if (allRes) {
@@ -452,9 +471,12 @@
                     for (let j = 0; j < intermResult.length; j++) {
                         if (sortRes[i].title === intermResult[j].platformsEntries) {
                             endResult.push(intermResult[j]);
+
                         }
                     }
                 }
+
+                endResult.checkBox = checkAnsw;
 
                 if (Object.keys(endResult).length !== 0) {
 
@@ -473,14 +495,17 @@
 
                     //-------------For Sorting Comparison Item
                     let firstSort = endResult;
-                    let arrSort;
+                    let arrSort = [];
                     let arrSort1;
                     let arrSort2 = [];
-                    for (let sortKey in firstSort) {
-                        arrSort = firstSort[sortKey];
+
+
+                    for (let i = 0; i < 1; i++) {
+                        arrSort.push(firstSort[i]);
+
                     }
-                    for (let key in arrSort.comparison) {
-                        arrSort1 = arrSort.comparison[key];
+                    for (let key in arrSort[0].comparison) {
+                        arrSort1 = arrSort[0].comparison[key];
                         arrSort2.push(arrSort1.comparisonsNameTitle)
                     }
 
