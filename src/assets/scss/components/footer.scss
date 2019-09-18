@@ -7,7 +7,7 @@
   position: relative;
 
   @media (min-width: 1025px) {
-    position: absolute;
+    //position: absolute;
     margin-top: 0;
 
   }
@@ -33,11 +33,11 @@
 
 .result-footer {
   .footer-wrap {
-    margin-top: 10vh;
+    //margin-top: 10vh;
 
     @media (min-width: 1025px) {
-      margin-top: 13vh;
-      position: relative;
+      //margin-top: 13vh;
+      //position: relative;
     }
   }
 }

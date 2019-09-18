@@ -9,7 +9,7 @@ production = process.env.NODE_ENV === "production";
 config = {
   protocol: "http",
   host: "localhost",
-  port: 8080,
+  port: 8081,
   watchDir: "src"
 };
 

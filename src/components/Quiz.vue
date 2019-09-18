@@ -1,6 +1,11 @@
 <template>
     <div class="main-content">
-        <router-link to="/" class="back-link result-link">Back to home</router-link>
+        <div class="back-link result-link">
+            <a v-if="questionIndex > 0" @click="previous">
+                Back to previous question
+            </a>
+            <router-link v-else to="/" >Back to home</router-link>
+        </div>
         <v-container>
             <div class="quiz">
                 <div v-for="(question, index) in quiz.data" :key="index">
@@ -106,31 +111,17 @@
                                     <div v-for="(response5, index5) in question.checkbox_answers" :key="index5"
                                          class="quiz-item" :class="{ 'chosen': checkboxResponses[response5.answer] }">
 
-
-                                        <label class="quiz-label">
-                                            <input type="checkbox"
-                                                   v-bind:value="answer_response"
-                                                   name="index"
-                                                   v-bind:id="answer_index"
-                                                   v-on:click="onClickCheckbox(index, answer_index, answer_response, dependent_question_id, dependent_question_title, checkedAnswers); activateButton();"
-                                                   v-model="checkboxResponses[index5]"
-                                            >
-                                            answer_response -- {{answer_response}}
-                                            {{answer_response.answer}}
-                                        </label>
-
-                                        <!--                                        <checkboxAnswers-->
-                                        <!--                                                :answer_response="response5"-->
-                                        <!--                                                :answer_index="index5"-->
-                                        <!--                                                :dependent_question_id="question.question_id"-->
-                                        <!--                                                :dependent_question_title="question.question_title"-->
-                                        <!--                                                :checkboxResponses="checkboxResponses[response5.answer]"-->
-                                        <!--                                                :index="index5"-->
-                                        <!--                                                :activateButton="activateButton"-->
-                                        <!--                                                :onClickCheckbox="onClickCheckbox"-->
-                                        <!--                                                :checkedAnswers="checkedAnswers"-->
-                                        <!--                                        />-->
-
+                                        <checkboxAnswers
+                                                :answer_response="response5"
+                                                :answer_index="index5"
+                                                :dependent_question_id="question.question_id"
+                                                :dependent_question_title="question.question_title"
+                                                :checkboxResponses="checkboxResponses[response5.answer]"
+                                                :index="index5"
+                                                :activateButton="activateButton"
+                                                :onClickCheckbox="onClickCheckbox"
+                                                :checkedAnswers="checkedAnswers"
+                                        />
 
                                     </div>
                                 </div>
@@ -144,8 +135,10 @@
                     </div>
                 </div>
             </div>
-            <footers></footers>
+
         </v-container>
+
+        <footers/>
     </div>
 </template>
 <script>
@@ -196,6 +189,10 @@
                 })
         },
         methods: {
+            previous: function() {
+                this.questionIndex--;
+            },
+
             prev() {
                 setTimeout(function () {
                     // console.log(this.userResponses[0].id_answer);
@@ -210,7 +207,6 @@
                     this.$router.push('/result');
                     //this.$router.push('/change-result');
                 }
-                // console.log(this.userResponses);
             },
             onClick(index, response, question_id, question_type) {
                 this.chosen = index;
@@ -220,49 +216,30 @@
                 }
             },
             onClickCheckbox(value) {
-                //console.log(value)
                 let el = this.userResponses;
                 let depQ = this.dependent_quiz.data;
                 let checkbox_answers;
                 let arrCheck = [];
 
-                //console.log(this.dependent_quiz.data)
-
                 let id_quest;
                 for (let ft in el){
-                    id_quest = el[ft].dependent_question[0].d_q_id
-                    //console.log(el[ft].dependent_question[0])
+                    if (el[ft].dependent_question[0]) {
+                        id_quest = el[ft].dependent_question[0].d_q_id
+                    }
                 }
                 for (let q in depQ){
                     if (depQ[q].question_id === id_quest) {
                         checkbox_answers = depQ[q].checkbox_answers;
-
                         for (let x in checkbox_answers){
-                            console.log(value);
-
                             if (value === checkbox_answers[x].id_answer ) {
                                 checkbox_answers[x]['trueFalse'] = true
                             }
                             arrCheck.push(checkbox_answers[x])
-                            //console.log(arrCheck)
                         }
-
-
-
                     }
-
-
-
                 }
 
-                this.checkedAnswers = arrCheck
-                console.log(this.checkedAnswers)
-                // checkedAnswers.checkbox_question_title = question_title;
-                    // checkedAnswers.checkbox_question_id = question_id;
-                    // checkedAnswers.answers = this.checkboxResponses;
-                    //this.userResponses.splice([question_index], 1, {});
-                    //console.log(checkedAnswers);
-                    //console.log(this.userResponses);
+                this.checkedAnswers = arrCheck;
 
             },
             activateButton() {
@@ -270,21 +247,21 @@
             },
             score() {
                 let maxEl = this.userResponses;
-
-                maxEl.checkBox = this.checkedAnswers
-
-                // let checkboxes_info = this.checkedAnswers;
-
-                //console.log(maxEl);
-                //console.log(this.checkboxResponses);
+                maxEl.checkBox = this.checkedAnswers;
                 this.$store.state.result = maxEl;
-                //this.$store.state.checkboxes = checkboxes_info;
-                // return [maxEl, checkboxes_info];
             },
         },
     }
 </script>
-<style scoped>
+
+<style scoped lang="scss">
+
+    .main-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
     .theme--light.button-quiz.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline) {
         background-color: transparent !important;
         width: 160px;
@@ -293,4 +270,18 @@
     .theme--light.button-quiz:not(.v-btn--icon):not(.v-btn--flat) {
         background-color: transparent !important;
     }
+    .footer-wrap {
+        margin-top: 10vh;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        text-align: center;
+        position: relative;
+        @media (min-width: 1025px) {
+            position: relative;
+            margin-top: 0;
+
+        }
+    }
+
 </style>

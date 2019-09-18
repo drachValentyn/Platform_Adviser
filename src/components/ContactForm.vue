@@ -1,7 +1,7 @@
 <template>
 
     <v-layout collumn wrap justify-center>
-        <v-flex xs12 md6 lg4 offset-lg1 text-sm-center>
+        <v-flex xs12 md6 lg4 offset-lg1>
             <div v-for="block in results.data" :key="block.id">
                 <h2 class="contact-heading">{{block.titleForm}}</h2>
             </div>
@@ -9,7 +9,7 @@
         <v-flex xs12 md6 lg5 offset-lg1>
 
             <v-layout class="form-caption">
-                <v-flex xs1 md3 class="pixelgrow-logo">
+                <v-flex xs1 md2 class="pixelgrow-logo">
                     <div v-for="data in footer" v-bind:key="data.index">
                         <div v-for="block in data" :key="block.image">
                             <img :src="block.image"/>
@@ -21,7 +21,6 @@
                     <div v-for="data in footer" v-bind:key="data.index">
                         <div v-for="block in data" :key="block.phoneNumber">
                             <a :href="'tel:'+block.phoneNumber" class="phone">{{block.phoneNumber}}</a>
-                            <p class="phone">{{block.phoneNumber}}</p>
                         </div>
                     </div>
                     <!--<div v-for="block in results.data" :key="block.id">-->
@@ -33,9 +32,6 @@
             <v-form v-model="valid" ref="form" lazy-validation class="forms" autocomplete="off" justify-center
             >
 
-                <div class="errors" v-if="errors">
-                    {{ errors }}
-                </div>
 
                 <v-text-field class="input"
                               label="Name *"
@@ -87,7 +83,19 @@
                         label="Describe your question (optional)"
                 ></v-textarea>
 
-                <v-btn class="button-main"
+                <div class="v-text-field__details" v-if="errors">
+                    <div class="v-messages theme--light error--text">
+                        <div class="v-messages__wrapper">
+                            <div class="v-messages__message" v-for="(err,index) in errors">
+                                {{ err.toString() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <v-btn class="button-main button-main-form"
                        @click="sendForm"
                        :loading="loading"
                        :disabled="!valid || loading"
@@ -189,8 +197,8 @@
                             if (response.body.success) {
                                 this.$router.push('/thank-you')
                             }
-                            if (response.body.error) {
-                                this.errors = response.body.error
+                            if (response.body.errors) {
+                                this.errors = response.body.errors
                             }
                         })
                 }
@@ -201,7 +209,7 @@
 
 <style scoped>
     .pixelgrow-logo {
-        margin-right: 20px;
+        margin-bottom: 45px;
     }
 
 </style>

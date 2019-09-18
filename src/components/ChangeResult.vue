@@ -62,37 +62,49 @@
                                     <div v-for="(response4, index4) in checkAnswer"
                                          :key="index4"
                                          class="quiz-item"
-                                         :class="{ chosen:  response4.trueFalse }"
+                                         :class="{ 'chosen': checkboxResponses[response4.answer] }"
                                     >
 
-                                        <label class="quiz-label">
-
-                                            <input type="checkbox"
-                                                   :name="dq_index"
-                                                   :value="response4.trueFalse"
-                                                   v-model="response4.trueFalse"
-                                            >
-                                            {{response4.answer}}
-                                        </label>
+                                        <checkboxAnswersCh
+                                                :answer_response="response4"
+                                                :answer_index="index4"
+                                                :dependent_question_id="dependent_question.question_id"
+                                                :dependent_question_title="dependent_question.question_title"
+                                                :checkboxResponses="checkboxResponses"
+                                                :index="index"
+                                                :onClickCheckbox="onClickCheckbox"
+                                                :checkedAnswers="checkedAnswers"
+                                        />
+<!--                                        <label class="quiz-label">-->
+<!--                                            <input type="checkbox"-->
+<!--                                                   :name="dq_index"-->
+<!--                                                   :value="response4.answer"-->
+<!--                                                   v-model="response4.trueFalse"-->
+<!--                                            >-->
+<!--                                            {{response4.answer}}
+:class="{ chosen:  response4.trueFalse }"-->
+<!--                                        </label>-->
 
                                     </div>
 
 
                                     <div v-for="(response3, index3) in dependent_question.answers" :key="index3"
                                          class="quiz-item">
+                                        <div class="quiz-item"
+                                             :class="{ 'chosen': response3.id_answer === userResponses[index3].id_answer }"
+                                        >
+                                            <label class="quiz-label">
+                                                <input type="radio"
+                                                       :name="'index'+index3"
+                                                       :value="response3"
+                                                       v-model="userResponses[index3]"
+                                                       :checked="response3 === userResponses[index3]"
+                                                >
 
-                                        <!--                                        :class="{ 'chosen': response.id_answer === userResponses[index].id_answer }"-->
-                                        <answers
-                                                :answer_response="response3"
-                                                :answer_index="index3"
-                                                :answer_question="dependent_question"
-                                                :chosen="chosen"
-                                                :userResponses="userResponses"
-                                                :index="index"
-                                                :onClick="onClick"
-                                                :prev="prev"
+                                                {{response3.answer}}
 
-                                        />
+                                            </label>
+                                        </div>
                                     </div>
 
 
@@ -114,21 +126,15 @@
                         <div class="quiz-list">
                             <div v-for="(response5, index5) in question.checkbox_answers" :key="index5"
                                  class="quiz-item">
-                                <!--                                :class="{ 'chosen': checkboxResponses[response5.answer] }"-->
-                                response5 -- {{response5}}
-                                checkboxResponses -- {{checkboxResponses}}
 
-
-                                <checkboxAnswers
-                                        :answer_response="response5"
-                                        :answer_index="index5"
-                                        :dependent_question_id="question.question_id"
-                                        :dependent_question_title="question.question_title"
-                                        :checkboxResponses="checkboxResponses"
-                                        :index="index"
-                                        :onClickCheckbox="onClickCheckbox"
-                                        :checkedAnswers="checkedAnswers"
-                                />
+                                <label class="quiz-label">
+                                    <input type="checkbox"
+                                           :name="index5"
+                                           :value="response5.answer"
+                                           v-model="checkboxResponses"
+                                    >
+                                    {{response5.answer}}
+                                </label>
 
                             </div>
                         </div>
@@ -147,22 +153,22 @@
 <script>
     import Footer from './Footer'
     import Answers from './Answers'
-    import CheckboxAnswers from './CheckboxAnswers'
+    import CheckboxAnswersCh from './CheckboxAnswersCh'
 
     export default {
         name: "ChangeResult",
         props: ['answer_response', 'answer_index', 'index', 'dependent_question_id', 'dependent_question_title'],
         components: {
             answers: Answers,
-            checkboxAnswers: CheckboxAnswers,
+            checkboxAnswersCh: CheckboxAnswersCh,
             footers: Footer,
         },
         data() {
             return {
                 quizRes: {},
                 ids: {},
-                userResponses: {},
-                //chosen: true,
+                userResponses: [],
+                chosen: true,
 
                 isDisabled: false,
                 checkboxResponses: {},
@@ -199,11 +205,12 @@
 
         },
         watch: {
-          // chosen(val){
-          //     console.log('chosen')
-          //     console.log(val)
-          //     this.chosen = val
-          // }
+            checkAnswer(){
+              //console.log(this.checkAnswer)
+          },
+            chosen(){
+              //console.log(this.chosen)
+          }
         },
         mounted() {
             // questions
@@ -221,39 +228,19 @@
             this.userResponses = this.loadScore();
             if (Object.keys(this.userResponses).length === 0) {
                 this.$router.push('/quiz'); //--------------------------- Redirect to quiz if result null
-            } else {
-
-                console.log(this.userResponses);
-                // let keys = Object.keys(this.userResponses[3].answers);
-                // let numkeys = Object.keys(this.userResponses);
-                // //console.log( Object.keys(this.userResponses).length);
-                //
-                // let arrSort =[];
-                // console.log(keys);
-                //
-                // for (let i = 0; i < numkeys.length; i++) {
-                //
-                //
-                //     arrSort.push(keys[i])
-                // }
-                // // for (let Key in keys) {
-                // //     arrSort.push(keys[Key])  ;
-                // // }
-                //
-                // this.checkboxResponses = arrSort;
-
-
             }
-
 
         },
         methods: {
+
             loadScore() {
                 let storeResult = [];
                 storeResult = this.$store.state.result;
                 let intermResult = [];
-                this.checkAnswer = storeResult.checkBox
-                console.log(this.checkAnswer);
+
+                this.checkAnswer = storeResult.checkBox;
+
+
                 if (storeResult) {
                     let keys = Object.keys(storeResult);
                     for (let i = 0; i < keys.length; i++) {
@@ -281,7 +268,16 @@
                         }
                     }
             },
-
+            onClickCheckbox(question_index, index4, response, question_id, question_title, checkedAnswers) {
+                if (response) {
+                    checkedAnswers.checkbox_question_title = question_title;
+                    checkedAnswers.checkbox_question_id = question_id;
+                    checkedAnswers.answers = this.checkboxResponses;
+                    this.userResponses.splice([question_index], 1, {});
+                    console.log(checkedAnswers);
+                    console.log(this.userResponses);
+                }
+            },
 
         },
 

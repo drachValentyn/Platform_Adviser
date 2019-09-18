@@ -1,6 +1,8 @@
 <template>
     <div class="main-content thank-content">
-        <router-link to="/" class="esc-link"></router-link>
+        <div class="esc-link">
+            <router-link to="/"></router-link>
+        </div>
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
                 <v-flex xs12 v-for="(info, index) in shareLink()" :key="index">

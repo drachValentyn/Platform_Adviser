@@ -15,6 +15,10 @@
   letter-spacing: normal;
   @include fluid-type(30px, 28px);
   line-height: 36px;
+  transition: 0.3s all;
+  &:hover{
+    color: $primary-green;
+  }
   @media all and (min-width: 960px) {
     line-height: 32px;
   }
@@ -83,9 +87,10 @@
 #describe {
   resize: none;
   max-height: 96px;
-  min-height: 40px;
-  height: 40px;
+  min-height: 33px;
+  height: 33px!important;
   margin-top: 0;
+  opacity: 1!important;
 }
 .v-textarea.v-text-field--box.v-text-field--single-line #describe {
   min-height: 40px;
@@ -109,7 +114,6 @@
 
 .theme--light.v-input:not(.v-input--is-disabled) input, .theme--light.v-input:not(.v-input--is-disabled) #describe {
   color: $input-text;
-  opacity: 0.5;
 }
 
 .v-input.input.v-text-field.v-text-field--single-line.v-text-field--solo.v-text-field--enclosed.v-input--has-state.theme--light.error--text {
@@ -120,3 +124,27 @@
   background-color: $primary-green !important;
 }
 
+.button-main-form{
+  margin-bottom: 40px!important;
+  @media all and (min-width: 992px) {
+    margin-bottom: 60px!important;
+  }
+}
+
+
+
+#describe{
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    background-color:#4d4a6f;
+    width:10px
+  }
+  &::-webkit-scrollbar-track {
+    background-color:#221f44;
+    border-radius:10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color:#4d4a6f;
+    border-radius:10px;
+  }
+}

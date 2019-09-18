@@ -94,10 +94,13 @@
 
 .multi_select{
   width: 100%;
-  margin-top: -50px;
+  margin-top: -10px;
   margin-bottom: 30px;
   font-family: $main-font;
   @include fluid-type(17px, 19px);
+  @media (min-width: 1025px) {
+    margin-top: -50px;
+  }
 }
 
 .button-main{

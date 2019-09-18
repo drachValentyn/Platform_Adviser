@@ -1,8 +1,10 @@
 <template>
     <div class="main-content">
 
+        <div class="back-link result-link">
+            <router-link to="/quiz" class="">Start again</router-link>
+        </div>
 
-        <router-link to="/quiz" class="back-link result-link">Start again</router-link>
         <v-container v-if="status" grid-list-md>
 
             <v-layout row wrap text-xs-center text-md-center class="capture-recomendation">
@@ -15,8 +17,9 @@
                         {{finishResult[1].platformsEntries}} and {{finishResult[2].platformsEntries}} are suitable.
                         Please find an explanation on why we think so below.</p>
                 </div>
-
-                <router-link to="/change-result" class="back-link back-change-link">Change answers</router-link>
+                <div class="back-link back-change-link">
+                    <router-link to="/change-result" class=" ">Change answers</router-link>
+                </div>
 
             </v-layout>
 
@@ -43,7 +46,8 @@
                         </div>
                         <div class="recommendation-item-main">
                             <h1 class="best-platform-title" v-html="bestPlatform.platformsName"></h1>
-                            <read-more class="more" more-str="More" :text="bestPlatform.platformsDescription" link="#"
+                            <read-more v-html class="more" more-str="More" :text="bestPlatform.platformsDescription"
+                                       link="#"
                                        less-str="Read less" :max-chars="179"></read-more>
                             <a class="link-examples" target="_blank" :href="bestPlatform.linkToExample">site
                                 examples</a>
@@ -164,6 +168,7 @@
                                 </h2>
                             </slot>
                         </header>
+
 
                         <section class="modal-body">
                             <slot name="body">
@@ -367,15 +372,13 @@
                 )
                 .then(results => {
                     this.results = results;
-                    if(this.results){
+                    if (this.results) {
                         this.comparisonResult()
                     }
                 });
         },
         watch: {
             shareId: function () {
-                //console.log('watch');
-                //console.log(this.shareId);
             }
         },
         mounted:
@@ -392,7 +395,7 @@
 
                     storeResult.push(storeValue.answerPoint)
 
-                    if(typeof storeValue.answers !== "undefined"){
+                    if (typeof storeValue.answers !== "undefined") {
                         checkboxResult.push(storeValue.answers)
                     }
                 }
@@ -411,7 +414,6 @@
                             intermResult.push(value)
                         }
                     }
-
 
 
                     let sortResult = [];
@@ -445,8 +447,8 @@
                 sortRes = this.sortResult(this.resultQuiz);
                 allRes = this.results.data;
 
-                for (let checkBox in this.resultQuiz){
-                    if(Array.isArray(this.resultQuiz[checkBox])){
+                for (let checkBox in this.resultQuiz) {
+                    if (Array.isArray(this.resultQuiz[checkBox])) {
                         let box = this.resultQuiz[checkBox];
                         checkAnsw.push(box)
                     }
@@ -485,10 +487,10 @@
                         key: ''
                     };
 
-                   this.$store.dispatch('createResult', res)
+                    this.$store.dispatch('createResult', res)
                         .then(response => {
                             let responseKey = response.key;
-                            let tmp = { url: responseKey };
+                            let tmp = {url: responseKey};
                             let copyUrl = Object.assign({}, tmp);
                             this.shareId = window.location.href + '/' + copyUrl.url;
                         });
@@ -504,14 +506,16 @@
                         arrSort.push(firstSort[i]);
 
                     }
-                    for (let key in arrSort[0].comparison) {
-                        arrSort1 = arrSort[0].comparison[key];
-                        arrSort2.push(arrSort1.comparisonsNameTitle)
+                    if (arrSort[0].comparison) {
+                        for (let key in arrSort[0].comparison) {
+                            arrSort1 = arrSort[0].comparison[key];
+                            arrSort2.push(arrSort1.comparisonsNameTitle)
+                        }
                     }
 
                     this.compTitle = arrSort2;
                     this.finishResult = endResult;
-                    if (this.finishResult){
+                    if (this.finishResult) {
                         this.status = true;
                         return true;
                     }
@@ -551,13 +555,14 @@
                 let infoResult = this.$store.getters.shareInfo;
 
                 for (let key in infoResult) {
-
                     let value = infoResult[key];
+
                     this.shareInfo.title = value.infoWithShareLink[0].titleLink;
                     this.shareInfo.description = value.infoWithShareLink[0].descriptionLink;
                     this.shareInfo.quote = value.infoWithShareLink[0].quoteLink;
 
                 }
+                return this.shareInfo
             }
 
         },
@@ -600,7 +605,7 @@
         background-color: #464085;
 
         .share_result {
-            padding: 12px 0;
+            padding: 20px 0;
             color: #98ca3e;
             font-family: $additional-font;
             font-size: 18px;
@@ -611,6 +616,7 @@
             display: flex;
             outline: none;
             text-decoration: none;
+
             &:before {
                 content: url(../assets/images/share_icon.png);
                 padding-right: 20px;

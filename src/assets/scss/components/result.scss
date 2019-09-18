@@ -79,7 +79,7 @@
 
 .recommendation {
   .theme--light.v-sheet {
-    height: 100%;
+    //height: 100%;
     max-width: 384px;
     margin: 0 auto;
     border-radius: 8px;
@@ -137,11 +137,15 @@
 }
 
 .more {
-  text-align: left;
   margin-bottom: 62px;
-
   p {
     display: inline;
+  }
+  & > p > p:not(:last-child){
+    display: inline-block!important;
+  }
+  & > p > p:last-child{
+    display: inline!important;
   }
 }
 

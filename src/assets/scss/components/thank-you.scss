@@ -1,13 +1,20 @@
-.esc-link:before {
-  content: url(../images/icon-cross.svg);
-  display: block;
-  padding-top: 16px;
-  margin-right: 24px;
+.esc-link {
   text-align: right;
-  @media all and (min-width: 960px) {
-    margin-right: 48px;
-    padding-top: 48px;
+  a{
+    padding-top: 16px;
+    margin-right: 24px;
+    text-align: right;
+    display: inline-block;
+    &:before{
+      content: url(../images/icon-cross.svg);
+      display: block;
+    }
+    @media all and (min-width: 960px) {
+      margin-right: 48px;
+      padding-top: 48px;
+    }
   }
+
 }
 
 .thank-content {
