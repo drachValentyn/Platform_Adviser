@@ -8,6 +8,8 @@ import Components from "./components";
 import App from "./App"
 import "./app.css";
 import store from './store'
+import 'vuetify/src/stylus/app.styl'
+import * as firebase from 'firebase'
 
 
 import $ from 'jquery'
@@ -16,8 +18,8 @@ window.$ = window.jQuery = $
 
 import router from './routes'
 import ReadMore from 'vue-read-more';
+import VuePageTransition from 'vue-page-transition'
 
-import * as firebase from 'firebase'
 
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
@@ -37,11 +39,9 @@ Vue.use(Vuetify, {
   iconfont: 'faSvg'
 });
 
-
-
 Vue.use(SocialSharing);
-Vue.use(Vuetify);
 Vue.use(ReadMore);
+Vue.use(VuePageTransition)
 
 Vue.config.productionTip = false;
 

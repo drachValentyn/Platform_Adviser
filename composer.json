@@ -8,10 +8,10 @@
   "homepage": "https://craftcms.com/",
   "type": "project",
   "require": {
-    "craftcms/cms": "3.3.3",
+    "craftcms/cms": "3.3.4.1",
     "vlucas/phpdotenv": "^2.4.0",
     "nystudio107/craft-twigpack": "1.1.8",
-    "xpertbot/craft-wheelform": "2.3.1",
+    "xpertbot/craft-wheelform": "2.3.4",
     "craftcms/element-api": "2.6.0",
     "craftcms/redactor": "2.4.0",
     "verbb/super-table": "2.3.0"

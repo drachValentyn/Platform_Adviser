@@ -95,6 +95,18 @@ h2 {
 
 }
 
+
+.back-change-link{
+  text-align: left;
+  margin-left: 8px;
+  a{
+    margin-right: 8px;
+    &:before {
+      content: url(../images/ic-arrow-back-24px-ic-edit-24px.svg);
+    }
+  }
+}
+
 /* Shrink */
 .quiz-item {
   display: inline-block;
@@ -107,8 +119,8 @@ h2 {
   -webkit-transition-property: transform;
   transition-property: transform;
   &:hover, &:focus, &:active {
-    -webkit-transform: scale(0.9);
-    transform: scale(0.9);
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
   }
 }
 .hvr-shrink

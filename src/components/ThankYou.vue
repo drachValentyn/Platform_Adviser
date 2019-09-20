@@ -3,6 +3,11 @@
         <div class="esc-link">
             <router-link to="/"></router-link>
         </div>
+        <div class="thank-you-logo">
+            <a href="http://pixelgrow.com/" target="_blank">
+                <img src="../assets/images/pg-logo.svg" alt="Pixel Grow Logo">
+            </a>
+        </div>
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
                 <v-flex xs12 v-for="(info, index) in shareLink()" :key="index">
@@ -90,5 +95,7 @@
 </script>
 
 <style scoped>
-
+ .thank-you-logo{
+     text-align: center;
+ }
 </style>

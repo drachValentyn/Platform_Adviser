@@ -2,7 +2,9 @@
     <div class="main-content">
 
         <div class="back-link result-link">
+
             <router-link to="/quiz" class="">Start again</router-link>
+
         </div>
 
         <v-container v-if="status" grid-list-md>
@@ -17,8 +19,8 @@
                         {{finishResult[1].platformsEntries}} and {{finishResult[2].platformsEntries}} are suitable.
                         Please find an explanation on why we think so below.</p>
                 </div>
-                <div class="back-link back-change-link">
-                    <router-link to="/change-result" class=" ">Change answers</router-link>
+                <div class="back-change-link">
+                    <router-link to="/change-result">Change answers</router-link>
                 </div>
 
             </v-layout>
@@ -274,11 +276,10 @@
             </v-flex>
         </v-container>
 
-        <v-container class="result-footer">
-            <v-footer color="transparent">
-                <footers></footers>
-            </v-footer>
-        </v-container>
+
+
+        <footers v-if="loading"/>
+
 
 
     </div>
@@ -307,6 +308,7 @@
                     quote: '',
                 },
                 status: false,
+                loading: false,
                 shareId: '',
                 slickOptionsTop: {
                     slidesToShow: 3,
@@ -517,6 +519,7 @@
                     this.finishResult = endResult;
                     if (this.finishResult) {
                         this.status = true;
+                        this.loading = true;
                         return true;
                     }
 
@@ -562,6 +565,7 @@
                     this.shareInfo.quote = value.infoWithShareLink[0].quoteLink;
 
                 }
+                //console.log(this.shareInfo)
                 return this.shareInfo
             }
 
@@ -751,6 +755,8 @@
         }
 
     }
+
+
 
 
     /* Modals

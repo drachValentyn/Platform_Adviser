@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ca359e0837458570fd6181af755e1b0",
+    "content-hash": "1eb4c6598fe703cc4cc2c58bedfebe46",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -288,11 +288,11 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "3.3.3",
+            "version": "3.3.4.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/f80576531d23f44f51dd04c5101de1593256cd6a",
-                "reference": "f80576531d23f44f51dd04c5101de1593256cd6a",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/411852758f009292eb203c89e24dc83e0445c44c",
+                "reference": "411852758f009292eb203c89e24dc83e0445c44c",
                 "shasum": ""
             },
             "require": {
@@ -370,7 +370,7 @@
                 "docs": "https://docs.craftcms.com/v3/",
                 "rss": "https://github.com/craftcms/cms/releases.atom"
             },
-            "time": "2019-09-12T17:24:17+00:00"
+            "time": "2019-09-17T22:35:58+00:00"
         },
         {
             "name": "craftcms/element-api",
@@ -3065,11 +3065,11 @@
         },
         {
             "name": "voku/portable-utf8",
-            "version": "5.4.20",
+            "version": "5.4.21",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-utf8/zipball/a0ebc4908326cb6ee282acab250916bbb1b5256c",
-                "reference": "a0ebc4908326cb6ee282acab250916bbb1b5256c",
+                "url": "https://api.github.com/repos/voku/portable-utf8/zipball/df543931d92b8403e9b5b38e56abdd24851d8cff",
+                "reference": "df543931d92b8403e9b5b38e56abdd24851d8cff",
                 "shasum": ""
             },
             "require": {
@@ -3126,7 +3126,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2019-09-15T22:59:31+00:00"
+            "time": "2019-09-17T14:53:36+00:00"
         },
         {
             "name": "voku/stop-words",
@@ -3348,11 +3348,11 @@
         },
         {
             "name": "xpertbot/craft-wheelform",
-            "version": "2.3.1",
+            "version": "2.3.4",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xpertbot/craft-wheelform/zipball/b85dce915106928fab74222c59021f24476546de",
-                "reference": "b85dce915106928fab74222c59021f24476546de",
+                "url": "https://api.github.com/repos/xpertbot/craft-wheelform/zipball/43da40a2962a905984929b158ec7636a34b57a7a",
+                "reference": "43da40a2962a905984929b158ec7636a34b57a7a",
                 "shasum": ""
             },
             "require": {
@@ -3395,7 +3395,7 @@
                 "docs": "https://github.com/xpertbot/craft-wheelform/blob/master/README.md",
                 "issues": "https://github.com/xpertbot/craft-wheelform/issues"
             },
-            "time": "2019-09-16T14:06:41+00:00"
+            "time": "2019-09-17T19:22:35+00:00"
         },
         {
             "name": "yii2tech/ar-softdelete",

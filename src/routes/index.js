@@ -7,6 +7,7 @@ import Quiz from '@/components/Quiz'
 import Result from '@/components/Result'
 import ResultShare from '@/components/ResultShare'
 import ChangeResult from '@/components/ChangeResult'
+import NotFound from '@/components/404-page'
 
 
 Vue.use(Router);
@@ -18,7 +19,8 @@ export default new Router({
             name: 'home',
             component: Homepage,
             meta: {
-                title: 'Home - Platform adviser'
+                title: 'Home - Platform adviser',
+                transition: 'fade-in-right'
             }
         },
         {
@@ -26,7 +28,8 @@ export default new Router({
             name: 'quiz',
             component: Quiz,
             meta: {
-                title: 'Quiz - Platform adviser'
+                title: 'Quiz - Platform adviser',
+                transition: 'fade-in-right'
             }
         },
         {
@@ -34,7 +37,8 @@ export default new Router({
             name: 'result',
             component: Result,
             meta: {
-                title: 'Result - Platform adviser'
+                title: 'Result - Platform adviser',
+                transition: 'fade-in-right'
             }
         },
         {
@@ -62,6 +66,17 @@ export default new Router({
                 title: 'Change result - Platform adviser'
             }
         },
+        {
+            path: '/404',
+            name: '404',
+            component: NotFound,
+            meta: {
+                title: 'Page not found - Platform adviser'
+            }
+        }, {
+            path: '*',
+            redirect: '/404'
+        }
     ],
     mode: 'history'
 })

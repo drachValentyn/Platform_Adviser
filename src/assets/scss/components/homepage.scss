@@ -49,14 +49,14 @@ main {
       max-width: 100%;
       height: auto;
       @media all and (min-width: 960px) {
-        max-width: 50%;
+        max-width: 40%;
         position: absolute;
         top: calc(50% - 250px);
         //padding-left: 40px;
         padding-left: 60px;
       }
       @media all and (min-width: 1545px) {
-        right: 0;
+        right: 48px;
       }
 
     }
@@ -129,8 +129,7 @@ main {
     line-height: 28px;
   }
   @media all and (min-width: 1200px) {
-    //padding-bottom: 202px;
-    padding-bottom: 11vh;
+    padding-bottom: 70px;
   }
 }
 

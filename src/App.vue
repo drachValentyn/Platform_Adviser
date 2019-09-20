@@ -1,7 +1,9 @@
 <template>
     <v-app>
         <v-content>
-            <router-view></router-view>
+            <vue-page-transition>
+                <router-view/>
+            </vue-page-transition>
         </v-content>
     </v-app>
 
@@ -26,6 +28,6 @@
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

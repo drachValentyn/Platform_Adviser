@@ -4,7 +4,7 @@
             <a v-if="questionIndex > 0" @click="previous">
                 Back to previous question
             </a>
-            <router-link v-else to="/" >Back to home</router-link>
+            <router-link v-else to="/">Back to home</router-link>
         </div>
         <v-container>
             <div class="quiz">
@@ -15,12 +15,14 @@
                                 <p class="quiz-index">{{index+1}}/{{quiz.data.length}}</p>
                                 <h3 class="question">{{ question.question_title }}</h3>
                             </div>
-                            <div class="quiz-list">
-                                <!-- for each response of the current question -->
-                                <div v-for="(response, index2) in question.answers" :key="index2"
-                                     class="quiz-item" :class="{ 'chosen': chosen === index2 }">
-
+                            <v-layout class="quiz-list">
+                                    <v-flex class="quiz-item"
+                                        v-for="(response, index2) in question.answers"
+                                        :key="response.id_answer"
+                                        :class="{ 'chosen': chosen === index2 } "
+                                        :style="countCard(Object.keys(question.answers).length)">
                                     <answers
+                                            :class="countCardLabel(Object.keys(question.answers).length)"
                                             :answer_response="response"
                                             :answer_index="index2"
                                             :answer_question="question"
@@ -31,8 +33,8 @@
                                             :prev="prev"
                                             :next="next"
                                     />
-                                </div>
-                            </div>
+                                </v-flex>
+                            </v-layout>
                         </div>
 
                         <div v-else-if="question.question_type === 'blockOfQuestions'">
@@ -54,9 +56,11 @@
                                              :key="dq_index"
                                              v-if="dependent_question.question_id === obj.dependent_question[0].d_q_id"
                                              class="quiz-list">
-                                            <div v-for="(response3, index3) in dependent_question.answers" :key="index3"
-                                                 class="quiz-item" :class="{ 'chosen': chosen === index3 }">
 
+                                                <div class="quiz-item"
+                                                     v-for="(response3, index3) in dependent_question.answers"
+                                                     :key="response3.id_answer"
+                                                     :class="{ 'chosen': chosen === index3 }">
                                                 <label class="quiz-label">
                                                     <input type="radio"
                                                            v-bind:value="response3"
@@ -70,11 +74,14 @@
 
                                                 </label>
                                             </div>
-                                            <div v-for="(response4, index4) in dependent_question.checkbox_answers"
-                                                 :key="index4"
-                                                 class="quiz-item" :class="{ 'chosen': checkboxResponses[response4.answer] }">
+
+                                                <div class="quiz-item"
+                                                 v-for="(response4, index4) in dependent_question.checkbox_answers"
+                                                 :key="response4.id_answer"
+                                                 :class="{ 'chosen': checkboxResponses[response4.answer] }">
 
                                                 <checkboxAnswers
+                                                        :class="countCardLabel(Object.keys(dependent_question.checkbox_answers).length)"
                                                         :answer_response="response4"
                                                         :answer_index="index4"
                                                         :dependent_question_id="dependent_question.question_id"
@@ -86,6 +93,7 @@
                                                         :checkedAnswers="checkedAnswers"
                                                 />
                                             </div>
+
                                         </div>
                                         <div v-if="obj.dependent_question[0].d_q_type === 'checkboxQuestion'">
                                             <v-btn v-on:click="next" class="button-quiz"
@@ -108,10 +116,13 @@
                                 <div class="multi_select">Multiple Select</div>
 
                                 <div class="quiz-list">
-                                    <div v-for="(response5, index5) in question.checkbox_answers" :key="index5"
-                                         class="quiz-item" :class="{ 'chosen': checkboxResponses[response5.answer] }">
+                                        <div class="quiz-item checkboxQuestion"
+                                             v-for="(response5, index5) in question.checkbox_answers"
+                                             :key="response5.id_answer"
+                                             :class="{ 'chosen': checkboxResponses[response5.answer] }">
 
                                         <checkboxAnswers
+                                                :class="countCardLabel(Object.keys(dependent_question.checkbox_answers).length)"
                                                 :answer_response="response5"
                                                 :answer_index="index5"
                                                 :dependent_question_id="question.question_id"
@@ -124,7 +135,9 @@
                                         />
 
                                     </div>
+
                                 </div>
+
                                 <div>
                                     <v-btn v-on:click="next" class="button-quiz" :class="{ disabled: isDisabled }"
                                            :disabled="isDisabled">NEXT
@@ -134,11 +147,12 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </v-container>
 
-        <footers/>
+        <footers v-if="loading"/>
     </div>
 </template>
 <script>
@@ -163,7 +177,8 @@
                 preleadQuestion: '',
                 dependentQuestion: '',
                 checkedAnswers: {},
-                isDisabled: true
+                isDisabled: true,
+                loading: false
             }
         },
         mounted: function () {
@@ -186,10 +201,31 @@
                 )
                 .then(quiz => {
                     this.dependent_quiz = quiz;
+                    this.loading = true
                 })
         },
         methods: {
-            previous: function() {
+
+            countCard(counter) {
+
+                if (counter === 2) {
+                    return 'width: 50%;' + 'max-width: 420px;'
+                } else if (counter === 3)
+                    return 'width: 33.3%;' + 'max-width: 275px;'
+            },
+            countCardLabel(counter) {
+                if (counter === 2) {
+                    return 'quiz-label2'
+                } else if (counter === 3) {
+                    return 'quiz-label3'
+                } else if (counter === 5) {
+                    return 'quiz-label5'
+
+                }
+
+            },
+
+            previous: function () {
                 this.questionIndex--;
             },
 
@@ -222,16 +258,16 @@
                 let arrCheck = [];
 
                 let id_quest;
-                for (let ft in el){
+                for (let ft in el) {
                     if (el[ft].dependent_question[0]) {
                         id_quest = el[ft].dependent_question[0].d_q_id
                     }
                 }
-                for (let q in depQ){
+                for (let q in depQ) {
                     if (depQ[q].question_id === id_quest) {
                         checkbox_answers = depQ[q].checkbox_answers;
-                        for (let x in checkbox_answers){
-                            if (value === checkbox_answers[x].id_answer ) {
+                        for (let x in checkbox_answers) {
+                            if (value === checkbox_answers[x].id_answer) {
                                 checkbox_answers[x]['trueFalse'] = true
                             }
                             arrCheck.push(checkbox_answers[x])
@@ -256,7 +292,33 @@
 
 <style scoped lang="scss">
 
-    .main-content{
+    .list1-enter-active, .list1-leave-active {
+        transition: all 1s;
+    }
+    .list1-enter, .list1-leave-to /* .list-leave-active до версии 2.1.8 */ {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+
+    .quiz-label2 {
+        padding: 32px 24px;
+        min-height: 148px;
+    }
+
+    .quiz-label3 {
+        padding: 36px 24px;
+    }
+
+    .quiz-label5 {
+        @media all and (min-width: 960px) {
+            width: 204px;
+            padding: 15px 24px;
+            min-height: 128px;
+        }
+    }
+
+    .main-content {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -270,6 +332,7 @@
     .theme--light.button-quiz:not(.v-btn--icon):not(.v-btn--flat) {
         background-color: transparent !important;
     }
+
     .footer-wrap {
         margin-top: 10vh;
         bottom: 0;
