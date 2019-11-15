@@ -141,3 +141,8 @@ label {
 .v-btn--active:before, .v-btn:hover:before, .v-btn:focus:before{
   background-color: #E8E6FF;
 }
+
+
+.v-content__wrap > div{
+  height: 100%;
+}

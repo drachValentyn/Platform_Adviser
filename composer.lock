@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1eb4c6598fe703cc4cc2c58bedfebe46",
+    "content-hash": "eb8f8533ab02cd78d6f6d29a994bd695",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -288,11 +288,11 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "3.3.4.1",
+            "version": "3.3.6",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/411852758f009292eb203c89e24dc83e0445c44c",
-                "reference": "411852758f009292eb203c89e24dc83e0445c44c",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/8cf2d3e18005e6fb44bb25f7d5238babba60b470",
+                "reference": "8cf2d3e18005e6fb44bb25f7d5238babba60b470",
                 "shasum": ""
             },
             "require": {
@@ -370,7 +370,7 @@
                 "docs": "https://docs.craftcms.com/v3/",
                 "rss": "https://github.com/craftcms/cms/releases.atom"
             },
-            "time": "2019-09-17T22:35:58+00:00"
+            "time": "2019-09-27T17:33:15+00:00"
         },
         {
             "name": "craftcms/element-api",
@@ -1282,11 +1282,11 @@
         },
         {
             "name": "nystudio107/craft-twigpack",
-            "version": "1.1.8",
+            "version": "1.1.9",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nystudio107/craft-twigpack/zipball/c9413e4ea3aaf58e383a42ce663cb6d05490d73b",
-                "reference": "c9413e4ea3aaf58e383a42ce663cb6d05490d73b",
+                "url": "https://api.github.com/repos/nystudio107/craft-twigpack/zipball/4ed5513978f06d6d0d987d49ac369cd3b7436b4a",
+                "reference": "4ed5513978f06d6d0d987d49ac369cd3b7436b4a",
                 "shasum": ""
             },
             "require": {
@@ -1329,10 +1329,10 @@
                 "webpack-dev-server"
             ],
             "support": {
-                "docs": "https://github.com/nystudio107/craft-twigpack/blob/v1/README.md",
-                "issues": "https://github.com/nystudio107/craft-twigpack/issues"
+                "docs": "https://nystudio107.com/plugins/twigpack/documentation",
+                "issues": "https://nystudio107.com/plugins/twigpack/support"
             },
-            "time": "2019-08-06T01:14:07+00:00"
+            "time": "2019-10-02T00:15:44+00:00"
         },
         {
             "name": "opis/closure",
@@ -2886,16 +2886,16 @@
         },
         {
             "name": "voku/anti-xss",
-            "version": "4.1.14",
+            "version": "4.1.15",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/anti-xss/zipball/53c5da8039cf2ed226e3249b86a2be700c415f88",
-                "reference": "53c5da8039cf2ed226e3249b86a2be700c415f88",
+                "url": "https://api.github.com/repos/voku/anti-xss/zipball/14ff3982d58af104f5f38a438d99b9600705151e",
+                "reference": "14ff3982d58af104f5f38a438d99b9600705151e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0",
-                "voku/portable-utf8": "~5.4.1"
+                "voku/portable-utf8": "~5.4.21"
             },
             "type": "library",
             "extra": {
@@ -2930,7 +2930,7 @@
                 "security",
                 "xss"
             ],
-            "time": "2019-06-27T21:40:28+00:00"
+            "time": "2019-09-25T22:40:48+00:00"
         },
         {
             "name": "voku/arrayy",
@@ -3065,11 +3065,11 @@
         },
         {
             "name": "voku/portable-utf8",
-            "version": "5.4.21",
+            "version": "5.4.23",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-utf8/zipball/df543931d92b8403e9b5b38e56abdd24851d8cff",
-                "reference": "df543931d92b8403e9b5b38e56abdd24851d8cff",
+                "url": "https://api.github.com/repos/voku/portable-utf8/zipball/bbecc90364dc1c7e028e0c0a6bf7c8ebfc119234",
+                "reference": "bbecc90364dc1c7e028e0c0a6bf7c8ebfc119234",
                 "shasum": ""
             },
             "require": {
@@ -3126,7 +3126,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2019-09-17T14:53:36+00:00"
+            "time": "2019-09-27T07:24:07+00:00"
         },
         {
             "name": "voku/stop-words",
@@ -3583,11 +3583,11 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.1.8",
+            "version": "2.1.9",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/959bf8206a3ec64f8949f62024a2c58d9a02e78f",
-                "reference": "959bf8206a3ec64f8949f62024a2c58d9a02e78f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/62679af3183c308c0edffecc69778afc32ae55aa",
+                "reference": "62679af3183c308c0edffecc69778afc32ae55aa",
                 "shasum": ""
             },
             "require": {
@@ -3595,11 +3595,6 @@
                 "opis/closure": "^3.3",
                 "php": ">=5.4",
                 "yiisoft/yii2": "~2.0.13"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "<7",
-                "yiisoft/yii2-coding-standards": "~2.0",
-                "yiisoft/yii2-swiftmailer": "*"
             },
             "type": "yii2-extension",
             "extra": {
@@ -3612,7 +3607,6 @@
                     "yii\\debug\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3632,7 +3626,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2019-08-20T15:19:56+00:00"
+            "time": "2019-09-18T10:49:01+00:00"
         },
         {
             "name": "yiisoft/yii2-queue",

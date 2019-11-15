@@ -8,6 +8,7 @@ import Result from '@/components/Result'
 import ResultShare from '@/components/ResultShare'
 import ChangeResult from '@/components/ChangeResult'
 import NotFound from '@/components/404-page'
+import ChangeResultAdmin from '@/components/ChangeResultAdmin'
 
 
 Vue.use(Router);
@@ -64,6 +65,14 @@ export default new Router({
             component: ChangeResult,
             meta: {
                 title: 'Change result - Platform adviser'
+            }
+        },
+        {
+            path: '/change-result-admin',
+            name: 'ChangeResultAdmin',
+            component: ChangeResultAdmin,
+            meta: {
+                title: 'Show result - Platform adviser'
             }
         },
         {

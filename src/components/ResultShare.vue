@@ -1,7 +1,9 @@
 <template>
     <div class="main-content">
 
-        <router-link to="/" class="back-link result-link">Start again</router-link>
+        <div class="back-link result-link">
+            <router-link to="/quiz" class="">Start again</router-link>
+        </div>
 
         <v-container v-if="res" grid-list-md>
 
@@ -15,6 +17,10 @@
                         Please find an explanation on why we think so below.</p>
                 </div>
 
+                <div class="back-change-link" v-if="results.data[0].admin">
+                    <router-link to="/change-result-admin">Show answers</router-link>
+                </div>
+
             </v-layout>
 
             <v-layout row wrap text-xs-center class="recommendation">
@@ -23,7 +29,8 @@
                         xs12 md4>
 
                     <v-card class="px-0" v-for="bestPlatform in platform.descr"
-                            :key="bestPlatform.id">
+                            :key="index">
+
                         <div class="recommendation-item-hero">
                             <div class="recommendation-choice">
                                 <v-card-text class="recommendation-choice-item" v-if="index === 0">Best choice
@@ -144,7 +151,7 @@
             </v-layout>
             <!--Share Block after Table-->
 
-            <contactForm></contactForm>
+            <contactForm/>
 
         </v-container>
 
@@ -205,10 +212,6 @@
                             }
                         }
                     ],
-                    // speed: 300,
-                    // fade: true,
-                    // cssEase: 'linear',
-
                 },
                 slickOptionsBottom: {
                     slidesToShow: 3,
@@ -230,11 +233,7 @@
                                 slidesToShow: 1
                             }
                         }
-                    ],
-                    // speed: 300,
-                    // fade: true,
-                    // cssEase: 'linear',
-
+                    ]
                 },
             }
         },
@@ -255,6 +254,7 @@
                 )
                 .then(results => {
                     this.results = results;
+                    //this.url = window.location.hostname;
                 });
         },
 
@@ -262,6 +262,9 @@
             res() {
                 const id = this.id;
                 this.storeRes = this.$store.getters.ResultById(id);
+
+                this.$store.state.showResult =  this.storeRes;
+
                 if (this.storeRes) {
                     this.showRes();
                     return true;
@@ -284,16 +287,24 @@
 
                     //-------------For Sorting Comparison Item
                     let firstSort = storeResult.resultQuiz;
+
                     let arrSort;
                     let arrSort1;
                     let arrSort2 = [];
                     for (let sortKey in firstSort) {
-                        arrSort = firstSort[sortKey];
+                        if('comparison' in firstSort[sortKey]){
+                            arrSort = firstSort[sortKey];
+                        }
                     }
+
+
                     for (let key in arrSort.comparison) {
                         arrSort1 = arrSort.comparison[key];
                         arrSort2.push(arrSort1.comparisonsNameTitle)
                     }
+
+                    console.log(arrSort2);
+
 
                     this.compTitle = arrSort2;
                     this.finishResult = storeResult.resultQuiz;

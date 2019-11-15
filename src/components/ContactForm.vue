@@ -144,7 +144,7 @@
                 results: [],
             }
         },
-        props: ['link'],
+
         created() {
             this.$http.get('api/results.json')
                 .then(response => {

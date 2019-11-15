@@ -1,6 +1,6 @@
 <template>
 
-        <v-container fill-height>
+        <div>
             <v-layout row justify-center class="foooter">
 
                 <v-flex xs12 text-center v-for="data in footer"
@@ -22,7 +22,7 @@
                     </div>
                 </v-flex>
             </v-layout>
-        </v-container>
+        </div>
 
 </template>
 

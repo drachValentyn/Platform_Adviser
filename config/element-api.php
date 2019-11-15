@@ -37,6 +37,8 @@ return [
                 'paginate' => false,
                 'transformer' => function (Entry $entry) {
                     $platformsBlock = [];
+                    $isLoggedIn = Craft::$app->getUser()->getIdentity();
+
                     foreach ($entry->getFieldValue('platformsEntries')->all() as $block) {
                         $platformsDesc = [];
 
@@ -55,7 +57,8 @@ return [
                         foreach ($block->getFieldValue('comparisonsItems')->all() as $comparisons) {
                             $comparison = [];
                             foreach ($comparisons->getFieldValue('comparisons')->all() as $compare) {
-                                foreach ($compare->getFieldValue('comparisonsName')->all() as $compareitem) {};
+                                foreach ($compare->getFieldValue('comparisonsName')->all() as $compareitem) {
+                                };
                                 $stars = $compare->stars->one();
                                 $dollars = $compare->dollars->one();
                                 $comparison[] = [
@@ -79,11 +82,21 @@ return [
                         ];
 
                     }
-                    return [
-                        'titlePage' => $entry->titlePage,
-                        'titleForm' => $entry->titleForm,
-                        'platformsBlock' => $platformsBlock,
-                    ];
+
+                    if ($isLoggedIn) {
+                        return [
+                            'admin' => $isLoggedIn->admin,
+                            'titlePage' => $entry->titlePage,
+                            'titleForm' => $entry->titleForm,
+                            'platformsBlock' => $platformsBlock,
+                        ];
+                    } else {
+                        return [
+                            'titlePage' => $entry->titlePage,
+                            'titleForm' => $entry->titleForm,
+                            'platformsBlock' => $platformsBlock,
+                        ];
+                    }
                 }
             ];
         },

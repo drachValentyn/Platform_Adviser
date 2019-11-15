@@ -2,9 +2,7 @@
     <div class="main-content">
 
         <div class="back-link result-link">
-
             <router-link to="/quiz" class="">Start again</router-link>
-
         </div>
 
         <v-container v-if="status" grid-list-md>
@@ -19,6 +17,7 @@
                         {{finishResult[1].platformsEntries}} and {{finishResult[2].platformsEntries}} are suitable.
                         Please find an explanation on why we think so below.</p>
                 </div>
+
                 <div class="back-change-link">
                     <router-link to="/change-result">Change answers</router-link>
                 </div>
@@ -292,11 +291,10 @@
     import Footer from './Footer';
 
     export default {
-
+        props: ['link'],
         name: 'Result',
         data() {
             return {
-                isModalVisible: false,
                 copyingLinkText: 'Copy link!',
                 finishResult: [],
                 compTitle: [],
@@ -310,6 +308,7 @@
                 status: false,
                 loading: false,
                 shareId: '',
+                store: [],
                 slickOptionsTop: {
                     slidesToShow: 3,
                     dots: false,
@@ -391,11 +390,12 @@
                 let checkboxResult = [];
 
                 this.shareLink();
+                this.store = store;
 
                 for (let keys in store) {
                     let storeValue = store[keys];
 
-                    storeResult.push(storeValue.answerPoint)
+                    storeResult.push(storeValue.answerPoint);
 
                     if (typeof storeValue.answers !== "undefined") {
                         checkboxResult.push(storeValue.answers)
@@ -434,7 +434,7 @@
                         }
                     }
                     this.resultQuiz = sortResult;
-                    this.resultQuiz.push(checkboxResult);
+                    //this.resultQuiz.push(checkboxResult);
 
                     return true;
                 }
@@ -456,16 +456,13 @@
                     }
                 }
 
-
                 let intermResult = [];
                 if (allRes) {
                     let keys = Object.keys(allRes);
                     for (let i = 0; i < keys.length; i++) {
                         let val = allRes[keys[i]];
                         for (let key in val.platformsBlock) {
-
                             let value = val.platformsBlock[key];
-
                             intermResult.push(value)
                         }
                     }
@@ -475,18 +472,17 @@
                     for (let j = 0; j < intermResult.length; j++) {
                         if (sortRes[i].title === intermResult[j].platformsEntries) {
                             endResult.push(intermResult[j]);
-
                         }
                     }
                 }
 
-                endResult.checkBox = checkAnsw;
+                endResult.allResult = this.store;
 
                 if (Object.keys(endResult).length !== 0) {
 
                     const res = {
                         resultQuiz: endResult,
-                        key: ''
+                        key: '',
                     };
 
                     this.$store.dispatch('createResult', res)
@@ -508,6 +504,7 @@
                         arrSort.push(firstSort[i]);
 
                     }
+
                     if (arrSort[0].comparison) {
                         for (let key in arrSort[0].comparison) {
                             arrSort1 = arrSort[0].comparison[key];
@@ -556,6 +553,7 @@
                 this.$store.dispatch('loadShareInfo');
 
                 let infoResult = this.$store.getters.shareInfo;
+                console.log(infoResult)
 
                 for (let key in infoResult) {
                     let value = infoResult[key];
@@ -565,7 +563,7 @@
                     this.shareInfo.quote = value.infoWithShareLink[0].quoteLink;
 
                 }
-                //console.log(this.shareInfo)
+
                 return this.shareInfo
             }
 

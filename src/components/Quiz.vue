@@ -1,12 +1,12 @@
 <template>
-    <div class="main-content">
+    <div class="main-content container">
         <div class="back-link result-link">
             <a v-if="questionIndex > 0" @click="previous">
                 Back to previous question
             </a>
             <router-link v-else to="/">Back to home</router-link>
         </div>
-        <v-container>
+
             <div class="quiz">
                 <div v-for="(question, index) in quiz.data" :key="index">
                     <div v-show="index === questionIndex">
@@ -150,7 +150,7 @@
 
             </div>
 
-        </v-container>
+
 
         <footers v-if="loading"/>
     </div>
@@ -213,6 +213,7 @@
                 } else if (counter === 3)
                     return 'width: 33.3%;' + 'max-width: 275px;'
             },
+
             countCardLabel(counter) {
                 if (counter === 2) {
                     return 'quiz-label2'
@@ -235,6 +236,7 @@
                     this.next()
                 }.bind(this), 300)
             },
+
             next() {
                 this.questionIndex++;
                 this.onClick();
@@ -291,14 +293,6 @@
 </script>
 
 <style scoped lang="scss">
-
-    .list1-enter-active, .list1-leave-active {
-        transition: all 1s;
-    }
-    .list1-enter, .list1-leave-to /* .list-leave-active до версии 2.1.8 */ {
-        opacity: 0;
-        transform: translateY(30px);
-    }
 
 
     .quiz-label2 {

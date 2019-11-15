@@ -19,8 +19,8 @@ return [
     ],
     // webpack-dev-server config
     'devServer' => [
-      'manifestPath' => 'http://localhost:8082/',
-      'publicPath' => 'http://localhost:8082/',
+      'manifestPath' => 'http://localhost:8080/',
+      'publicPath' => 'http://localhost:8080/',
     ],
     // Local files config
     'localFiles' => [
