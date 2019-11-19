@@ -46,8 +46,9 @@ Vue.use(VuePageTransition)
 Vue.config.productionTip = false;
 
 //Vue.http.options.root = 'http://pla.craft';
-//Vue.http.options.root = 'http://calculator.3339333.xyz';
-Vue.http.options.root = 'https://platformadviser.pixelgrow.com/';
+Vue.http.options.root = 'http://calculator.3339333.xyz';
+// Vue.http.options.root = 'https://platformadviser.pixelgrow.com/';
+//Vue.http.options.root = 'http://craft-vue.local';
 
 Vue.http.options.emulateJSON = true;
 Vue.http.options.emulateHTTP = true;
